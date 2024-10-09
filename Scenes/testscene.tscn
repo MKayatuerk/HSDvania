@@ -1,0 +1,179 @@
+[gd_scene load_steps=21 format=3 uid="uid://disecxccod4q0"]
+
+[ext_resource type="Script" path="res://Scripts/testscene.gd" id="1_2u33f"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/test_character.tscn" id="1_58mqd"]
+[ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="1_hxgh7"]
+[ext_resource type="Texture2D" uid="uid://ckw4thm08nlgh" path="res://Assets/wall128x128.png" id="3_teyka"]
+[ext_resource type="Texture2D" uid="uid://cjoenf5dq2emq" path="res://Assets/goldCoin1.png" id="4_cl86e"]
+[ext_resource type="Texture2D" uid="uid://cfvmtun86i3x6" path="res://Assets/goldCoin2.png" id="5_uachj"]
+[ext_resource type="Texture2D" uid="uid://dxenmm7qy623t" path="res://Assets/goldCoin3.png" id="6_w5b84"]
+[ext_resource type="Texture2D" uid="uid://dysq1kq0uc52p" path="res://Assets/goldCoin4.png" id="7_7tjd7"]
+[ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="8_onep7"]
+[ext_resource type="Texture2D" uid="uid://cvcm866t3418" path="res://Assets/goldCoin6.png" id="9_dcaw7"]
+[ext_resource type="Texture2D" uid="uid://c0ulpblofb21y" path="res://Assets/goldCoin7.png" id="10_tynl6"]
+[ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="11_rgbl4"]
+[ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="12_udrxl"]
+[ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="13_wh2cv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywf0t"]
+size = Vector2(94, 125)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a4qsl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lewhx"]
+albedo_color = Color(0.529504, 0.971104, 0.903109, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a81f3"]
+material = SubResource("StandardMaterial3D_lewhx")
+size = Vector3(1000, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q33po"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("4_cl86e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uachj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_w5b84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7tjd7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_onep7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_dcaw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tynl6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rgbl4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_udrxl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_582fp"]
+radius = 6.76471
+
+[node name="Testscene" type="Node2D"]
+script = ExtResource("1_2u33f")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(450, 320)
+scale = Vector2(1.7856, 1.17913)
+texture = ExtResource("1_hxgh7")
+
+[node name="TestCharacter" parent="." instance=ExtResource("1_58mqd")]
+position = Vector2(240, 485)
+
+[node name="geometry" type="Node" parent="."]
+
+[node name="Wall2" type="StaticBody2D" parent="geometry"]
+position = Vector2(-402, 497)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall2"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ywf0t")
+
+[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall2"]
+scale = Vector2(0.770491, 1)
+texture = ExtResource("3_teyka")
+
+[node name="Wall" type="StaticBody2D" parent="geometry"]
+position = Vector2(938, 483)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ywf0t")
+
+[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall"]
+scale = Vector2(0.770491, 1)
+texture = ExtResource("3_teyka")
+
+[node name="Wall3" type="StaticBody2D" parent="geometry"]
+position = Vector2(744, 518)
+scale = Vector2(0.639999, 0.55711)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall3"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ywf0t")
+
+[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall3"]
+scale = Vector2(0.770491, 1)
+texture = ExtResource("3_teyka")
+
+[node name="floor" type="StaticBody2D" parent="geometry"]
+position = Vector2(559, 557)
+scale = Vector2(4.8, 1.9)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/floor"]
+shape = SubResource("WorldBoundaryShape2D_a4qsl")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="geometry/floor"]
+mesh = SubResource("BoxMesh_a81f3")
+
+[node name="Wall4" type="StaticBody2D" parent="geometry"]
+position = Vector2(1703, 443)
+scale = Vector2(1, 1.76)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall4"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ywf0t")
+
+[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall4"]
+scale = Vector2(0.770491, 1)
+texture = ExtResource("3_teyka")
+
+[node name="DoubleJumpUpgrade" type="AnimatedSprite2D" parent="."]
+position = Vector2(-135, 387)
+scale = Vector2(3.4, 3.4)
+sprite_frames = SubResource("SpriteFrames_q33po")
+autoplay = "default"
+frame_progress = 0.637315
+
+[node name="Label" type="Label" parent="DoubleJumpUpgrade"]
+offset_left = -36.0
+offset_top = -54.0
+offset_right = 84.0
+offset_bottom = -5.0
+scale = Vector2(0.658823, 0.658823)
+text = "Touch to toggle 
+Double Jump!"
+
+[node name="Area2D" type="Area2D" parent="DoubleJumpUpgrade"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoubleJumpUpgrade/Area2D"]
+shape = SubResource("CircleShape2D_582fp")
+
+[node name="Enemy" parent="." instance=ExtResource("13_wh2cv")]
+position = Vector2(1246, 472)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 974.0
+offset_top = 278.0
+offset_right = 1014.0
+offset_bottom = 301.0
+scale = Vector2(1.88, 1.88)
+text = "Jump on em!"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 339.0
+offset_top = 257.0
+offset_right = 437.0
+offset_bottom = 280.0
+scale = Vector2(1.88, 1.88)
+text = "Press R to reload"
+
+[connection signal="body_entered" from="DoubleJumpUpgrade/Area2D" to="TestCharacter" method="_on_area_2d_body_entered"]
+[connection signal="gotStomped" from="Enemy" to="TestCharacter" method="_on_enemy_got_stomped"]
