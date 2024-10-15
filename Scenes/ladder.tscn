@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://br113o4fc0jr0"]
+
+[ext_resource type="Texture2D" uid="uid://dol1pemltwotk" path="res://Assets/rope_ladder.png" id="1_gd0i2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xkpc"]
+size = Vector2(33, 117)
+
+[node name="Ladder" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gd0i2")
+region_enabled = true
+region_rect = Rect2(32, 50, 32, 55)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+texture = ExtResource("1_gd0i2")
+region_enabled = true
+region_rect = Rect2(32, 50, 32, 55)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(0, -63)
+texture = ExtResource("1_gd0i2")
+region_enabled = true
+region_rect = Rect2(32, 64, 32, 41)
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(0, -85)
+texture = ExtResource("1_gd0i2")
+region_enabled = true
+region_rect = Rect2(32, 25, 32, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -31.5)
+shape = SubResource("RectangleShape2D_6xkpc")
