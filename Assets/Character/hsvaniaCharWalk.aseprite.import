@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://w040xk4qef5t"
+path="res://.godot/imported/hsvaniaCharWalk.aseprite-38db658d219d4539d104f9ea296563d9.res"
+
+[deps]
+
+source_file="res://Assets/Character/hsvaniaCharWalk.aseprite"
+dest_files=["res://.godot/imported/hsvaniaCharWalk.aseprite-38db658d219d4539d104f9ea296563d9.res"]
+
+[params]
+
