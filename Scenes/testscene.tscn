@@ -19,6 +19,7 @@
 size = Vector2(94, 125)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a4qsl"]
+distance = 1.06438
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lewhx"]
 albedo_color = Color(0.529504, 0.971104, 0.903109, 1)
@@ -116,7 +117,8 @@ texture = ExtResource("3_teyka")
 position = Vector2(559, 557)
 scale = Vector2(4.8, 1.9)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/floor"]
+[node name="CollisionShape2Df" type="CollisionShape2D" parent="geometry/floor"]
+position = Vector2(-0.416667, -3.15789)
 shape = SubResource("WorldBoundaryShape2D_a4qsl")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="geometry/floor"]

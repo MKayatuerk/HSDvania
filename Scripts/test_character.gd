@@ -8,6 +8,10 @@ const JUMP_VELOCITY = -400.0
 var hasDoubleJumpUpgrade:bool = false
 var canDoubleJump = true
 
+var direction: float = 0
+
+@onready var animationPlayer = $AnimationPlayer
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -28,7 +32,7 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
+	direction = Input.get_axis("left", "right")
 	
 	if (direction > 0):
 		$Sprite2D.flip_h = false
@@ -42,6 +46,8 @@ func _physics_process(delta: float) -> void:
 
 
 	move_and_slide()
+	
+	update_animations(direction)
 
 
 func canCurrentlyDoubleJump() -> bool:
@@ -58,3 +64,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_enemy_got_stomped() -> void:
 	velocity.y = JUMP_VELOCITY
+
+func update_animations(horizontal_direction):
+	if is_on_floor():
+		if horizontal_direction == 0:
+			animationPlayer.play("Idle")
+		else:
+			animationPlayer.play("Walk")
+	else:
+		pass
