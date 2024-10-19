@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 500.0
-const CLIMBING_SPEED = -200
+const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 
@@ -16,6 +15,10 @@ var canDoubleJump:bool = true
 # Checks if the character can currently climb
 var canClimb:bool = false
 
+
+var direction: float = 0
+
+@onready var animationPlayer = $AnimationPlayer
 
 func _physics_process(delta: float) -> void:
 	print("can climb: " + str(canClimb) + " is on floor: " + str(is_on_floor())+ " can double Jump: " + str(canDoubleJump))
@@ -51,7 +54,7 @@ func handleMovement()-> void:
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
+	direction = Input.get_axis("left", "right")
 	
 	if (direction > 0):
 		$Sprite2D.flip_h = false
@@ -73,6 +76,10 @@ func climb() -> void:
 	if direction and canClimb:
 		velocity.y = direction * CLIMBING_SPEED
 	
+	move_and_slide()
+	
+	update_animations(direction)
+
 
 #Function that returns true if all conditions are met to allow the character
 #To double jump
@@ -102,3 +109,11 @@ func _on_ladder_body_entered(body: Node2D) -> void:
 func _on_ladder_body_exited(body: Node2D) -> void:
 	canClimb = false
 	
+func update_animations(horizontal_direction):
+	if is_on_floor():
+		if horizontal_direction == 0:
+			animationPlayer.play("Idle")
+		else:
+			animationPlayer.play("Walk")
+	else:
+		pass
