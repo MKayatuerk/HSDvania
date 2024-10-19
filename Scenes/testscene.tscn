@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://disecxccod4q0"]
+[gd_scene load_steps=22 format=4 uid="uid://disecxccod4q0"]
 
 [ext_resource type="Script" path="res://Scripts/testscene.gd" id="1_2u33f"]
 [ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/test_character.tscn" id="1_58mqd"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="11_rgbl4"]
 [ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="12_udrxl"]
 [ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="13_wh2cv"]
+[ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="15_wivcy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ywf0t"]
 size = Vector2(94, 125)
@@ -176,6 +177,9 @@ offset_right = 437.0
 offset_bottom = 280.0
 scale = Vector2(1.88, 1.88)
 text = "Press R to reload"
+
+[node name="TileMapLayer" parent="." instance=ExtResource("15_wivcy")]
+tile_map_data = PackedByteArray("AAANAB8AAAAAAAAAAAAOAB8AAAABAAAAAAAPAB8AAAABAAAAAAAQAB8AAAABAAAAAAARAB8AAAACAAAAAAANACAAAAAAAAIAAAAOACAAAAABAAIAAAAPACAAAAABAAIAAAAQACAAAAABAAIAAAARACAAAAACAAIAAAATAB8AAAADAAAAAAAUAB8AAAAEAAAAAAAVAB8AAAAEAAAAAAAWAB8AAAAGAAAAAAATACAAAAADAAEAAAAUACAAAAADAAEAAAAWACAAAAADAAEAAAAVACAAAAAFAAEAAAA=")
 
 [connection signal="body_entered" from="DoubleJumpUpgrade/Area2D" to="TestCharacter" method="_on_area_2d_body_entered"]
 [connection signal="gotStomped" from="Enemy" to="TestCharacter" method="_on_enemy_got_stomped"]
