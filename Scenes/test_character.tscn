@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/test_character.gd" id="1_j7k8t"]
-[ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Scenes/hsvaniaChar.png" id="2_r0odt"]
+[ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4srqk"]
-size = Vector2(14, 26)
+size = Vector2(12, 24)
 
 [sub_resource type="Animation" id="Animation_eejgd"]
 length = 0.72
@@ -47,6 +47,7 @@ _data = {
 
 [node name="TestCharacter" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
+collision_layer = 4
 script = ExtResource("1_j7k8t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -57,7 +58,6 @@ texture_filter = 1
 texture = ExtResource("2_r0odt")
 hframes = 3
 vframes = 2
-frame = 1
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -78,7 +78,7 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "2428bacb418eb0bae9a261f848fcab50"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_4srqk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -86,3 +86,8 @@ libraries = {
 "": SubResource("AnimationLibrary_o2bif")
 }
 autoplay = "Idle"
+
+[node name="DropTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]

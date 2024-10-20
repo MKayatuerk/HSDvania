@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5aii0vvpekmh"
-path="res://.godot/imported/hsvaniaCharWalk.png-780128a04462c84972725601e99d015b.ctex"
+uid="uid://cbsvpfapygsdp"
+path="res://.godot/imported/Pointer.png-a7924c1736458a153a771d77c3f22569.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/hsvaniaCharWalk.png"
-dest_files=["res://.godot/imported/hsvaniaCharWalk.png-780128a04462c84972725601e99d015b.ctex"]
+source_file="res://Assets/Pointer.png"
+dest_files=["res://.godot/imported/Pointer.png-a7924c1736458a153a771d77c3f22569.ctex"]
 
 [params]
 

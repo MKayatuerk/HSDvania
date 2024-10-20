@@ -4,24 +4,28 @@
 [ext_resource type="Texture2D" uid="uid://bohwp4mrqf78" path="res://Assets/w_015.png" id="1_4ywls"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huimd"]
-size = Vector2(63, 52)
+size = Vector2(25, 8)
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_3p6ng")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.90735e-06, 0)
+scale = Vector2(0.213333, 0.213333)
 texture = ExtResource("1_4ywls")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1.5, -38)
+position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_huimd")
 
 [node name="lookLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-73, 0)
+target_position = Vector2(-23, 0)
 
 [node name="lookRight" type="RayCast2D" parent="."]
-target_position = Vector2(73, 0)
+target_position = Vector2(22, 0)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

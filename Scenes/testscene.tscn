@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=4 uid="uid://disecxccod4q0"]
+[gd_scene load_steps=24 format=4 uid="uid://disecxccod4q0"]
 
 [ext_resource type="Script" path="res://Scripts/testscene.gd" id="1_2u33f"]
 [ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/test_character.tscn" id="1_58mqd"]
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="1_hxgh7"]
-[ext_resource type="Texture2D" uid="uid://ckw4thm08nlgh" path="res://Assets/wall128x128.png" id="3_teyka"]
 [ext_resource type="Texture2D" uid="uid://cjoenf5dq2emq" path="res://Assets/goldCoin1.png" id="4_cl86e"]
 [ext_resource type="Texture2D" uid="uid://cfvmtun86i3x6" path="res://Assets/goldCoin2.png" id="5_uachj"]
 [ext_resource type="Texture2D" uid="uid://dxenmm7qy623t" path="res://Assets/goldCoin3.png" id="6_w5b84"]
@@ -14,22 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="11_rgbl4"]
 [ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="12_udrxl"]
 [ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="13_wh2cv"]
-[ext_resource type="PackedScene" uid="uid://cxg0raroh1ldi" path="res://Scenes/moving_platform.tscn" id="15_dvy8g"]
-[ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/ladder.tscn" id="16_jwf4c"]
+[ext_resource type="PackedScene" uid="uid://bybkksbx3k7m3" path="res://Scenes/passable_object.tscn" id="15_8s8ot"]
+[ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/moving platform.tscn" id="15_qr1fs"]
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="15_wivcy"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywf0t"]
-size = Vector2(94, 125)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a4qsl"]
-distance = 1.06438
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lewhx"]
-albedo_color = Color(0.529504, 0.971104, 0.903109, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_a81f3"]
-material = SubResource("StandardMaterial3D_lewhx")
-size = Vector3(1000, 10, 10)
+[ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/ladder.tscn" id="16_cugma"]
+[ext_resource type="PackedScene" uid="uid://bj410uurff1n6" path="res://Scenes/doorway.tscn" id="18_ttwyn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q33po"]
 animations = [{
@@ -69,7 +57,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_582fp"]
 radius = 6.76471
 
-[sub_resource type="Animation" id="Animation_3t7mt"]
+[sub_resource type="Animation" id="Animation_52t5h"]
 resource_name = "move"
 length = 2.0
 loop_mode = 2
@@ -80,14 +68,15 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.96667),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-660, 395), Vector2(-1260, 395)]
+"values": [Vector2(-18, 492), Vector2(-121, 493)]
 }
 
-[sub_resource type="Animation" id="Animation_6e43g"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_jnoqb"]
+length = 2.0
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -95,177 +84,118 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-660, 395)]
+"values": [Vector2(-8, 491), Vector2(-124, 492)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_y2u34"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kbrnd"]
 _data = {
-"RESET": SubResource("Animation_6e43g"),
-"move": SubResource("Animation_3t7mt")
+"RESET": SubResource("Animation_jnoqb"),
+"move": SubResource("Animation_52t5h")
 }
 
 [node name="Testscene" type="Node2D"]
 script = ExtResource("1_2u33f")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(450, 320)
-scale = Vector2(1.7856, 1.17913)
+position = Vector2(360, 453)
+scale = Vector2(0.652604, 0.165524)
 texture = ExtResource("1_hxgh7")
 
-[node name="TestCharacter" parent="." instance=ExtResource("1_58mqd")]
-position = Vector2(240, 485)
-collision_mask = 3
-
-[node name="geometry" type="Node" parent="."]
-
-[node name="Wall2" type="StaticBody2D" parent="geometry"]
-position = Vector2(-402, 497)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall2"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_ywf0t")
-
-[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall2"]
-scale = Vector2(0.770491, 1)
-texture = ExtResource("3_teyka")
-
-[node name="Wall" type="StaticBody2D" parent="geometry"]
-position = Vector2(938, 483)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_ywf0t")
-
-[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall"]
-scale = Vector2(0.770491, 1)
-texture = ExtResource("3_teyka")
-
-[node name="Wall3" type="StaticBody2D" parent="geometry"]
-position = Vector2(744, 518)
-scale = Vector2(0.639999, 0.55711)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall3"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_ywf0t")
-
-[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall3"]
-scale = Vector2(0.770491, 1)
-texture = ExtResource("3_teyka")
-
-[node name="floor" type="StaticBody2D" parent="geometry"]
-position = Vector2(559, 557)
-scale = Vector2(4.8, 1.9)
-
-[node name="CollisionShape2Df" type="CollisionShape2D" parent="geometry/floor"]
-position = Vector2(-0.416667, -3.15789)
-shape = SubResource("WorldBoundaryShape2D_a4qsl")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="geometry/floor"]
-mesh = SubResource("BoxMesh_a81f3")
-
-[node name="Wall4" type="StaticBody2D" parent="geometry"]
-position = Vector2(1703, 443)
-scale = Vector2(1, 1.76)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall4"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_ywf0t")
-
-[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall4"]
-scale = Vector2(0.770491, 1)
-texture = ExtResource("3_teyka")
-
-[node name="Wall5" type="StaticBody2D" parent="geometry"]
-position = Vector2(-1543, 369)
-scale = Vector2(-2.4, 1)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="geometry/Wall5"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_ywf0t")
-
-[node name="Sprite2D" type="Sprite2D" parent="geometry/Wall5"]
-scale = Vector2(0.770491, 1)
-texture = ExtResource("3_teyka")
-
 [node name="DoubleJumpUpgrade" type="AnimatedSprite2D" parent="."]
-position = Vector2(-135, 387)
-scale = Vector2(3.4, 3.4)
+position = Vector2(192, 453)
+scale = Vector2(0.888954, 0.85625)
 sprite_frames = SubResource("SpriteFrames_q33po")
 autoplay = "default"
 frame_progress = 0.637315
 
 [node name="DoubleJumpLabel" type="Label" parent="DoubleJumpUpgrade"]
-offset_left = -36.0
-offset_top = -54.0
-offset_right = 84.0
-offset_bottom = -5.0
-scale = Vector2(0.658823, 0.658823)
+offset_left = -23.6233
+offset_top = -36.2044
+offset_right = 96.3767
+offset_bottom = 12.7956
+scale = Vector2(0.446207, 0.446207)
 text = "Touch to toggle 
 Double Jump!"
 
 [node name="Area2D" type="Area2D" parent="DoubleJumpUpgrade"]
+collision_layer = 16
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoubleJumpUpgrade/Area2D"]
 shape = SubResource("CircleShape2D_582fp")
 
+[node name="Doorway" parent="." instance=ExtResource("18_ttwyn")]
+position = Vector2(-61, 332)
+
+[node name="Ladder2" parent="." instance=ExtResource("16_cugma")]
+position = Vector2(-252, 441)
+scale = Vector2(0.743014, 0.985931)
+
 [node name="Enemy" parent="." instance=ExtResource("13_wh2cv")]
-position = Vector2(1246, 472)
+position = Vector2(643, 482)
 
-[node name="MovingPlatform" parent="." instance=ExtResource("15_dvy8g")]
-position = Vector2(-660, 395)
-scale = Vector2(0.52, 0.68)
+[node name="movingPlatform" parent="." instance=ExtResource("15_qr1fs")]
+position = Vector2(-8, 491)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MovingPlatform"]
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="movingPlatform"]
 libraries = {
-"": SubResource("AnimationLibrary_y2u34")
+"": SubResource("AnimationLibrary_kbrnd")
 }
-autoplay = "move"
+autoplay = "RESET"
+
+[node name="TestCharacter" parent="." instance=ExtResource("1_58mqd")]
+position = Vector2(264, 486)
+collision_mask = 3
+
+[node name="PassableObject" parent="." instance=ExtResource("15_8s8ot")]
+position = Vector2(-252, 366)
+
+[node name="TileMapLayer" parent="." instance=ExtResource("15_wivcy")]
+position = Vector2(1, 0)
+scale = Vector2(1.00238, 1)
+tile_map_data = PackedByteArray("AAANAB8AAAAAAAAAAAANACAAAAAAAAEAAAANACEAAAAAAAIAAAAOAB8AAAABAAAAAAAOACAAAAABAAEAAAAOACEAAAABAAIAAAAPAB8AAAACAAAAAAAPACAAAAACAAEAAAAPACEAAAACAAIAAAAQAB8AAAAAAAAAAAAQACAAAAAAAAEAAAAQACEAAAAAAAIAAAARAB8AAAABAAAAAAARACAAAAABAAEAAAARACEAAAABAAIAAAASAB8AAAACAAAAAAASACAAAAACAAEAAAASACEAAAACAAIAAAATAB8AAAADAAAAAAATACAAAAADAAEAAAAUAB8AAAAEAAAAAAAUACAAAAAEAAEAAAAVAB8AAAAFAAAAAAAVACAAAAAFAAEAAAAWAB8AAAAGAAAAAAAWACAAAAAGAAEAAAAXAB8AAAADAAAAAAAXACAAAAADAAEAAAAYAB8AAAAEAAAAAAAYACAAAAAEAAEAAAAaAB8AAAAGAAAAAAAaACAAAAAGAAEAAAAZAB8AAAAFAAAAAAAZACAAAAAFAAEAAAAbAB8AAAADAAAAAAAbACAAAAADAAEAAAAcAB8AAAAEAAAAAAAcACAAAAAEAAEAAAAdAB8AAAAFAAAAAAAdACAAAAAFAAEAAAAeAB8AAAAGAAAAAAAeACAAAAAGAAEAAAALAB4AAAAAAAAAAAAMAB4AAAACAAAAAAALAB8AAAAAAAIAAAAMAB8AAAACAAIAAAAJAB4AAAAAAAAAAAAJAB8AAAAAAAIAAAAKAB4AAAACAAAAAAAKAB8AAAACAAIAAAAHAB4AAAAAAAAAAAAHAB8AAAAAAAIAAAAIAB4AAAACAAAAAAAIAB8AAAACAAIAAAAHABwAAAAAAAAAAAAHAB0AAAAAAAIAAAAIABwAAAACAAAAAAAIAB0AAAACAAIAAAAHABoAAAAAAAAAAAAHABsAAAAAAAIAAAAIABoAAAACAAAAAAAIABsAAAACAAIAAAAFAB4AAAAAAAAAAAAFAB8AAAAAAAIAAAAGAB4AAAACAAAAAAAGAB8AAAACAAIAAAADAB4AAAAAAAAAAAADAB8AAAAAAAIAAAAEAB4AAAACAAAAAAAEAB8AAAACAAIAAAABAB4AAAAAAAAAAAABAB8AAAAAAAIAAAACAB4AAAACAAAAAAACAB8AAAACAAIAAAAfAB8AAAADAAAAAAAfACAAAAADAAEAAAAhAB8AAAAFAAAAAAAhACAAAAAFAAEAAAAiAB8AAAAGAAAAAAAiACAAAAAGAAEAAAAjAB8AAAADAAAAAAAjACAAAAADAAEAAAAkAB8AAAAEAAAAAAAkACAAAAAEAAEAAAAlAB8AAAAFAAAAAAAlACAAAAAFAAEAAAAmAB8AAAAGAAAAAAAmACAAAAAGAAEAAAAnAB8AAAADAAAAAAAnACAAAAADAAEAAAAoAB8AAAAEAAAAAAAoACAAAAAEAAEAAAApAB8AAAAFAAAAAAApACAAAAAFAAEAAAAqAB8AAAAGAAAAAAAqACAAAAAGAAEAAAAVACEAAAADAAEAAAAWACEAAAAEAAEAAAAXACEAAAAFAAEAAAAYACEAAAAGAAEAAAAZACEAAAADAAEAAAAaACEAAAAEAAEAAAAbACEAAAAFAAEAAAAcACEAAAAGAAEAAAAdACEAAAADAAEAAAAeACEAAAAEAAEAAAAfACEAAAAFAAEAAAAgACEAAAAGAAEAAAAhACEAAAADAAEAAAAiACEAAAAEAAEAAAAjACEAAAAFAAEAAAAkACEAAAAGAAEAAAAlACEAAAADAAEAAAAmACEAAAAEAAEAAAAnACEAAAAFAAEAAAAoACEAAAAGAAEAAAApACEAAAADAAEAAAAqACEAAAAEAAEAAAATACEAAAAFAAEAAAAUACEAAAAGAAEAAAArACAAAAAAAAEAAAArACEAAAAAAAIAAAAsACAAAAABAAEAAAAsACEAAAABAAIAAAArAB8AAAAAAAEAAAAsAB8AAAABAAEAAAArAB4AAAAAAAEAAAAsAB4AAAABAAEAAAArAB0AAAAAAAEAAAAsAB0AAAABAAEAAAAtAB0AAAABAAEAAAAtAB4AAAABAAEAAAAtAB8AAAABAAEAAAAtACAAAAABAAEAAAAtACEAAAABAAIAAAAuAB0AAAABAAEAAAAuAB4AAAABAAEAAAAuAB8AAAABAAEAAAAuACAAAAABAAEAAAAuACEAAAABAAIAAAArABcAAAAAAAAAAAAsABcAAAABAAAAAAAtABcAAAABAAAAAAAuABcAAAABAAAAAAArABkAAAAAAAEAAAArABoAAAAAAAEAAAArABsAAAAAAAEAAAArABwAAAAAAAEAAAAsABkAAAABAAEAAAAsABoAAAABAAEAAAAsABsAAAABAAEAAAAsABwAAAABAAEAAAAtABkAAAABAAEAAAAtABoAAAABAAEAAAAtABsAAAABAAEAAAAtABwAAAABAAEAAAAuABkAAAABAAEAAAAuABoAAAABAAEAAAAuABsAAAABAAEAAAAuABwAAAABAAEAAAArABgAAAAAAAEAAAAsABgAAAABAAEAAAAtABgAAAABAAEAAAAuABgAAAABAAEAAAAxABcAAAACAAAAAAAxABgAAAACAAEAAAAxABkAAAACAAEAAAAxABoAAAACAAEAAAAxABsAAAACAAEAAAAxABwAAAACAAEAAAAxAB0AAAACAAEAAAAxAB4AAAACAAEAAAAxAB8AAAACAAEAAAAxACAAAAACAAEAAAAxACEAAAACAAIAAAAvABcAAAABAAAAAAAvABgAAAABAAEAAAAvABkAAAABAAEAAAAvABoAAAABAAEAAAAvABsAAAABAAEAAAAvABwAAAABAAEAAAAvAB0AAAABAAEAAAAvAB4AAAABAAEAAAAvAB8AAAABAAEAAAAvACAAAAABAAEAAAAvACEAAAABAAIAAAAwABcAAAABAAAAAAAwABgAAAABAAEAAAAwABkAAAABAAEAAAAwABoAAAABAAEAAAAwABsAAAABAAEAAAAwABwAAAABAAEAAAAwAB0AAAABAAEAAAAwAB4AAAABAAEAAAAwAB8AAAABAAEAAAAwACAAAAABAAEAAAAwACEAAAABAAIAAAAgAB0AAAAEAAAAAAAgAB4AAAAEAAEAAAAgAB8AAAADAAEAAAAgACAAAAAEAAEAAADu/x0AAAADAAAAAADu/x4AAAADAAEAAADu/x8AAAAFAAEAAADv/x0AAAAEAAAAAADv/x4AAAAEAAEAAADv/x8AAAAGAAEAAADw/x0AAAAFAAAAAADw/x4AAAAFAAEAAADw/x8AAAADAAEAAADx/x0AAAAGAAAAAADx/x4AAAAGAAEAAADx/x8AAAAEAAEAAADy/x0AAAADAAAAAADy/x4AAAADAAEAAADy/x8AAAAFAAEAAADz/x0AAAAEAAAAAADz/x4AAAAEAAEAAADz/x8AAAAGAAEAAAD0/x0AAAAFAAAAAAD0/x4AAAAFAAEAAAD0/x8AAAADAAEAAAD1/x0AAAAGAAAAAAD1/x4AAAAGAAEAAAD1/x8AAAAEAAEAAADy/xYAAAADAAAAAADy/xcAAAADAAEAAADz/xYAAAAEAAAAAADz/xcAAAAEAAEAAAD0/xYAAAAFAAAAAAD0/xcAAAAFAAEAAAD1/xYAAAAGAAAAAAD1/xcAAAAGAAEAAAD2/xYAAAADAAAAAAD2/xcAAAADAAEAAAD3/xYAAAAEAAAAAAD3/xcAAAAEAAEAAAD4/xYAAAAFAAAAAAD4/xcAAAAFAAEAAAD5/xYAAAAGAAAAAAD5/xcAAAAGAAEAAAD6/xYAAAADAAAAAAD6/xcAAAADAAEAAAD7/xYAAAAEAAAAAAD7/xcAAAAEAAEAAAD8/xYAAAAFAAAAAAD8/xcAAAAFAAEAAAD9/xYAAAAGAAAAAAD9/xcAAAAGAAEAAAA=")
 
 [node name="labels" type="Node" parent="."]
 
 [node name="JumpOnEnemey" type="Label" parent="labels"]
-offset_left = 974.0
-offset_top = 278.0
-offset_right = 1072.0
-offset_bottom = 301.0
-scale = Vector2(1.88, 1.88)
+offset_left = 483.0
+offset_top = 435.0
+offset_right = 581.0
+offset_bottom = 458.0
+scale = Vector2(0.554748, 0.727117)
 text = "Jump on em!"
 
 [node name="PressRtoReload" type="Label" parent="labels"]
-offset_left = 339.0
-offset_top = 257.0
-offset_right = 469.0
-offset_bottom = 280.0
-scale = Vector2(1.88, 1.88)
+offset_left = 279.0
+offset_top = 445.0
+offset_right = 409.0
+offset_bottom = 494.0
+scale = Vector2(0.386017, 0.3489)
 text = "Press R to reload
 Press Q to quit"
 
 [node name="Moving Platform" type="Label" parent="labels"]
-offset_left = -572.0
-offset_top = 288.0
-offset_right = -482.0
-offset_bottom = 311.0
-scale = Vector2(2.04, 2.04)
+offset_left = 15.0
+offset_top = 445.0
+offset_right = 105.0
+offset_bottom = 468.0
+scale = Vector2(0.660703, 0.760434)
 text = "Wait for it..."
 
 [node name="Movement" type="Label" parent="labels"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 214.0
+offset_top = 442.0
+offset_right = 311.0
+offset_bottom = 491.0
+scale = Vector2(0.42386, 0.42386)
 text = "A/D to move
 W/S to climb"
 
-[node name="Ladder" parent="." instance=ExtResource("16_jwf4c")]
-position = Vector2(-1559, 244)
-scale = Vector2(-2.65899, 2.46697)
-
-[node name="TileMapLayer" parent="." instance=ExtResource("15_wivcy")]
-tile_map_data = PackedByteArray("AAANAB8AAAAAAAAAAAAOAB8AAAABAAAAAAAPAB8AAAABAAAAAAAQAB8AAAABAAAAAAARAB8AAAACAAAAAAANACAAAAAAAAIAAAAOACAAAAABAAIAAAAPACAAAAABAAIAAAAQACAAAAABAAIAAAARACAAAAACAAIAAAATAB8AAAADAAAAAAAUAB8AAAAEAAAAAAAVAB8AAAAEAAAAAAAWAB8AAAAGAAAAAAATACAAAAADAAEAAAAUACAAAAADAAEAAAAWACAAAAADAAEAAAAVACAAAAAFAAEAAAA=")
-
 [connection signal="body_entered" from="DoubleJumpUpgrade/Area2D" to="TestCharacter" method="_on_area_2d_body_entered"]
-[connection signal="gotStomped" from="Enemy" to="TestCharacter" method="_on_enemy_got_stomped"]
-[connection signal="body_entered" from="Ladder" to="TestCharacter" method="_on_ladder_body_entered"]
-[connection signal="body_exited" from="Ladder" to="TestCharacter" method="_on_ladder_body_exited"]
+[connection signal="body_entered" from="Ladder2" to="TestCharacter" method="_on_ladder_body_entered"]
+[connection signal="body_exited" from="Ladder2" to="TestCharacter" method="_on_ladder_body_exited"]
+[connection signal="body_entered" from="PassableObject" to="TestCharacter" method="_on_passable_object_body_entered"]
+[connection signal="body_exited" from="PassableObject" to="TestCharacter" method="_on_passable_object_body_exited"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4mjfxh17cx6x"
-path="res://.godot/imported/debugguy.png-a23c2c826785effb0b26e57268a08164.ctex"
+uid="uid://cmpdkj3eyk5ck"
+path="res://.godot/imported/castledoors.png-ceb8f7ecbebb47457b50e173fb592ad6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/debugguy.png"
-dest_files=["res://.godot/imported/debugguy.png-a23c2c826785effb0b26e57268a08164.ctex"]
+source_file="res://Assets/castledoors.png"
+dest_files=["res://.godot/imported/castledoors.png-ceb8f7ecbebb47457b50e173fb592ad6.ctex"]
 
 [params]
 

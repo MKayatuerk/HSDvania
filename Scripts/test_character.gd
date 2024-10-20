@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
 
-const SPEED = 200.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 350.0
+const JUMP_VELOCITY = -200.0
+const CLIMBING_SPEED = -100
 
+var dropTime = 0.2
 
 # Checks if the Doublejump upgrade has been collected
 var hasDoubleJumpUpgrade:bool = false
@@ -16,30 +18,38 @@ var canDoubleJump:bool = true
 var canClimb:bool = false
 
 
+var canDropDown:bool = false 
+
 var direction: float = 0
 
 @onready var animationPlayer = $AnimationPlayer
+@onready var drop_timer: Timer = $DropTimer
 
+
+#Main loop of the character
 func _physics_process(delta: float) -> void:
-	print("can climb: " + str(canClimb) + " is on floor: " + str(is_on_floor())+ " can double Jump: " + str(canDoubleJump))
+	#print("can climb: " + str(canClimb) + " is on floor: " + str(is_on_floor())+ " can double Jump: " + str(canDoubleJump))
 	handleJump(delta)
 	handleMovement()
-	move_and_slide()
-
 
 
 
 # Function that handles the Jump functionality
 
 func handleJump(delta: float)-> void:
-	# Add the gravity.r
-	if  not (is_on_floor() and canClimb):
+	# Add the gravity
+	if  not is_on_floor():
 		velocity += get_gravity() * delta
 		
 
-	# Handle jump.
+	# Check for the diffrent possible cases when pressing jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		
+		#Handle dropping down through passable objects
+		if Input.is_action_pressed("down"):
+			dropDown() 
+
+		else: velocity.y = JUMP_VELOCITY
 		
 	# Handle the double jump
 	elif Input.is_action_just_pressed("jump") and !is_on_floor() and canCurrentlyDoubleJump():
@@ -66,6 +76,7 @@ func handleMovement()-> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
+	update_animations(direction)
 	climb()
 
 
@@ -78,7 +89,10 @@ func climb() -> void:
 	
 	move_and_slide()
 	
-	update_animations(direction)
+	
+func dropDown() -> void:
+	drop_timer.start(dropTime)
+	set_collision_mask_value(1,false)
 
 
 #Function that returns true if all conditions are met to allow the character
@@ -89,7 +103,15 @@ func canCurrentlyDoubleJump() -> bool:
 	else:
 		return false
 
-
+# Function that fires the walking animation of the player upon walking
+func update_animations(horizontal_direction):
+	if is_on_floor():
+		if horizontal_direction == 0:
+			animationPlayer.play("Idle")
+		else:
+			animationPlayer.play("Walk")
+	else:
+		pass
 
 
 ##---------------------SIGNALS------------------------------------------------
@@ -102,6 +124,7 @@ func _on_enemy_got_stomped() -> void:
 
 
 func _on_ladder_body_entered(body: Node2D) -> void:
+	print("hey")
 	canClimb = true
 	
 
@@ -109,11 +132,12 @@ func _on_ladder_body_entered(body: Node2D) -> void:
 func _on_ladder_body_exited(body: Node2D) -> void:
 	canClimb = false
 	
-func update_animations(horizontal_direction):
-	if is_on_floor():
-		if horizontal_direction == 0:
-			animationPlayer.play("Idle")
-		else:
-			animationPlayer.play("Walk")
-	else:
-		pass
+
+
+func _on_drop_timer_timeout() -> void:
+	print("test")
+	set_collision_mask_value(1,true)
+
+
+func _on_passable_object_body_entered(body: Node2D) -> void:
+	canDropDown = true
