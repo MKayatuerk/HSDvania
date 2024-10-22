@@ -11,13 +11,30 @@ config_version=5
 [application]
 
 config/name="HSDvania"
-run/main_scene="res://Scenes/testscene.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
+
+[dotnet]
+
+project/assembly_name="HSDvania"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+
+[gui]
+
+fonts/dynamic_fonts/use_oversampling=false
+theme/custom_font="res://Assets/Fonts/Pixelcastle-Regular.otf"
 
 [input]
 
@@ -69,3 +86,9 @@ quit={
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Pickups"
 2d_physics/layer_6="Passable"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+viewport/hdr_2d=true
+2d/snap/snap_2d_transforms_to_pixel=true
