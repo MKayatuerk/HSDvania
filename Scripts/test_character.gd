@@ -17,14 +17,23 @@ var canDoubleJump:bool = true
 # Checks if the character can currently climb
 var canClimb:bool = false
 
-
 var canDropDown:bool = false 
+
+#Checks if the character can move. Set to false whilst in the hurt animation
+var canMove:bool = true
 
 var direction: float = 0
 
-@onready var animationPlayer = $AnimationPlayer
-@onready var drop_timer: Timer = $DropTimer
+var lifepoints:int = 3
 
+@onready var animationPlayer = $AnimationPlayer
+@onready var inv_timer: Timer = $"Invincibilty timer"
+
+
+func _ready() -> void:
+	Signalhive.connect("player_entered",touching_ladder)
+	Signalhive.connect("player_exited", leaving_ladder)
+	Signalhive.connect("player_damaged", damage_taken)
 
 #Main loop of the character
 func _physics_process(delta: float) -> void:
@@ -45,11 +54,7 @@ func handleJump(delta: float)-> void:
 	# Check for the diffrent possible cases when pressing jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		
-		#Handle dropping down through passable objects
-		if Input.is_action_pressed("down"):
-			dropDown() 
-
-		else: velocity.y = JUMP_VELOCITY
+		velocity.y = JUMP_VELOCITY
 		
 	# Handle the double jump
 	elif Input.is_action_just_pressed("jump") and !is_on_floor() and canCurrentlyDoubleJump():
@@ -71,10 +76,11 @@ func handleMovement()-> void:
 	elif (direction < 0):
 		$Sprite2D.flip_h = true
 	
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if canMove:
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	update_animations(direction)
 	climb()
@@ -90,9 +96,6 @@ func climb() -> void:
 	move_and_slide()
 	
 	
-func dropDown() -> void:
-	drop_timer.start(dropTime)
-	set_collision_mask_value(1,false)
 
 
 #Function that returns true if all conditions are met to allow the character
@@ -123,21 +126,29 @@ func _on_enemy_got_stomped() -> void:
 	velocity.y = JUMP_VELOCITY
 
 
-func _on_ladder_body_entered(body: Node2D) -> void:
+func touching_ladder() -> void:
 	print("hey")
 	canClimb = true
 	
 
 
-func _on_ladder_body_exited(body: Node2D) -> void:
+func leaving_ladder() -> void:
 	canClimb = false
 	
 
 
-func _on_drop_timer_timeout() -> void:
-	print("test")
-	set_collision_mask_value(1,true)
+func _on_invincibilty_timer_timeout() -> void:
+	canMove = true
 
 
-func _on_passable_object_body_entered(body: Node2D) -> void:
-	canDropDown = true
+
+func damage_taken() -> void:
+	lifepoints -= 1
+	if velocity.x >= 0:
+		velocity.x = -120
+	else:
+		velocity.x = 120
+	velocity.y = -230
+	canMove = false
+	inv_timer.start(0.3)
+	
