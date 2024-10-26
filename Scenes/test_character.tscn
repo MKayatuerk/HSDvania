@@ -90,4 +90,10 @@ autoplay = "Idle"
 [node name="Invincibilty timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Jumpbuffer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CoyoteeTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
