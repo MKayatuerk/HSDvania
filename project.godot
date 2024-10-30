@@ -18,6 +18,10 @@ boot_splash/show_image=false
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
+[autoload]
+
+Signalhive="*res://Scripts/Signalhive.gd"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -91,4 +95,3 @@ quit={
 
 textures/canvas_textures/default_texture_filter=0
 viewport/hdr_2d=true
-2d/snap/snap_2d_transforms_to_pixel=true
