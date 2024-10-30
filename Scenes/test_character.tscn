@@ -87,7 +87,13 @@ libraries = {
 }
 autoplay = "Idle"
 
-[node name="DropTimer" type="Timer" parent="."]
+[node name="Invincibilty timer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
+[node name="Jumpbuffer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CoyoteeTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
