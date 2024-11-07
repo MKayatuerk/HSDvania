@@ -167,11 +167,13 @@ func leaving_ladder() -> void:
 func _on_invincibilty_timer_timeout() -> void:
 	canMove = true
 	isInvincible = false
+	$Sprite2D.material.set_shader_parameter("mix_color", 0)
 
 
 
-func damage_taken() -> void:
+func damage_taken(damage_value) -> void:
 	if !isInvincible:
+		$Sprite2D.material.set_shader_parameter("mix_color", 1)
 		isInvincible = true
 		canMove = false
 		lifepoints -= 1
