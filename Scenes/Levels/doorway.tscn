@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://bj410uurff1n6"]
+
+[ext_resource type="Texture2D" uid="uid://cmpdkj3eyk5ck" path="res://Assets/castledoors.png" id="1_i4idr"]
+[ext_resource type="Texture2D" uid="uid://cbsvpfapygsdp" path="res://Assets/Pointer.png" id="2_70moe"]
+[ext_resource type="Script" path="res://Scripts/doorway.gd" id="2_kui6v"]
+[ext_resource type="Script" path="res://Scripts/door_arrow.gd" id="3_edmwk"]
+[ext_resource type="PackedScene" uid="uid://blavokp8kieee" path="res://Scenes/Levels/awsome_creditsroom.tscn" id="3_k8es8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jan32"]
+size = Vector2(75, 59)
+
+[node name="Doorway" type="Node2D"]
+scale = Vector2(0.493804, 0.493804)
+script = ExtResource("2_kui6v")
+leading_to = ExtResource("3_k8es8")
+test = "res://Scenes/Levels/awsome_creditsroom.tscn"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i4idr")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.880001, 0.880001)
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("3_edmwk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 19.5)
+shape = SubResource("RectangleShape2D_jan32")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 6)
+rotation = -1.5708
+texture = ExtResource("2_70moe")
+region_enabled = true
+region_rect = Rect2(1, 8, 21, 16)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -52.2509
+offset_top = -42.527
+offset_right = -12.2509
+offset_bottom = -25.527
+grow_horizontal = 2
+text = "Test"
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

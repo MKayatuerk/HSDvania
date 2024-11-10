@@ -1,10 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://dx5ory3yth7fh"]
 
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_2x5gi"]
+[ext_resource type="Script" path="res://Scripts/scene related/main_menu.gd" id="1_2x5gi"]
 [ext_resource type="FontFile" uid="uid://c1ph3eh4mmfws" path="res://Assets/Fonts/Pixelcastle-Regular.otf" id="1_5rnvp"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_xd77l"]
 [ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="3_3uh6r"]
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="5_apyia"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cw0o"]
 atlas = ExtResource("2_xd77l")

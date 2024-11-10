@@ -1,53 +1,63 @@
 [gd_scene load_steps=24 format=4 uid="uid://disecxccod4q0"]
 
-[ext_resource type="Script" path="res://Scripts/testscene.gd" id="1_2u33f"]
-[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/test_character.tscn" id="1_58mqd"]
-[ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="1_hxgh7"]
-[ext_resource type="Texture2D" uid="uid://cjoenf5dq2emq" path="res://Assets/goldCoin1.png" id="4_cl86e"]
-[ext_resource type="Texture2D" uid="uid://cfvmtun86i3x6" path="res://Assets/goldCoin2.png" id="5_uachj"]
-[ext_resource type="Texture2D" uid="uid://dxenmm7qy623t" path="res://Assets/goldCoin3.png" id="6_w5b84"]
-[ext_resource type="Texture2D" uid="uid://dysq1kq0uc52p" path="res://Assets/goldCoin4.png" id="7_7tjd7"]
-[ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="8_onep7"]
-[ext_resource type="Texture2D" uid="uid://cvcm866t3418" path="res://Assets/goldCoin6.png" id="9_dcaw7"]
-[ext_resource type="Texture2D" uid="uid://c0ulpblofb21y" path="res://Assets/goldCoin7.png" id="10_tynl6"]
-[ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="11_rgbl4"]
-[ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="12_udrxl"]
-[ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="13_wh2cv"]
-[ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/moving platform.tscn" id="15_qr1fs"]
-[ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="15_wivcy"]
-[ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/ladder.tscn" id="16_cugma"]
-[ext_resource type="PackedScene" uid="uid://bj410uurff1n6" path="res://Scenes/doorway.tscn" id="18_ttwyn"]
-[ext_resource type="PackedScene" uid="uid://dom3nqecplk56" path="res://Scenes/spike.tscn" id="18_xxvs5"]
+[ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="2_grix3"]
+[ext_resource type="Texture2D" uid="uid://cjoenf5dq2emq" path="res://Assets/goldCoin1.png" id="3_j08jm"]
+[ext_resource type="Texture2D" uid="uid://cfvmtun86i3x6" path="res://Assets/goldCoin2.png" id="4_ofiuv"]
+[ext_resource type="Texture2D" uid="uid://dxenmm7qy623t" path="res://Assets/goldCoin3.png" id="5_rc4om"]
+[ext_resource type="Texture2D" uid="uid://dysq1kq0uc52p" path="res://Assets/goldCoin4.png" id="6_5tino"]
+[ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="7_45nvw"]
+[ext_resource type="Texture2D" uid="uid://cvcm866t3418" path="res://Assets/goldCoin6.png" id="8_3854g"]
+[ext_resource type="Texture2D" uid="uid://c0ulpblofb21y" path="res://Assets/goldCoin7.png" id="9_c3eea"]
+[ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="10_owq05"]
+[ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="11_miq2v"]
+[ext_resource type="PackedScene" uid="uid://bj410uurff1n6" path="res://Scenes/Levels/doorway.tscn" id="12_pr4pg"]
+[ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="13_lnqqi"]
+[ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="14_6xla7"]
+[ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving platform.tscn" id="15_0thas"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/MainCharacter.tscn" id="16_fy74t"]
+[ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="17_0jrav"]
+[ext_resource type="PackedScene" uid="uid://dom3nqecplk56" path="res://Scenes/Geometry/spike.tscn" id="18_m10ag"]
+
+[sub_resource type="GDScript" id="GDScript_l0wr7"]
+script/source = "extends Node2D
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"reset\"):
+		get_tree().reload_current_scene()
+	elif Input.is_action_just_pressed(\"quit\"):
+		get_tree().quit()
+"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q33po"]
 animations = [{
 "frames": [{
 "duration": 2.0,
-"texture": ExtResource("4_cl86e")
+"texture": ExtResource("3_j08jm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_uachj")
+"texture": ExtResource("4_ofiuv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_w5b84")
+"texture": ExtResource("5_rc4om")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_7tjd7")
+"texture": ExtResource("6_5tino")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_onep7")
+"texture": ExtResource("7_45nvw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_dcaw7")
+"texture": ExtResource("8_3854g")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_tynl6")
+"texture": ExtResource("9_c3eea")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_rgbl4")
+"texture": ExtResource("10_owq05")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_udrxl")
+"texture": ExtResource("11_miq2v")
 }],
 "loop": true,
 "name": &"default",
@@ -97,12 +107,12 @@ _data = {
 }
 
 [node name="Testscene" type="Node2D"]
-script = ExtResource("1_2u33f")
+script = SubResource("GDScript_l0wr7")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(360, 453)
 scale = Vector2(0.652604, 0.165524)
-texture = ExtResource("1_hxgh7")
+texture = ExtResource("2_grix3")
 
 [node name="DoubleJumpUpgrade" type="AnimatedSprite2D" parent="."]
 position = Vector2(192, 453)
@@ -127,17 +137,17 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoubleJumpUpgrade/Area2D"]
 shape = SubResource("CircleShape2D_582fp")
 
-[node name="Doorway" parent="." instance=ExtResource("18_ttwyn")]
+[node name="Doorway" parent="." instance=ExtResource("12_pr4pg")]
 position = Vector2(-61, 332)
 
-[node name="Ladder2" parent="." instance=ExtResource("16_cugma")]
+[node name="Ladder2" parent="." instance=ExtResource("13_lnqqi")]
 position = Vector2(-252, 441)
 scale = Vector2(0.743014, 0.985931)
 
-[node name="Enemy" parent="." instance=ExtResource("13_wh2cv")]
+[node name="Enemy" parent="." instance=ExtResource("14_6xla7")]
 position = Vector2(643, 482)
 
-[node name="movingPlatform" parent="." instance=ExtResource("15_qr1fs")]
+[node name="movingPlatform" parent="." instance=ExtResource("15_0thas")]
 position = Vector2(-8, 491)
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="movingPlatform"]
@@ -146,11 +156,11 @@ libraries = {
 }
 autoplay = "RESET"
 
-[node name="TestCharacter" parent="." instance=ExtResource("1_58mqd")]
+[node name="TestCharacter" parent="." instance=ExtResource("16_fy74t")]
 position = Vector2(264, 486)
 collision_mask = 3
 
-[node name="TileMapLayer" parent="." instance=ExtResource("15_wivcy")]
+[node name="TileMapLayer" parent="." instance=ExtResource("17_0jrav")]
 position = Vector2(1, 0)
 scale = Vector2(1.00238, 1)
 tile_map_data = PackedByteArray("AAANAB8AAAAAAAAAAAANACAAAAAAAAEAAAANACEAAAAAAAIAAAAOAB8AAAABAAAAAAAOACAAAAABAAEAAAAOACEAAAABAAIAAAAPAB8AAAACAAAAAAAPACAAAAACAAEAAAAPACEAAAACAAIAAAAQAB8AAAAAAAAAAAAQACAAAAAAAAEAAAAQACEAAAAAAAIAAAARAB8AAAABAAAAAAARACAAAAABAAEAAAARACEAAAABAAIAAAASAB8AAAACAAAAAAASACAAAAACAAEAAAASACEAAAACAAIAAAATAB8AAAADAAAAAAATACAAAAADAAEAAAAUAB8AAAAEAAAAAAAUACAAAAAEAAEAAAAVAB8AAAAFAAAAAAAVACAAAAAFAAEAAAAWAB8AAAAGAAAAAAAWACAAAAAGAAEAAAAXAB8AAAADAAAAAAAXACAAAAADAAEAAAAYAB8AAAAEAAAAAAAYACAAAAAEAAEAAAAaACAAAAAGAAEAAAAZACAAAAAFAAEAAAAbACAAAAADAAEAAAAcAB8AAAAEAAAAAAAcACAAAAAEAAEAAAAdAB8AAAAFAAAAAAAdACAAAAAFAAEAAAAeAB8AAAAGAAAAAAAeACAAAAAGAAEAAAALAB4AAAAAAAAAAAAMAB4AAAACAAAAAAALAB8AAAAAAAIAAAAMAB8AAAACAAIAAAAJAB4AAAAAAAAAAAAJAB8AAAAAAAIAAAAKAB4AAAACAAAAAAAKAB8AAAACAAIAAAAHAB4AAAAAAAAAAAAHAB8AAAAAAAIAAAAIAB4AAAACAAAAAAAIAB8AAAACAAIAAAAHABwAAAAAAAAAAAAHAB0AAAAAAAIAAAAIABwAAAACAAAAAAAIAB0AAAACAAIAAAAHABoAAAAAAAAAAAAHABsAAAAAAAIAAAAIABoAAAACAAAAAAAIABsAAAACAAIAAAAFAB4AAAAAAAAAAAAFAB8AAAAAAAIAAAAGAB4AAAACAAAAAAAGAB8AAAACAAIAAAADAB4AAAAAAAAAAAADAB8AAAAAAAIAAAAEAB4AAAACAAAAAAAEAB8AAAACAAIAAAABAB4AAAAAAAAAAAABAB8AAAAAAAIAAAACAB4AAAACAAAAAAACAB8AAAACAAIAAAAfAB8AAAADAAAAAAAfACAAAAADAAEAAAAhAB8AAAAFAAAAAAAhACAAAAAFAAEAAAAiAB8AAAAGAAAAAAAiACAAAAAGAAEAAAAjAB8AAAADAAAAAAAjACAAAAADAAEAAAAkAB8AAAAEAAAAAAAkACAAAAAEAAEAAAAlAB8AAAAFAAAAAAAlACAAAAAFAAEAAAAmAB8AAAAGAAAAAAAmACAAAAAGAAEAAAAnAB8AAAADAAAAAAAnACAAAAADAAEAAAAoAB8AAAAEAAAAAAAoACAAAAAEAAEAAAApAB8AAAAFAAAAAAApACAAAAAFAAEAAAAqAB8AAAAGAAAAAAAqACAAAAAGAAEAAAAVACEAAAADAAEAAAAWACEAAAAEAAEAAAAXACEAAAAFAAEAAAAYACEAAAAGAAEAAAAZACEAAAADAAEAAAAaACEAAAAEAAEAAAAbACEAAAAFAAEAAAAcACEAAAAGAAEAAAAdACEAAAADAAEAAAAeACEAAAAEAAEAAAAfACEAAAAFAAEAAAAgACEAAAAGAAEAAAAhACEAAAADAAEAAAAiACEAAAAEAAEAAAAjACEAAAAFAAEAAAAkACEAAAAGAAEAAAAlACEAAAADAAEAAAAmACEAAAAEAAEAAAAnACEAAAAFAAEAAAAoACEAAAAGAAEAAAApACEAAAADAAEAAAAqACEAAAAEAAEAAAATACEAAAAFAAEAAAAUACEAAAAGAAEAAAArACAAAAAAAAEAAAArACEAAAAAAAIAAAAsACAAAAABAAEAAAAsACEAAAABAAIAAAArAB8AAAAAAAEAAAAsAB8AAAABAAEAAAArAB4AAAAAAAEAAAAsAB4AAAABAAEAAAArAB0AAAAAAAEAAAAsAB0AAAABAAEAAAAtAB0AAAABAAEAAAAtAB4AAAABAAEAAAAtAB8AAAABAAEAAAAtACAAAAABAAEAAAAtACEAAAABAAIAAAAuAB0AAAABAAEAAAAuAB4AAAABAAEAAAAuAB8AAAABAAEAAAAuACAAAAABAAEAAAAuACEAAAABAAIAAAArABcAAAAAAAAAAAAsABcAAAABAAAAAAAtABcAAAABAAAAAAAuABcAAAABAAAAAAArABkAAAAAAAEAAAArABoAAAAAAAEAAAArABsAAAAAAAEAAAArABwAAAAAAAEAAAAsABkAAAABAAEAAAAsABoAAAABAAEAAAAsABsAAAABAAEAAAAsABwAAAABAAEAAAAtABkAAAABAAEAAAAtABoAAAABAAEAAAAtABsAAAABAAEAAAAtABwAAAABAAEAAAAuABkAAAABAAEAAAAuABoAAAABAAEAAAAuABsAAAABAAEAAAAuABwAAAABAAEAAAArABgAAAAAAAEAAAAsABgAAAABAAEAAAAtABgAAAABAAEAAAAuABgAAAABAAEAAAAxABcAAAACAAAAAAAxABgAAAACAAEAAAAxABkAAAACAAEAAAAxABoAAAACAAEAAAAxABsAAAACAAEAAAAxABwAAAACAAEAAAAxAB0AAAACAAEAAAAxAB4AAAACAAEAAAAxAB8AAAACAAEAAAAxACAAAAACAAEAAAAxACEAAAACAAIAAAAvABcAAAABAAAAAAAvABgAAAABAAEAAAAvABkAAAABAAEAAAAvABoAAAABAAEAAAAvABsAAAABAAEAAAAvABwAAAABAAEAAAAvAB0AAAABAAEAAAAvAB4AAAABAAEAAAAvAB8AAAABAAEAAAAvACAAAAABAAEAAAAvACEAAAABAAIAAAAwABcAAAABAAAAAAAwABgAAAABAAEAAAAwABkAAAABAAEAAAAwABoAAAABAAEAAAAwABsAAAABAAEAAAAwABwAAAABAAEAAAAwAB0AAAABAAEAAAAwAB4AAAABAAEAAAAwAB8AAAABAAEAAAAwACAAAAABAAEAAAAwACEAAAABAAIAAAAgAB0AAAAEAAAAAAAgAB4AAAAEAAEAAAAgAB8AAAADAAEAAAAgACAAAAAEAAEAAADu/x0AAAADAAAAAADu/x4AAAADAAEAAADu/x8AAAAFAAEAAADv/x0AAAAEAAAAAADv/x4AAAAEAAEAAADv/x8AAAAGAAEAAADw/x0AAAAFAAAAAADw/x4AAAAFAAEAAADw/x8AAAADAAEAAADx/x0AAAAGAAAAAADx/x4AAAAGAAEAAADx/x8AAAAEAAEAAADy/x0AAAADAAAAAADy/x4AAAADAAEAAADy/x8AAAAFAAEAAADz/x0AAAAEAAAAAADz/x4AAAAEAAEAAADz/x8AAAAGAAEAAAD0/x0AAAAFAAAAAAD0/x4AAAAFAAEAAAD0/x8AAAADAAEAAAD1/x0AAAAGAAAAAAD1/x4AAAAGAAEAAAD1/x8AAAAEAAEAAADy/xYAAAADAAAAAADy/xcAAAADAAEAAADz/xYAAAAEAAAAAADz/xcAAAAEAAEAAAD0/xYAAAAFAAAAAAD0/xcAAAAFAAEAAAD1/xYAAAAGAAAAAAD1/xcAAAAGAAEAAAD2/xYAAAADAAAAAAD2/xcAAAADAAEAAAD3/xYAAAAEAAAAAAD3/xcAAAAEAAEAAAD4/xYAAAAFAAAAAAD4/xcAAAAFAAEAAAD5/xYAAAAGAAAAAAD5/xcAAAAGAAEAAAD6/xYAAAADAAAAAAD6/xcAAAADAAEAAAD7/xYAAAAEAAAAAAD7/xcAAAAEAAEAAAD8/xYAAAAFAAAAAAD8/xcAAAAFAAEAAAD9/xYAAAAGAAAAAAD9/xcAAAAGAAEAAADv/xYAAAADAAAAAgDw/xYAAAAEAAAABQDv/xcAAAAFAAEAAgDw/xcAAAAGAAEAAgASAB0AAAAAAAAAAAASAB4AAAAAAAIAAAATAB0AAAACAAAAAAATAB4AAAACAAIAAAA=")
@@ -191,11 +201,11 @@ scale = Vector2(0.42386, 0.42386)
 text = "A/D to move
 W/S to climb"
 
-[node name="Spike" parent="." instance=ExtResource("18_xxvs5")]
+[node name="Spike" parent="." instance=ExtResource("18_m10ag")]
 position = Vector2(426, 501)
 scale = Vector2(0.186862, 0.0483004)
 
-[node name="Spike3" parent="." instance=ExtResource("18_xxvs5")]
+[node name="Spike3" parent="." instance=ExtResource("18_m10ag")]
 position = Vector2(344, 490)
 
 [connection signal="body_entered" from="DoubleJumpUpgrade/Area2D" to="TestCharacter" method="_on_area_2d_body_entered"]
