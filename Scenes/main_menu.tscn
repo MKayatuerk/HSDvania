@@ -6,7 +6,6 @@
 [ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="3_3uh6r"]
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="5_apyia"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cw0o"]
 atlas = ExtResource("2_xd77l")
 region = Rect2(0, 0, 32, 32)
