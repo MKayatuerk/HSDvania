@@ -19,6 +19,10 @@ const CLIMBING_SPEED = -50
 @onready var coyotee_timer: Timer = $CoyoteeTimer
 
 
+### HEALTH ###
+var hearts:int = 3
+var health:int = 100
+
 #Saves the Velocity of the previous frame
 var prevVelocity:Vector2 = Vector2.ZERO
 
@@ -41,8 +45,6 @@ var isInvincible:bool = false
 #Coyotee timer
 var was_on_floor:bool = true
 
-
-var lifepoints:int = 3
 
 var boostDirection = 1
 
@@ -181,22 +183,40 @@ func leaving_ladder() -> void:
 
 
 func _on_invincibilty_timer_timeout() -> void:
-	canMove = true
 	isInvincible = false
+	canMove = true
 	$Sprite2D.material.set_shader_parameter("mix_color", 0)
 
+func damage_taken(damage_taken) -> void:
+	if isInvincible:
+		return
 
+	update_health(damage_taken)
+	knockback()
+	$Sprite2D.material.set_shader_parameter("mix_color", 1)
+	
+	isInvincible = true
+	canMove = false
+	inv_timer.start(0.3)
+	
+func update_health(damage_taken) -> void:
+	health -= damage_taken
 
-func damage_taken(damage_value) -> void:
-	if !isInvincible:
-		$Sprite2D.material.set_shader_parameter("mix_color", 1)
-		isInvincible = true
-		canMove = false
-		lifepoints -= 1
-		if velocity.x >= 0:
-			velocity.x = -120
-		else:
-			velocity.x = 120
-		velocity.y = -230
-		inv_timer.start(0.3)
+	if(health <= 0): #ein herz verloren, neue health ist 100
+		hearts -= 1
+		health = 100
+	
+	var hud = get_parent().get_node("CanvasLayer/Hud")
+	if hud:
+		hud.update_health(hearts, health)
+		
+	if(hearts <= 0): #letztes herz verloren, wir sind tot
+		print("Tot")
+		
+func knockback()-> void:
+	if velocity.x >= 0:
+		velocity.x = -120
+	else:
+		velocity.x = 120
+	velocity.y = -230
 	

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dvprl1706bxvj"]
 
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_20f3f"]
-[ext_resource type="PackedScene" uid="uid://bhp0iy4vb6m6" path="res://Scenes/healthbar.tscn" id="1_senfn"]
-[ext_resource type="Script" path="res://Scenes/heartbox.gd" id="2_rmxq7"]
+[ext_resource type="PackedScene" uid="uid://bhp0iy4vb6m6" path="res://Scenes/health_bar.tscn" id="1_senfn"]
+[ext_resource type="Script" path="res://Scripts/heart_bar.gd" id="2_rmxq7"]
 [ext_resource type="Texture2D" uid="uid://b7r50gj6a4hm0" path="res://Assets/heart_full.png" id="3_ctj7b"]
 [ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="5_wreiu"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="6_h1is5"]
@@ -16,14 +16,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_20f3f")
 
-[node name="Healthbar" parent="." instance=ExtResource("1_senfn")]
+[node name="HealthBar" parent="." instance=ExtResource("1_senfn")]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 48.0
 offset_right = 461.0
 offset_bottom = 81.0
 
-[node name="Heartbar" type="HBoxContainer" parent="."]
+[node name="HeartBar" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 80.0
@@ -31,19 +31,19 @@ offset_right = 228.0
 offset_bottom = 120.0
 script = ExtResource("2_rmxq7")
 
-[node name="Heart1" type="TextureRect" parent="Heartbar"]
+[node name="Heart1" type="TextureRect" parent="HeartBar"]
 layout_mode = 2
 texture = ExtResource("3_ctj7b")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Heart2" type="TextureRect" parent="Heartbar"]
+[node name="Heart2" type="TextureRect" parent="HeartBar"]
 layout_mode = 2
 texture = ExtResource("3_ctj7b")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Heart3" type="TextureRect" parent="Heartbar"]
+[node name="Heart3" type="TextureRect" parent="HeartBar"]
 layout_mode = 2
 texture = ExtResource("3_ctj7b")
 expand_mode = 2
