@@ -3,11 +3,11 @@ extends ProgressBar
 @onready var timer = $Timer
 @onready var damage_bar = $DamageBar
 
-var health = 0
+var health = 100
 
-func set_health(_health):
+func update(_health):
 	var prev_health = health
-	health = clamp(_health, 0, max_value)  # Set health within the bounds of 0 and max_value
+	health = clamp(_health, 0, max_value)
 	value = health
 	
 	if health <= 0:
@@ -18,8 +18,8 @@ func set_health(_health):
 	else:
 		damage_bar.value = health
 
-func init_health(_health):
-	health = _health
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
 	max_value = health
 	value = health
 	damage_bar.max_value = health
