@@ -169,7 +169,6 @@ func canCurrentlyDoubleJump() -> bool:
 	else:
 		return false
 
-##---------------------SIGNALS------------------------------------------------
 
 
 func _collected_double_jump() -> void:
@@ -192,16 +191,16 @@ func _on_invincibilty_timer_timeout() -> void:
 	_is_invincible = false
 	$Sprite2D.material.set_shader_parameter("mix_color", 0)
 
-func damage_taken(damage_taken) -> void:
-	if isInvincible:
+func _damage_taken(damage_taken) -> void:
+	if _is_invincible:
 		return
 
 	update_health(damage_taken)
 	knockback()
 	$Sprite2D.material.set_shader_parameter("mix_color", 1)
 	
-	isInvincible = true
-	canMove = false
+	_is_invincible = true
+	_can_move = false
 	inv_timer.start(0.3)
 	
 func update_health(damage_taken) -> void:

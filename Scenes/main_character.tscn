@@ -5,7 +5,7 @@
 [ext_resource type="Shader" path="res://Shaders/hit_shader.gdshader" id="2_xpn44"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tile_map_detector.tscn" id="3_brbqs"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ks8q"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hokto"]
 shader = ExtResource("2_xpn44")
 shader_parameter/opacity = 1.0
 shader_parameter/r = 1.0
@@ -66,6 +66,7 @@ zoom = Vector2(6, 6)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_hokto")
 texture = ExtResource("2_r0odt")
 hframes = 3
 vframes = 2
