@@ -1,8 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=10 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
+[ext_resource type="Shader" path="res://Shaders/hit_shader.gdshader" id="2_xpn44"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tile_map_detector.tscn" id="3_brbqs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ks8q"]
+shader = ExtResource("2_xpn44")
+shader_parameter/opacity = 1.0
+shader_parameter/r = 1.0
+shader_parameter/g = null
+shader_parameter/b = null
+shader_parameter/mix_color = null
 
 [sub_resource type="Animation" id="Animation_eejgd"]
 length = 0.72
