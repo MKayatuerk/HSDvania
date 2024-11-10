@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://disecxccod4q0"]
+[gd_scene load_steps=23 format=4 uid="uid://disecxccod4q0"]
 
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="2_grix3"]
 [ext_resource type="Texture2D" uid="uid://cjoenf5dq2emq" path="res://Assets/goldCoin1.png" id="3_j08jm"]
@@ -10,11 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://c0ulpblofb21y" path="res://Assets/goldCoin7.png" id="9_c3eea"]
 [ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="10_owq05"]
 [ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="11_miq2v"]
-[ext_resource type="PackedScene" uid="uid://bj410uurff1n6" path="res://Scenes/Levels/doorway.tscn" id="12_pr4pg"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="13_lnqqi"]
 [ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="14_6xla7"]
-[ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving platform.tscn" id="15_0thas"]
-[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/MainCharacter.tscn" id="16_fy74t"]
+[ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="15_0thas"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/main_character.tscn" id="16_fy74t"]
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="17_0jrav"]
 [ext_resource type="PackedScene" uid="uid://dom3nqecplk56" path="res://Scenes/Geometry/spike.tscn" id="18_m10ag"]
 
@@ -136,9 +135,6 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoubleJumpUpgrade/Area2D"]
 shape = SubResource("CircleShape2D_582fp")
-
-[node name="Doorway" parent="." instance=ExtResource("12_pr4pg")]
-position = Vector2(-61, 332)
 
 [node name="Ladder2" parent="." instance=ExtResource("13_lnqqi")]
 position = Vector2(-252, 441)
