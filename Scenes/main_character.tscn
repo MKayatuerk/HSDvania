@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
-[ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tilemapdetector.tscn" id="3_brbqs"]
+[ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tile_map_detector.tscn" id="3_brbqs"]
 
 [sub_resource type="Animation" id="Animation_eejgd"]
 length = 0.72
