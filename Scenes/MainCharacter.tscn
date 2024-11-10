@@ -1,20 +1,17 @@
 [gd_scene load_steps=10 format=3 uid="uid://mmy2rn1ftwp2"]
 
-[ext_resource type="Script" path="res://Scripts/test_character.gd" id="1_j7k8t"]
-[ext_resource type="Shader" path="res://Shaders/hit_shader.gdshader" id="2_4apxy"]
+[ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
-[ext_resource type="PackedScene" uid="uid://dvprl1706bxvj" path="res://Scenes/hud.tscn" id="3_rwjp7"]
+[ext_resource type="Shader" path="res://Shaders/hit_shader.gdshader" id="2_xpn44"]
+[ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tilemapdetector.tscn" id="3_brbqs"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_asv7f"]
-shader = ExtResource("2_4apxy")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ks8q"]
+shader = ExtResource("2_xpn44")
 shader_parameter/opacity = 1.0
 shader_parameter/r = 1.0
 shader_parameter/g = null
 shader_parameter/b = null
-shader_parameter/mix_color = 0.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4srqk"]
-size = Vector2(12, 24)
+shader_parameter/mix_color = null
 
 [sub_resource type="Animation" id="Animation_eejgd"]
 length = 0.72
@@ -69,7 +66,7 @@ zoom = Vector2(6, 6)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_asv7f")
+material = SubResource("ShaderMaterial_5ks8q")
 texture = ExtResource("2_r0odt")
 hframes = 3
 vframes = 2
@@ -107,9 +104,6 @@ one_shot = true
 [node name="CoyoteeTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Hud" parent="CanvasLayer" instance=ExtResource("3_rwjp7")]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_4srqk")

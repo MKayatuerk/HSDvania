@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_3p6ng"]
 [ext_resource type="Texture2D" uid="uid://bohwp4mrqf78" path="res://Assets/w_015.png" id="1_4ywls"]
-[ext_resource type="PackedScene" uid="uid://bhp0iy4vb6m6" path="res://Scenes/healthbar.tscn" id="3_dt5mh"]
+[ext_resource type="PackedScene" path="res://Scenes/healthbar.tscn" id="3_dt5mh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huimd"]
 size = Vector2(25, 8)
