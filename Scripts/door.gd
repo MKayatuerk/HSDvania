@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("up") and letThrough:
 		if letThrough:
 			print("go")
-			Signalhive.emit_signal("transport_player",leading_to)
+			Signalhive.emit_signal("transported_player",leading_to)
 		
 		
 

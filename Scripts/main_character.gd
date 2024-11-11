@@ -55,7 +55,7 @@ func _ready() -> void:
 	Signalhive.connect("player_entered",_touching_ladder)
 	Signalhive.connect("player_exited", _leaving_ladder)
 	Signalhive.connect("player_damaged", _damage_taken)
-	Signalhive.connect("transport_player", _move_through_door)
+	Signalhive.connect("transported_player", _move_through_door)
 	Signalhive.connect("collected_Bafoeg", _collected_bafoeg)
 	Signalhive.connect("collected_double_jump",_collected_double_jump)
 
@@ -229,4 +229,5 @@ func _collected_bafoeg() -> void:
 	print("yippie")
 
 func _move_through_door(newPos: Vector2) -> void:
+	print(newPos)
 	position = newPos

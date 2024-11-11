@@ -61,8 +61,8 @@ collision_layer = 4
 script = ExtResource("1_j7k8t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(12, -14)
-zoom = Vector2(6, 6)
+position = Vector2(0, 2)
+zoom = Vector2(2, 2)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -108,8 +108,8 @@ one_shot = true
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_4srqk")
 
-[node name="Tilemapdetector" parent="." instance=ExtResource("3_brbqs")]
-position = Vector2(0, 4)
-scale = Vector2(0.434009, 0.997852)
+[node name="Tilemapdetector2" parent="." instance=ExtResource("3_brbqs")]
+position = Vector2(0, 8)
+scale = Vector2(0.461471, 0.81887)
 
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
