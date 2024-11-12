@@ -47,6 +47,8 @@ var isInvincible:bool = false
 var was_on_floor:bool = true
 
 
+var lifepoints:int = 3
+
 var boostDirection = 1
 
 
