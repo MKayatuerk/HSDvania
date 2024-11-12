@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=12 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
@@ -53,7 +53,13 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4srqk"]
-size = Vector2(12, 24)
+size = Vector2(10, 19.5)
+
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_qd464"]
+length = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrcnv"]
+size = Vector2(16, 20)
 
 [node name="TestCharacter" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -105,11 +111,22 @@ one_shot = true
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(-1, 2.25)
 shape = SubResource("RectangleShape2D_4srqk")
 
 [node name="Tilemapdetector" parent="." instance=ExtResource("3_brbqs")]
 position = Vector2(0, 4)
 scale = Vector2(0.434009, 0.997852)
+collision_mask = 67
+
+[node name="RaySeperationShape" type="CollisionShape2D" parent="."]
+position = Vector2(4, 0)
+shape = SubResource("SeparationRayShape2D_qd464")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_jrcnv")
 
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
