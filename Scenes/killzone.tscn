@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvo3chv1qeytb"]
+
+[sub_resource type="GDScript" id="GDScript_ant6k"]
+script/source = "extends Area2D
+
+@onready var timer = $Timer
+
+func _on_body_entered(body:):
+	print(\"wasted!\")
+	timer.start()
+
+
+func _on_timer_timeout():
+	get_tree().reload_current_scene()
+"
+
+[node name="killzone" type="Area2D"]
+collision_mask = 2
+script = SubResource("GDScript_ant6k")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
