@@ -17,6 +17,7 @@ const CLIMBING_SPEED = -50
 @onready var inv_timer: Timer = $"Invincibilty timer"
 @onready var jumpbuffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
+@onready var player_collision: CollisionShape2D = $CollisionShape2D
 
 
 ### HEALTH ###
@@ -53,6 +54,8 @@ func _ready() -> void:
 	Signalhive.connect("player_entered",touching_ladder)
 	Signalhive.connect("player_exited", leaving_ladder)
 	Signalhive.connect("player_damaged", damage_taken)
+	Signalhive.connect("entered_stairs", is_on_stairs)
+	Signalhive.connect("left_stairs",is_on_stairs)
 
 #Main loop of the character
 func _physics_process(delta: float) -> void:
@@ -219,4 +222,10 @@ func knockback()-> void:
 	else:
 		velocity.x = 120
 	velocity.y = -230
-	
+
+func is_on_stairs(isOnStairs: bool) -> void:
+	print(isOnStairs)
+	if isOnStairs:
+		player_collision.disabled = true
+	else:
+		player_collision.disabled = false
