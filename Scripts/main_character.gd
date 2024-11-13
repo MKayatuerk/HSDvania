@@ -228,6 +228,6 @@ func knockback()-> void:
 func is_on_stairs(isOnStairs: bool) -> void:
 	print(isOnStairs)
 	if isOnStairs:
-		player_collision.disabled = true
+		player_collision.set_deferred("disabled",true)
 	else:
-		player_collision.disabled = false
+		player_collision.set_deferred("disabled",false)
