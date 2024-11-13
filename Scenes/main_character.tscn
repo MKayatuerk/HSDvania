@@ -1,17 +1,28 @@
-[gd_scene load_steps=10 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=13 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_j7k8t"]
+[ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
-[ext_resource type="Shader" path="res://Shaders/hit_shader.gdshader" id="2_xpn44"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tilemapdetector.tscn" id="3_brbqs"]
 
+[sub_resource type="Gradient" id="Gradient_3sj60"]
+offsets = PackedFloat32Array(0.350649, 0.814471)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eigr6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c0cnt"]
+seamless = true
+color_ramp = SubResource("Gradient_3sj60")
+noise = SubResource("FastNoiseLite_eigr6")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ks8q"]
-shader = ExtResource("2_xpn44")
-shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = null
-shader_parameter/b = null
-shader_parameter/mix_color = null
+shader = ExtResource("2_qgvsk")
+shader_parameter/width = 2.105
+shader_parameter/noise_scale = 100.0
+shader_parameter/outline_color = Color(0, 1, 1, 1)
+shader_parameter/direction = Vector2(0, 1)
+shader_parameter/speed = 0.5
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_c0cnt")
 
 [sub_resource type="Animation" id="Animation_eejgd"]
 length = 0.72
@@ -66,6 +77,7 @@ zoom = Vector2(6, 6)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+texture_repeat = 1
 material = SubResource("ShaderMaterial_5ks8q")
 texture = ExtResource("2_r0odt")
 hframes = 3
@@ -105,10 +117,12 @@ one_shot = true
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_4srqk")
 
 [node name="Tilemapdetector" parent="." instance=ExtResource("3_brbqs")]
+visible = false
 position = Vector2(0, 4)
 scale = Vector2(0.434009, 0.997852)
 

@@ -25,13 +25,13 @@ anti_aliasing = false
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ynon1"]
 
 [resource]
-Button/colors/font_color = Color(0.901961, 0.811765, 0.647059, 1)
+Button/colors/font_color = Color(0.9, 0.9, 0.9, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
-Button/colors/font_focus_color = Color(0.901961, 0.811765, 0.647059, 1)
-Button/colors/font_hover_color = Color(0.192157, 0.152941, 0.329412, 1)
-Button/colors/font_hover_pressed_color = Color(0.901961, 0.811765, 0.647059, 1)
+Button/colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
+Button/colors/font_hover_color = Color(0.00784314, 0.231373, 0.105882, 1)
+Button/colors/font_hover_pressed_color = Color(0.9, 0.9, 0.9, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.192157, 0.152941, 0.329412, 1)
+Button/colors/font_pressed_color = Color(0.00784314, 0.231373, 0.105882, 1)
 Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
 Button/colors/icon_focus_color = Color(1, 1, 1, 1)
 Button/colors/icon_hover_color = Color(1, 1, 1, 1)

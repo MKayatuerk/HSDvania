@@ -12,7 +12,7 @@ func _on_beenden_pressed() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$"Camera2D".position.x += delta * 10 	
+	pass
 
 func _on_animated_sprite_2d_ready() -> void:
-	$UI/MarginContainer/AnimatedSprite2D.play("default")
+	$UI/MarginContainer/Occluder/CharacterSprite.play("default")
