@@ -1,26 +1,38 @@
-[gd_scene load_steps=3 format=4 uid="uid://blavokp8kieee"]
+[gd_scene load_steps=7 format=4 uid="uid://blavokp8kieee"]
 
+[ext_resource type="PackedScene" path="res://Scenes/Levels/doorway.tscn" id="1_ah8kv"]
+[ext_resource type="Script" path="res://Scripts/awsome_creditsroom.gd" id="1_elgac"]
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_vd88m"]
-[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/test_character.tscn" id="2_gx3sx"]
+[ext_resource type="PackedScene" uid="uid://cfa1pfhgilr04" path="res://Scenes/Levels/main_hall.tscn" id="2_2eaxf"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/main_character.tscn" id="2_gx3sx"]
+[ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="6_r1g5r"]
+
 
 [node name="Awsome Creditsroom" type="Node2D"]
+script = ExtResource("1_elgac")
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_vd88m")]
-position = Vector2(52.2584, 398.696)
+position = Vector2(47.2584, -57.304)
 tile_map_data = PackedByteArray("AAD//wYAAAADAAAAAAD//wcAAAADAAEAAAAAAAYAAAAEAAAAAAAAAAcAAAAEAAEAAAABAAYAAAAFAAAAAAABAAcAAAAFAAEAAAACAAYAAAAGAAAAAAACAAcAAAAGAAEAAAADAAYAAAADAAAAAAADAAcAAAADAAEAAAAEAAYAAAAEAAAAAAAEAAcAAAAEAAEAAAAFAAYAAAAFAAAAAAAFAAcAAAAFAAEAAAAGAAYAAAAGAAAAAAAGAAcAAAAGAAEAAAAHAAYAAAADAAAAAAAHAAcAAAADAAEAAAAIAAYAAAAEAAAAAAAIAAcAAAAEAAEAAAAJAAYAAAAFAAAAAAAJAAcAAAAFAAEAAAAKAAYAAAAGAAAAAAAKAAcAAAAGAAEAAAALAAYAAAADAAAAAAALAAcAAAADAAEAAAAMAAYAAAAEAAAAAAAMAAcAAAAEAAEAAAANAAYAAAAFAAAAAAANAAcAAAAFAAEAAAAOAAYAAAAGAAAAAAAOAAcAAAAGAAEAAAD7/wYAAAADAAAAAAD7/wcAAAADAAEAAAD8/wYAAAAEAAAAAAD8/wcAAAAEAAEAAAD9/wYAAAAFAAAAAAD9/wcAAAAFAAEAAAD+/wYAAAAGAAAAAAD+/wcAAAAGAAEAAAAPAAYAAAADAAAAAAAPAAcAAAADAAEAAAAQAAYAAAAEAAAAAAAQAAcAAAAEAAEAAAARAAYAAAAFAAAAAAARAAcAAAAFAAEAAAASAAYAAAADAAAAAAASAAcAAAADAAEAAAATAAYAAAAEAAAAAAATAAcAAAAEAAEAAAAUAAYAAAAFAAAAAAAUAAcAAAAFAAEAAAAVAAYAAAAGAAAAAAAVAAcAAAAGAAEAAAAWAAYAAAADAAAAAAAWAAcAAAADAAEAAAAXAAYAAAAEAAAAAAAXAAcAAAAEAAEAAAAYAAYAAAAFAAAAAAAYAAcAAAAFAAEAAAAZAAYAAAAGAAAAAAAZAAcAAAAGAAEAAAAaAAYAAAADAAAAAAAaAAcAAAADAAEAAAAbAAYAAAAEAAAAAAAbAAcAAAAEAAEAAAAcAAYAAAADAAAAAAAcAAcAAAADAAEAAAAdAAYAAAAEAAAAAAAdAAcAAAAEAAEAAAAeAAYAAAAFAAAAAAAeAAcAAAAFAAEAAAAfAAYAAAAGAAAAAAAfAAcAAAAGAAEAAAAgAAYAAAADAAAAAAAgAAcAAAADAAEAAAAhAAYAAAAEAAAAAAAhAAcAAAAEAAEAAAAiAAYAAAAFAAAAAAAiAAcAAAAFAAEAAAAjAAYAAAAGAAAAAAAjAAcAAAAGAAEAAAA=")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 5.0
-offset_top = 277.0
-offset_right = 605.0
-offset_bottom = 456.0
+[node name="TestCharacter" parent="." instance=ExtResource("2_gx3sx")]
+position = Vector2(3, 33)
+
+[node name="Doorway" parent="." instance=ExtResource("1_ah8kv")]
+position = Vector2(34, 15)
+leading_to = ExtResource("2_2eaxf")
+leading_to_name = "Main hall"
+
+[node name="Label2" type="Label" parent="."]
+offset_top = -150.0
+offset_right = 548.0
+offset_bottom = 17.0
+theme = ExtResource("6_r1g5r")
+theme_override_font_sizes/font_size = 14
 text = "Game for a Project of the University of applied science Hochschule Düsseldorf
 
 Programming: Mirkan Kayatürk
 Art: Vivian Drouche
 Leveldesign: Rafein Abdulla
 UI: Marcel Kisaki
-Misc. : Abdülkadir Tetik/ Amar (?)"
-
-[node name="TestCharacter" parent="." instance=ExtResource("2_gx3sx")]
-position = Vector2(42, 195)
+Dialog: Abdülkadir Tetik"

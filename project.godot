@@ -20,7 +20,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Signalhive="*res://Scripts/Signalhive.gd"
+Signalhive="*res://Scripts/Globals/signal_hive.gd"
+GlobalCommands="*res://Scripts/Globals/global_commands.gd"
 
 [display]
 

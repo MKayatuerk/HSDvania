@@ -1,17 +1,27 @@
 extends CharacterBody2D
 
 
-const SPEED = 350.0
-const JUMP_VELOCITY = -300.0
-const CLIMBING_SPEED = -150
+const SPEED = 125.0
+const CLIMBING_SPEED = -50
 
 
+@export var jump_height: float = 60
+@export var jump_seconds_to_peak: float = 0.5
+@export var jump_seconds_to_descent: float = 0.3
+
+@onready var jump_velocity: float = ((2 * jump_height) / jump_seconds_to_peak) * -1
+@onready var jump_gravity: float = ((-2 * jump_height) / pow(jump_seconds_to_peak,2)) * -1
+@onready var fall_gravity: float = ((-2 * jump_height) / pow(jump_seconds_to_descent,2)) * -1   
 
 @onready var animationPlayer = $AnimationPlayer
 @onready var inv_timer: Timer = $"Invincibilty timer"
 @onready var jumpbuffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
 
+
+### HEALTH ###
+var hearts:int = 3
+var health:int = 100
 
 #Saves the Velocity of the previous frame
 var prevVelocity:Vector2 = Vector2.ZERO
@@ -36,8 +46,7 @@ var isInvincible:bool = false
 var was_on_floor:bool = true
 
 
-var lifepoints:int = 3
-
+var boostDirection = 1
 
 
 func _ready() -> void:
@@ -57,22 +66,21 @@ func _physics_process(delta: float) -> void:
 
 
 # Function that handles the Jump functionality
-
 func handleJump(delta: float)-> void:
 	 
 	if Input.is_action_just_pressed("jump"):
 		jumpbuffer.start(0.10)
 		# Check for the diffrent possible cases when pressing jump
 		if  is_on_floor():
-			velocity.y = JUMP_VELOCITY
+			velocity.y = jump_velocity
 			
 		# Handle the double jump
 		elif !is_on_floor() and (canCurrentlyDoubleJump() or coyotee_timer.time_left > 0):
 			if coyotee_timer.time_left == 0:
 				canDoubleJump = false
-			velocity.y = JUMP_VELOCITY
+			velocity.y = jump_velocity
 	elif is_on_floor() and (jumpbuffer.time_left > 0):
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_velocity
 		
 	#Allows for variable Jumphight
 	elif Input.is_action_just_released("jump"):
@@ -83,8 +91,7 @@ func handleJump(delta: float)-> void:
 
 
 
-#func calculateJump():
-	
+
 
 func handleMovement()-> void:
 	
@@ -93,10 +100,14 @@ func handleMovement()-> void:
 	var directionHorizontal = Input.get_axis("left", "right")
 	var directionVerical = Input.get_axis("down","up")
 	
+	
+	
 	if (directionHorizontal > 0):
 		$Sprite2D.flip_h = false
+		boostDirection = 1
 	elif (directionHorizontal < 0):
 		$Sprite2D.flip_h = true
+		boostDirection = -1
 	
   	
 	if canMove:
@@ -110,6 +121,8 @@ func handleMovement()-> void:
 		if directionVerical and canClimb:
 			velocity.y = directionVerical * CLIMBING_SPEED
 	
+	if Input.is_key_label_pressed(KEY_Z):
+		velocity.x = 400 * boostDirection
 	
 	move_and_slide()
 	update_animations(directionHorizontal)
@@ -132,10 +145,16 @@ func update_animations(horizontal_direction):
 func gravity(delta:float):
 		# Add the gravity
 	if  not is_on_floor():
-		velocity += get_gravity() * delta
-		velocity.y = lerp(prevVelocity.y, velocity.y, 0.8)
+		if velocity.y < 0:
+			velocity.y += jump_gravity * delta
+		else:
+			velocity.y += fall_gravity * delta
+		#velocity.y = lerp(prevVelocity.y, velocity.y, 0.8)
 		if was_on_floor:
-			coyotee_timer.start(0.15)
+			coyotee_timer.start(0.25)
+
+
+
 
 #Function that returns true if all conditions are met to allow the character
 #To double jump
@@ -150,8 +169,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	hasDoubleJumpUpgrade = !hasDoubleJumpUpgrade
 
 
-func _on_enemy_got_stomped() -> void:
-	velocity.y = JUMP_VELOCITY
+
 
 
 func touching_ladder() -> void:
@@ -165,20 +183,40 @@ func leaving_ladder() -> void:
 
 
 func _on_invincibilty_timer_timeout() -> void:
-	canMove = true
 	isInvincible = false
+	canMove = true
+	$Sprite2D.material.set_shader_parameter("hit", false)
 
+func damage_taken(damage_taken) -> void:
+	if isInvincible:
+		return
 
+	update_health(damage_taken)
+	knockback()
+	$Sprite2D.material.set_shader_parameter("hit", true)
+	
+	isInvincible = true
+	canMove = false
+	inv_timer.start(0.3)
+	
+func update_health(damage_taken) -> void:
+	health -= damage_taken
 
-func damage_taken() -> void:
-	if !isInvincible:
-		isInvincible = true
-		canMove = false
-		lifepoints -= 1
-		if velocity.x >= 0:
-			velocity.x = -120
-		else:
-			velocity.x = 120
-		velocity.y = -230
-		inv_timer.start(0.3)
+	if(health <= 0): #ein herz verloren, neue health ist 100
+		hearts -= 1
+		health = 100
+	
+	var hud = get_parent().get_node("CanvasLayer/Hud")
+	if hud:
+		hud.update_health(hearts, health)
+		
+	if(hearts <= 0): #letztes herz verloren, wir sind tot
+		print("Tot")
+		
+func knockback()-> void:
+	if velocity.x >= 0:
+		velocity.x = -120
+	else:
+		velocity.x = 120
+	velocity.y = -230
 	
