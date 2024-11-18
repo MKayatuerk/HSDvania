@@ -4,4 +4,4 @@ extends Node
 
 signal player_entered
 signal player_exited
-signal player_damaged
+signal player_damaged(damage_taken)
