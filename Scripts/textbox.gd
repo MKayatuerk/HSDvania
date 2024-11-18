@@ -19,14 +19,11 @@ enum State {
 }
 
 var current_state = State.READY
-var text_queue = []
+var text_queue = TextQueue.text_queue
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_hide_textbox()
-	_queue_text("Das ist ein Test Test Test!!!!")
-	_queue_text("Ach wirklich?? Wie schön.")
-	_queue_text("Endlich macht ers mal!!!")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
