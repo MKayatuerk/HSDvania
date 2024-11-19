@@ -1,4 +1,4 @@
-extends Control
+extends  Control
 
 @onready var heart_bar = $HeartBar
 @onready var health_bar = $HealthBar

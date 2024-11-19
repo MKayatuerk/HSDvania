@@ -72,8 +72,8 @@ collision_layer = 4
 script = ExtResource("1_j7k8t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(12, -14)
-zoom = Vector2(6, 6)
+position = Vector2(0, 2)
+zoom = Vector2(2, 2)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

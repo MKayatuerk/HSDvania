@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+class_name MainCharacter
 
 const SPEED = 125.0
 const CLIMBING_SPEED = -50
@@ -15,7 +16,7 @@ const CLIMBING_SPEED = -50
 
 @onready var animationPlayer = $AnimationPlayer
 @onready var inv_timer: Timer = $"Invincibilty timer"
-@onready var jumpbuffer: Timer = $Jumpbuffer
+@onready var jump_buffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
 
 
@@ -27,39 +28,43 @@ var health:int = 100
 var prevVelocity:Vector2 = Vector2.ZERO
 
 # Checks if the Doublejump upgrade has been collected
-var hasDoubleJumpUpgrade:bool = false
+var _has_double_jump_upgrade:bool = false
 
 # Checks if the character can currently doubleJump
-# Only effective when hasDoubleJumpUpgrade = true 
-var canDoubleJump:bool = true
+# Only effective when _has_double_jump_upgrade = true 
+var _can_double_jump:bool = true
 
 # Checks if the character can currently climb
-var canClimb:bool = false
+var _can_climb:bool = false
 
 #Checks if the character can move. Set to false whilst in the hurt animation
-var canMove:bool = true
+var _can_move:bool = true
 
-var isInvincible:bool = false
+var _is_invincible:bool = false
 
 #Determines if the character stood on the floor in the last frame, used for the
 #Coyotee timer
-var was_on_floor:bool = true
+var _was_on_floor:bool = true
 
 
 var boostDirection = 1
 
 
 func _ready() -> void:
-	Signalhive.connect("player_entered",touching_ladder)
-	Signalhive.connect("player_exited", leaving_ladder)
-	Signalhive.connect("player_damaged", damage_taken)
+	#Subscribing to relevant signals
+	Signalhive.connect("player_entered",_touching_ladder)
+	Signalhive.connect("player_exited", _leaving_ladder)
+	Signalhive.connect("player_damaged", _damage_taken)
+	Signalhive.connect("transported_player", _move_through_door)
+	Signalhive.connect("collected_Bafoeg", _collected_bafoeg)
+	Signalhive.connect("collected_double_jump",_collected_double_jump)
 
 #Main loop of the character
 func _physics_process(delta: float) -> void:
 	
 	gravity(delta)
 	handleJump(delta)
-	was_on_floor = is_on_floor()
+	_was_on_floor = is_on_floor()
 	handleMovement()
 	
 	prevVelocity = velocity
@@ -69,7 +74,7 @@ func _physics_process(delta: float) -> void:
 func handleJump(delta: float)-> void:
 	 
 	if Input.is_action_just_pressed("jump"):
-		jumpbuffer.start(0.10)
+		jump_buffer.start(0.10)
 		# Check for the diffrent possible cases when pressing jump
 		if  is_on_floor():
 			velocity.y = jump_velocity
@@ -77,9 +82,9 @@ func handleJump(delta: float)-> void:
 		# Handle the double jump
 		elif !is_on_floor() and (canCurrentlyDoubleJump() or coyotee_timer.time_left > 0):
 			if coyotee_timer.time_left == 0:
-				canDoubleJump = false
+				_can_double_jump = false
 			velocity.y = jump_velocity
-	elif is_on_floor() and (jumpbuffer.time_left > 0):
+	elif is_on_floor() and (jump_buffer.time_left > 0):
 		velocity.y = jump_velocity
 		
 	#Allows for variable Jumphight
@@ -87,7 +92,7 @@ func handleJump(delta: float)-> void:
 		velocity.y *= 0.3
 	#Enable double Jump when on the floor
 	if(velocity.y == 0):
-		canDoubleJump = true
+		_can_double_jump = true
 
 
 
@@ -110,7 +115,7 @@ func handleMovement()-> void:
 		boostDirection = -1
 	
   	
-	if canMove:
+	if _can_move:
 		if directionHorizontal:
 			velocity.x = directionHorizontal * SPEED
 		elif !is_on_floor() and directionHorizontal:
@@ -118,7 +123,7 @@ func handleMovement()-> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED/2)
 			
-		if directionVerical and canClimb:
+		if directionVerical and _can_climb:
 			velocity.y = directionVerical * CLIMBING_SPEED
 	
 	if Input.is_key_label_pressed(KEY_Z):
@@ -149,9 +154,9 @@ func gravity(delta:float):
 			velocity.y += jump_gravity * delta
 		else:
 			velocity.y += fall_gravity * delta
-		#velocity.y = lerp(prevVelocity.y, velocity.y, 0.8)
-		if was_on_floor:
-			coyotee_timer.start(0.25)
+		
+		if _was_on_floor:
+			coyotee_timer.start(0.10)
 
 
 
@@ -159,44 +164,43 @@ func gravity(delta:float):
 #Function that returns true if all conditions are met to allow the character
 #To double jump
 func canCurrentlyDoubleJump() -> bool:
-	if hasDoubleJumpUpgrade and canDoubleJump:
+	if _has_double_jump_upgrade and _can_double_jump:
 		return true
 	else:
 		return false
 
-##---------------------SIGNALS------------------------------------------------
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	hasDoubleJumpUpgrade = !hasDoubleJumpUpgrade
 
 
+func _collected_double_jump() -> void:
+	print("yooo")
+	_has_double_jump_upgrade = true
 
 
-
-func touching_ladder() -> void:
-	canClimb = true
+func _touching_ladder() -> void:
+	_can_climb = true
 	
 
 
-func leaving_ladder() -> void:
-	canClimb = false
+func _leaving_ladder() -> void:
+	_can_climb = false
 	
 
 
 func _on_invincibilty_timer_timeout() -> void:
-	isInvincible = false
-	canMove = true
+	_can_move = true
+	_is_invincible = false
 	$Sprite2D.material.set_shader_parameter("hit", false)
 
-func damage_taken(damage_taken) -> void:
-	if isInvincible:
+func _damage_taken(damage_taken) -> void:
+	if _is_invincible:
 		return
 
 	update_health(damage_taken)
 	knockback()
 	$Sprite2D.material.set_shader_parameter("hit", true)
 	
-	isInvincible = true
-	canMove = false
+	_is_invincible = true
+	_can_move = false
 	inv_timer.start(0.3)
 	
 func update_health(damage_taken) -> void:
@@ -220,3 +224,10 @@ func knockback()-> void:
 		velocity.x = 120
 	velocity.y = -230
 	
+
+func _collected_bafoeg() -> void:
+	print("yippie")
+
+func _move_through_door(newPos: Vector2) -> void:
+	print(newPos)
+	position = newPos
