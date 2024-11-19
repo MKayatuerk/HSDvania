@@ -9,7 +9,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 		var tile_data = tilemap.get_cell_tile_data(collided_tile_cord)
 		if tile_data:
 			if tile_data.get_custom_data("Danger"):
-				Signalhive.emit_signal("player_damaged", 10)
+				Signalhive.emit_signal("player_damaged", 99)
 				
 			if tile_data.get_custom_data("PickUp") == 1:
 				tilemap.set_cell(collided_tile_cord,-1)

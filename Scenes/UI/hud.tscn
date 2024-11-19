@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvprl1706bxvj"]
+
+[ext_resource type="Script" path="res://Scripts/ui/hud.gd" id="1_20f3f"]
+[ext_resource type="PackedScene" uid="uid://bhp0iy4vb6m6" path="res://Scenes/UI/health_bar.tscn" id="1_senfn"]
+[ext_resource type="Script" path="res://Scripts/ui/heart_bar.gd" id="2_rmxq7"]
+[ext_resource type="Texture2D" uid="uid://b7r50gj6a4hm0" path="res://Assets/heart_full.png" id="3_ctj7b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yukt"]
+bg_color = Color(0.996078, 0.0705882, 0.0901961, 0.145098)
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_20f3f")
+
+[node name="GameOver" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.8827, 16.2106)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2yukt")
+
+[node name="Label" type="Label" parent="GameOver"]
+layout_mode = 1
+offset_left = 13.122
+offset_top = 10.5486
+offset_right = 203.122
+offset_bottom = 79.5486
+scale = Vector2(0.0757472, 0.226632)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.331595, 0.408158, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "The nightmare continues...
+
+>press SPACE to retry<<"
+
+[node name="HealthBar" parent="." instance=ExtResource("1_senfn")]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 48.0
+offset_right = 461.0
+offset_bottom = 81.0
+
+[node name="HeartBar" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 100.0
+offset_top = 80.0
+offset_right = 228.0
+offset_bottom = 120.0
+script = ExtResource("2_rmxq7")
+
+[node name="Heart1" type="TextureRect" parent="HeartBar"]
+layout_mode = 2
+texture = ExtResource("3_ctj7b")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Heart2" type="TextureRect" parent="HeartBar"]
+layout_mode = 2
+texture = ExtResource("3_ctj7b")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Heart3" type="TextureRect" parent="HeartBar"]
+layout_mode = 2
+texture = ExtResource("3_ctj7b")
+expand_mode = 2
+stretch_mode = 4

@@ -21,7 +21,7 @@ const CLIMBING_SPEED = -50
 
 
 ### HEALTH ###
-var hearts:int = 3
+#var hearts:int = 3
 var health:int = 100
 
 #Saves the Velocity of the previous frame
@@ -42,6 +42,8 @@ var _can_move:bool = true
 
 var _is_invincible:bool = false
 
+var _is_in_cutscene:bool = false
+
 #Determines if the character stood on the floor in the last frame, used for the
 #Coyotee timer
 var _was_on_floor:bool = true
@@ -55,19 +57,25 @@ func _ready() -> void:
 	Signalhive.connect("player_entered",_touching_ladder)
 	Signalhive.connect("player_exited", _leaving_ladder)
 	Signalhive.connect("player_damaged", _damage_taken)
+	
 	Signalhive.connect("transported_player", _move_through_door)
-	Signalhive.connect("collected_Bafoeg", _collected_bafoeg)
+	Signalhive.connect("retry", _retry)
+	
+	Signalhive.connect("collected_bafoeg", _collected_bafoeg)
 	Signalhive.connect("collected_double_jump",_collected_double_jump)
+	
+	Signalhive.connect("entered_cutsene", _lock_movement)
+	Signalhive.connect("exited_cutscene", _unlock_movement)
 
 #Main loop of the character
 func _physics_process(delta: float) -> void:
-	
-	gravity(delta)
-	handleJump(delta)
-	_was_on_floor = is_on_floor()
-	handleMovement()
-	
-	prevVelocity = velocity
+	if !_is_in_cutscene:
+		gravity(delta)
+		handleJump(delta)
+		_was_on_floor = is_on_floor()
+		handleMovement()
+		
+		prevVelocity = velocity
 
 
 # Function that handles the Jump functionality
@@ -147,6 +155,19 @@ func update_animations(horizontal_direction):
 		pass
 
 
+func _damage_taken(damage_taken) -> void:
+	if _is_invincible:
+		return
+		
+	knockback()
+	update_health(damage_taken)
+	
+	$Sprite2D.material.set_shader_parameter("hit", true)
+	
+	_is_invincible = true
+	_can_move = false
+	inv_timer.start(0.3)
+
 func gravity(delta:float):
 		# Add the gravity
 	if  not is_on_floor():
@@ -172,9 +193,14 @@ func canCurrentlyDoubleJump() -> bool:
 
 
 func _collected_double_jump() -> void:
-	print("yooo")
+	
+	Signalhive.emit_signal("queued_message","I found the Dual-Core boots!")
+	Signalhive.emit_signal("queued_message","With the power of multithreading, i can split the legwork to jump,  effectivly letting me double jump!")
 	_has_double_jump_upgrade = true
 
+
+func _collected_bafoeg() -> void:
+	print("yippie")
 
 func _touching_ladder() -> void:
 	_can_climb = true
@@ -185,39 +211,29 @@ func _leaving_ladder() -> void:
 	_can_climb = false
 	
 
+func _move_through_door(newPos: Vector2) -> void:
+	print(newPos)
+	position = newPos
 
 func _on_invincibilty_timer_timeout() -> void:
 	_can_move = true
 	_is_invincible = false
 	$Sprite2D.material.set_shader_parameter("hit", false)
 
-func _damage_taken(damage_taken) -> void:
-	if _is_invincible:
-		return
 
-	update_health(damage_taken)
-	knockback()
-	$Sprite2D.material.set_shader_parameter("hit", true)
-	
-	_is_invincible = true
-	_can_move = false
-	inv_timer.start(0.3)
 	
 func update_health(damage_taken) -> void:
-	health -= damage_taken
+	if(health - damage_taken <= 0):
+		_game_over()
+		
+	else:
+		health -= damage_taken
+		var hud = get_parent().get_node("CanvasLayer/Hud")
+		if hud:
+			hud.update_health(health)
 
-	if(health <= 0): #ein herz verloren, neue health ist 100
-		hearts -= 1
-		health = 100
-	
-	var hud = get_parent().get_node("CanvasLayer/Hud")
-	if hud:
-		hud.update_health(hearts, health)
-		
-	if(hearts <= 0): #letztes herz verloren, wir sind tot
-		print("Tot")
-		
 func knockback()-> void:
+	
 	if velocity.x >= 0:
 		velocity.x = -120
 	else:
@@ -225,9 +241,25 @@ func knockback()-> void:
 	velocity.y = -230
 	
 
-func _collected_bafoeg() -> void:
-	print("yippie")
+func _retry() -> void:
+	health = 100
+	position = Vector2(20,-24)
+	update_health(0)
 
-func _move_through_door(newPos: Vector2) -> void:
-	print(newPos)
-	position = newPos
+func _game_over() -> void:
+	
+	Signalhive.emit_signal("player_died")
+	Engine.time_scale = 0.3
+	$gameovertimer.start(0.7)
+
+	
+func _lock_movement() -> void:
+	_is_in_cutscene = true
+	animationPlayer.play("Idle")
+	
+func _unlock_movement()-> void:
+	_is_in_cutscene = false
+
+
+func _on_gameovertimer_timeout() -> void:
+	_lock_movement()

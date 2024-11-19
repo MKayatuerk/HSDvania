@@ -22,7 +22,7 @@ config/icon="res://icon.svg"
 
 Signalhive="*res://Scripts/Globals/signal_hive.gd"
 GlobalCommands="*res://Scripts/Globals/global_commands.gd"
-TextQueue="*res://Scripts/text_queue_loader.gd"
+TextBoxManager="*res://Scenes/UI/text_box.tscn"
 
 [display]
 
