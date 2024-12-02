@@ -123,7 +123,7 @@ collision_mask = 7
 path = NodePath("Path2D")
 
 [node name="Path2D" type="Path2D" parent="fliegendeschrifftrolle2"]
-position = Vector2(8.26957, -8.64159)
+position = Vector2(8.26965, -8.6416)
 scale = Vector2(1.25954, 3.59258)
 curve = SubResource("Curve2D_kuxu1")
 
