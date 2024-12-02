@@ -13,9 +13,9 @@ var tween = get_tree().create_tween()
 
 #Textbox ist ein Automat mit drei Zuständen, je nach Zustand werden entsprechende Funktionen aufgerufen.
 enum State {
-	READY,
-	READING,
-	FINISHED
+    READY,
+    READING,
+    FINISHED
 }
 
 var current_state = State.READY
@@ -23,53 +23,53 @@ var text_queue = TextQueue.text_queue
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_hide_textbox()
+    _hide_textbox()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	match current_state:
-		State.READY:
-			if !text_queue.is_empty():
-				_display_text()
-		State.READING:
-			if Input.is_action_just_pressed("ui_accept"):
-				tween.kill()
-				label.visible_characters = -1
-				end_symbol.text = "<-"
-				_change_state(State.FINISHED)
-		State.FINISHED:
-			if Input.is_action_just_pressed("ui_accept"):
-				_change_state(State.READY)
-				_hide_textbox()
+    match current_state:
+        State.READY:
+            if !text_queue.is_empty():
+                _display_text()
+        State.READING:
+            if Input.is_action_just_pressed("ui_accept"):
+                tween.kill()
+                label.visible_characters = -1
+                end_symbol.text = "<-"
+                _change_state(State.FINISHED)
+        State.FINISHED:
+            if Input.is_action_just_pressed("ui_accept"):
+                _change_state(State.READY)
+                _hide_textbox()
 
 func _queue_text(next_text) -> void: #"Liste" mit Dialogoptionen wird appended.
-	text_queue.push_back(next_text)
+    text_queue.push_back(next_text)
 
 func _hide_textbox() -> void: # versteckt und resettet Textbox Container, wenn Programm gestartet wird oder die Queue zuende ist.
-	start_symbol.text = ""
-	end_symbol.text = ""
-	label.text = ""
-	textbox_container.hide()
+    start_symbol.text = ""
+    end_symbol.text = ""
+    label.text = ""
+    textbox_container.hide()
 
 func _show_textbox() -> void: #Zeigt die Textbox im Ready-State an.
-	start_symbol.text = ">"
-	textbox_container.show()
+    start_symbol.text = ">"
+    textbox_container.show()
 
 func _display_text() -> void: # Iteriert über die Queue. Text wird mittels eines Tweens angezeigt d.h. Text wird nachgezogen
-	tween = get_tree().create_tween()
-	var next_text = text_queue.pop_front()
-	label.text = next_text
-	_change_state(State.READING)
-	_show_textbox()
-	tween.tween_property(label, "visible_characters", len(next_text), len(next_text) * 0.05).from(0).finished
-	tween.connect("finished", _on_tween_finished)
-	end_symbol.text = "..." 
+    tween = get_tree().create_tween()
+    var next_text = text_queue.pop_front()
+    label.text = next_text
+    _change_state(State.READING)
+    _show_textbox()
+    tween.tween_property(label, "visible_characters", len(next_text), len(next_text) * 0.05).from(0).finished
+    tween.connect("finished", _on_tween_finished)
+    end_symbol.text = "..." 
 
 
 func _change_state(next_state) -> void: #Aendert die State der Textbox
-	current_state = next_state
+    current_state = next_state
 
 func _on_tween_finished() -> void: #Signal um Tween zu beenden
-	end_symbol.text = ">"
-	_change_state(State.FINISHED)
+    end_symbol.text = ">"
+    _change_state(State.FINISHED)
