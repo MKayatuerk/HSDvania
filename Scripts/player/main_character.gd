@@ -18,11 +18,13 @@ const CLIMBING_SPEED = -50
 @onready var inv_timer: Timer = $"Invincibilty timer"
 @onready var jump_buffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
-
+@onready var weapon = $Shortsword
 
 ### HEALTH ###
 #var hearts:int = 3
 var health:int = 100
+
+var selected_weapon:int = 0
 
 #Saves the Velocity of the previous frame
 var prevVelocity:Vector2 = Vector2.ZERO
@@ -48,8 +50,10 @@ var _is_in_cutscene:bool = false
 #Coyotee timer
 var _was_on_floor:bool = true
 
+var _can_attack:bool = true
 
-var boostDirection = 1
+var direction = 1
+
 
 
 func _ready() -> void:
@@ -66,6 +70,11 @@ func _ready() -> void:
 	
 	Signalhive.connect("entered_cutsene", _lock_movement)
 	Signalhive.connect("exited_cutscene", _unlock_movement)
+	
+	
+
+
+
 
 #Main loop of the character
 func _physics_process(delta: float) -> void:
@@ -74,7 +83,7 @@ func _physics_process(delta: float) -> void:
 		handleJump(delta)
 		_was_on_floor = is_on_floor()
 		handleMovement()
-		
+		attack()
 		prevVelocity = velocity
 
 
@@ -117,10 +126,10 @@ func handleMovement()-> void:
 	
 	if (directionHorizontal > 0):
 		$Sprite2D.flip_h = false
-		boostDirection = 1
+		direction = 1
 	elif (directionHorizontal < 0):
 		$Sprite2D.flip_h = true
-		boostDirection = -1
+		direction = -1
 	
   	
 	if _can_move:
@@ -135,7 +144,7 @@ func handleMovement()-> void:
 			velocity.y = directionVerical * CLIMBING_SPEED
 	
 	if Input.is_key_label_pressed(KEY_Z):
-		velocity.x = 400 * boostDirection
+		velocity.x = 400 * direction
 	
 	move_and_slide()
 	update_animations(directionHorizontal)
@@ -153,6 +162,7 @@ func update_animations(horizontal_direction):
 			animationPlayer.play("Walk")
 	else:
 		pass
+
 
 
 func _damage_taken(damage_taken) -> void:
@@ -179,6 +189,21 @@ func gravity(delta:float):
 		if _was_on_floor:
 			coyotee_timer.start(0.10)
 
+func attack() -> void:
+	if Input.is_action_just_pressed("attack") and _can_attack:
+		var animation = get_tree().create_tween()
+		animation.connect("finished", _attack_tween_finished)
+		
+		if !_can_attack:
+			return
+		else:
+			
+			_can_attack = false
+			weapon.visible = true
+			animation.tween_property(weapon, "modulate:a", 1, 0)
+			animation.tween_property(weapon, "position:x" , direction * 12, 0.5)
+			animation.tween_property(weapon, "position:x" , 0, 0.7)
+			animation.tween_property(weapon, "modulate:a", 0, 0)
 
 
 
@@ -263,3 +288,7 @@ func _unlock_movement()-> void:
 
 func _on_gameovertimer_timeout() -> void:
 	_lock_movement()
+	
+
+func _attack_tween_finished():
+	_can_attack = true

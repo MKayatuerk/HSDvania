@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=12 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="2_pmor1"]
 [ext_resource type="PackedScene" uid="uid://cs2uyfgbxpa8b" path="res://Scenes/Levels/door.tscn" id="3_invnu"]
 [ext_resource type="PackedScene" uid="uid://dvprl1706bxvj" path="res://Scenes/UI/hud.tscn" id="6_7la1n"]
+[ext_resource type="PackedScene" uid="uid://p0yja3dph7f3" path="res://Scenes/fliegendeschrifftrolle.tscn" id="8_nu3nq"]
 
 [sub_resource type="Animation" id="Animation_tljtl"]
 length = 0.001
@@ -118,3 +119,6 @@ tile_map_data = PackedByteArray("AAD+//3/AAABAAEAAAD+//7/AAABAAEAAAD8//3/AAABAAE
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Hud" parent="CanvasLayer" instance=ExtResource("6_7la1n")]
+
+[node name="fliegendeschrifftrolle" parent="." instance=ExtResource("8_nu3nq")]
+position = Vector2(223, -44)

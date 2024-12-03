@@ -8,11 +8,11 @@ var path_follow_2D : PathFollow2D = null;
 
 func _ready():
 	# mit getTree den player suchen
-	player = get_node("../Player") as Node2D  
+	player = get_tree().current_scene.get_node("../MainCharacter") as Node2D  
 	if player == null:
 		print("player not found")
 		
-	path_follow_2D = path.get_node("PathFollow2D")
+	#path_follow_2D = path.get_node("PathFollow2D")
 
 
 func _physics_process(delta : float):

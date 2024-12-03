@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://clrbfo72m2cnw" path="res://Assets/GegnerFliegend1Sprite.png" id="2_atxgb"]
 [ext_resource type="PackedScene" uid="uid://cvo3chv1qeytb" path="res://Scenes/killzone.tscn" id="3_idlgx"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lgahm"]
 size = Vector2(83, 102)
 
@@ -105,7 +104,6 @@ shape = SubResource("CircleShape2D_17r66")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-6.35783e-06, 3.8147e-05)
-scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_t1myv")
 autoplay = "default"
 frame = 8
