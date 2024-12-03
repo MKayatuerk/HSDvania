@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=13 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
 [ext_resource type="Script" path="res://Scripts/ui/textbox_main_hall.gd" id="1_jo633"]
-[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/main_character.tscn" id="2_71y8l"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/Player/main_character.tscn" id="2_71y8l"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="2_pmor1"]
 [ext_resource type="PackedScene" uid="uid://cs2uyfgbxpa8b" path="res://Scenes/Levels/door.tscn" id="3_invnu"]
 [ext_resource type="PackedScene" uid="uid://dvprl1706bxvj" path="res://Scenes/UI/hud.tscn" id="6_7la1n"]
 [ext_resource type="PackedScene" uid="uid://p0yja3dph7f3" path="res://Scenes/fliegendeschrifftrolle.tscn" id="8_nu3nq"]
+[ext_resource type="PackedScene" uid="uid://dengtn5arpki1" path="res://Scenes/Geometry/Breakable_Screen.tscn" id="9_7o3x6"]
 
 [sub_resource type="Animation" id="Animation_tljtl"]
 length = 0.001
@@ -122,3 +123,7 @@ tile_map_data = PackedByteArray("AAD+//3/AAABAAEAAAD+//7/AAABAAEAAAD8//3/AAABAAE
 
 [node name="fliegendeschrifftrolle" parent="." instance=ExtResource("8_nu3nq")]
 position = Vector2(223, -44)
+
+[node name="BreakableScreen" parent="." instance=ExtResource("9_7o3x6")]
+position = Vector2(68, -46)
+scale = Vector2(0.504825, 0.562972)

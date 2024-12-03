@@ -1,9 +1,10 @@
 [gd_scene load_steps=8 format=4 uid="uid://iln68yv5g1nh"]
 
-[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/main_character.tscn" id="1_0vak2"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/Player/main_character.tscn" id="1_0vak2"]
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="2_fshsu"]
 [ext_resource type="PackedScene" uid="uid://cs2uyfgbxpa8b" path="res://Scenes/Levels/door.tscn" id="3_vcyxe"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="4_tvdxv"]
+
 
 [sub_resource type="Animation" id="Animation_1uyx6"]
 resource_name = "new_animation"

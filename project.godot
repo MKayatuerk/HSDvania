@@ -98,6 +98,7 @@ attack={
 2d_physics/layer_5="Pickups"
 2d_physics/layer_6="Passable"
 2d_physics/layer_7="Attack"
+2d_physics/layer_8="Breakable"
 
 [rendering]
 

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dengtn5arpki1"]
+
+[ext_resource type="Script" path="res://Scripts/Geometry/breakable_screen.gd" id="1_e1aom"]
+[ext_resource type="Texture2D" uid="uid://dsqpiav15ah83" path="res://Assets/Tilemaps/hsvania.png" id="2_b18wo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6h4tc"]
+size = Vector2(51, 30)
+
+[node name="BreakableScreen" type="Node2D"]
+script = ExtResource("1_e1aom")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_b18wo")
+region_enabled = true
+region_rect = Rect2(49, 36, 45, 27)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_6h4tc")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

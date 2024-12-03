@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=13 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
-[ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tile_map_detector.tscn" id="3_brbqs"]
+[ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
 
 [sub_resource type="Gradient" id="Gradient_3sj60"]
 offsets = PackedFloat32Array(0.350649, 0.814471)
@@ -66,11 +66,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4srqk"]
 size = Vector2(12, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6o05"]
-size = Vector2(14, 4)
-
-[sub_resource type="QuadMesh" id="QuadMesh_c6uf3"]
-
 [node name="TestCharacter" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
@@ -132,21 +127,6 @@ shape = SubResource("RectangleShape2D_4srqk")
 visible = false
 position = Vector2(0, 4)
 scale = Vector2(0.434009, 0.997852)
-
-[node name="Shortsword" type="Area2D" parent="."]
-visible = false
-position = Vector2(4, 2)
-scale = Vector2(2, 2)
-collision_layer = 64
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shortsword"]
-scale = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_b6o05")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Shortsword"]
-scale = Vector2(7, 1.96)
-mesh = SubResource("QuadMesh_c6uf3")
 
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
 [connection signal="timeout" from="gameovertimer" to="." method="_on_gameovertimer_timeout"]

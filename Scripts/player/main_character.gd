@@ -18,7 +18,6 @@ const CLIMBING_SPEED = -50
 @onready var inv_timer: Timer = $"Invincibilty timer"
 @onready var jump_buffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
-@onready var weapon = $Shortsword
 
 ### HEALTH ###
 #var hearts:int = 3
@@ -28,6 +27,7 @@ var selected_weapon:int = 0
 
 #Saves the Velocity of the previous frame
 var prevVelocity:Vector2 = Vector2.ZERO
+var prevDirection = 0
 
 # Checks if the Doublejump upgrade has been collected
 var _has_double_jump_upgrade:bool = false
@@ -54,13 +54,18 @@ var _can_attack:bool = true
 
 var direction = 1
 
+var shortsword = preload("res://Scenes/Player/shortsword.tscn")
 
+var animation: Tween
+
+var current_weapon
 
 func _ready() -> void:
 	#Subscribing to relevant signals
 	Signalhive.connect("player_entered",_touching_ladder)
 	Signalhive.connect("player_exited", _leaving_ladder)
 	Signalhive.connect("player_damaged", _damage_taken)
+	Signalhive.connect("player_healed", _damage_healed)
 	
 	Signalhive.connect("transported_player", _move_through_door)
 	Signalhive.connect("retry", _retry)
@@ -85,6 +90,7 @@ func _physics_process(delta: float) -> void:
 		handleMovement()
 		attack()
 		prevVelocity = velocity
+		prevDirection = direction
 
 
 # Function that handles the Jump functionality
@@ -130,7 +136,9 @@ func handleMovement()-> void:
 	elif (directionHorizontal < 0):
 		$Sprite2D.flip_h = true
 		direction = -1
-	
+	#
+	#if (prevDirection != direction):
+		#cancelAttack()
   	
 	if _can_move:
 		if directionHorizontal:
@@ -178,6 +186,12 @@ func _damage_taken(damage_taken) -> void:
 	_can_move = false
 	inv_timer.start(0.3)
 
+
+func _damage_healed(damage_healed) -> void:
+	update_health(-damage_healed)
+	
+
+
 func gravity(delta:float):
 		# Add the gravity
 	if  not is_on_floor():
@@ -191,19 +205,20 @@ func gravity(delta:float):
 
 func attack() -> void:
 	if Input.is_action_just_pressed("attack") and _can_attack:
-		var animation = get_tree().create_tween()
+		
+		add_child(_instantiate_weapon(), true)
+		
+		current_weapon = get_child(-1)
+		animation = get_tree().create_tween()
 		animation.connect("finished", _attack_tween_finished)
 		
 		if !_can_attack:
 			return
 		else:
-			
 			_can_attack = false
-			weapon.visible = true
-			animation.tween_property(weapon, "modulate:a", 1, 0)
-			animation.tween_property(weapon, "position:x" , direction * 12, 0.5)
-			animation.tween_property(weapon, "position:x" , 0, 0.7)
-			animation.tween_property(weapon, "modulate:a", 0, 0)
+			animation.tween_property(current_weapon, "position:x" , direction * 12, 0.5)
+			animation.tween_property(current_weapon, "position:x" , 0, 0.7)
+			animation.tween_callback(current_weapon.queue_free)
 
 
 
@@ -270,6 +285,7 @@ func _retry() -> void:
 	health = 100
 	position = Vector2(20,-24)
 	update_health(0)
+	_unlock_movement()
 
 func _game_over() -> void:
 	
@@ -292,3 +308,15 @@ func _on_gameovertimer_timeout() -> void:
 
 func _attack_tween_finished():
 	_can_attack = true
+
+
+func _instantiate_weapon() -> Node2D:
+	var weapon_instance = shortsword.instantiate()
+	return weapon_instance
+
+
+func cancelAttack():
+	if animation:
+		animation.kill()
+		current_weapon.queue_free()
+		_can_attack = true
