@@ -2,6 +2,10 @@
 
 extends Node
 
+signal collected(collectible: Collectible)
+signal weapon_equipped(new_weapon: Weapon)
+signal weapon_dropped(old_weapon: Weapon)
+
 signal player_entered
 signal player_exited
 signal player_damaged(damage_taken)

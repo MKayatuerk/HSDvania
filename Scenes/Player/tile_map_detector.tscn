@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Scripts/player/tile_map_detector.gd" id="1_x2y86"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwvrn"]
 
 [node name="Tilemapdetector" type="Area2D"]
