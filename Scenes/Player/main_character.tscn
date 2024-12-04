@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=14 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
+[ext_resource type="Script" path="res://Scripts/player/inventory.gd" id="5_bg747"]
 
 [sub_resource type="Gradient" id="Gradient_3sj60"]
 offsets = PackedFloat32Array(0.350649, 0.814471)
@@ -127,6 +128,12 @@ shape = SubResource("RectangleShape2D_4srqk")
 visible = false
 position = Vector2(0, 4)
 scale = Vector2(0.434009, 0.997852)
+
+[node name="WeaponSocket" type="Node2D" parent="."]
+position = Vector2(12, 4)
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("5_bg747")
 
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
 [connection signal="timeout" from="gameovertimer" to="." method="_on_gameovertimer_timeout"]

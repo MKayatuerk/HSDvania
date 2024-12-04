@@ -1,0 +1,75 @@
+[gd_scene load_steps=15 format=3 uid="uid://dk5ielqnfwhr7"]
+
+[ext_resource type="Script" path="res://Scripts/player/collectible.gd" id="1_skf3f"]
+[ext_resource type="Shader" path="res://Shaders/collectible.gdshader" id="3_5mrdp"]
+[ext_resource type="Texture2D" uid="uid://bfflfnr7c0vfx" path="res://Assets/Particles/random_selection.png" id="3_db35v"]
+[ext_resource type="Texture2D" uid="uid://ianxac6oseov" path="res://Assets/heart_half.png" id="5_4kaqm"]
+[ext_resource type="Shader" path="res://Shaders/pixelate.gdshader" id="5_j0k0w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xvjlu"]
+radius = 12.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvxil"]
+shader = ExtResource("3_5mrdp")
+shader_parameter/particles_anim_h_frames = 3
+shader_parameter/particles_anim_v_frames = 1
+shader_parameter/particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_gyqck"]
+offsets = PackedFloat32Array(0, 0.458167, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a342c"]
+gradient = SubResource("Gradient_gyqck")
+
+[sub_resource type="Curve" id="Curve_ic4ap"]
+_data = [Vector2(0, 0.502089), 0.0, 1.57436, 0, 0, Vector2(1, 1), 0.0999601, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_88l06"]
+curve = SubResource("Curve_ic4ap")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bl0n8"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_88l06")
+color_ramp = SubResource("GradientTexture1D_a342c")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uh3hp"]
+shader = ExtResource("5_j0k0w")
+shader_parameter/pixel_count = Vector2(128, 128)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dp12l"]
+viewport_path = NodePath("Area2D/ParticleViewport")
+
+[node name="Collectible" type="Node2D"]
+script = ExtResource("1_skf3f")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xvjlu")
+
+[node name="ParticleViewport" type="SubViewport" parent="Area2D"]
+transparent_bg = true
+
+[node name="Glow" type="GPUParticles2D" parent="Area2D/ParticleViewport"]
+material = SubResource("ShaderMaterial_yvxil")
+position = Vector2(256, 256)
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_bl0n8")
+texture = ExtResource("3_db35v")
+explosiveness = 0.39
+
+[node name="PixelatedGlow" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uh3hp")
+scale = Vector2(0.105, 0.105)
+texture = SubResource("ViewportTexture_dp12l")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("5_4kaqm")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

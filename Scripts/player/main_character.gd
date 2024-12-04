@@ -62,6 +62,10 @@ var current_weapon
 
 func _ready() -> void:
 	#Subscribing to relevant signals
+	Signalhive.connect("collected",_collected)
+	Signalhive.connect("weapon_equipped",_weapon_equipped)
+	Signalhive.connect("weapon_dropped",_weapon_dropped)
+	
 	Signalhive.connect("player_entered",_touching_ladder)
 	Signalhive.connect("player_exited", _leaving_ladder)
 	Signalhive.connect("player_damaged", _damage_taken)
@@ -76,9 +80,27 @@ func _ready() -> void:
 	Signalhive.connect("entered_cutsene", _lock_movement)
 	Signalhive.connect("exited_cutscene", _unlock_movement)
 	
+
+func _collected(collectible: Collectible)-> void:
+	print("Collected item: ", collectible.item_name)
+	$Inventory.add(collectible)
 	
+func _weapon_equipped(new_weapon: Weapon) -> void:
+	print("_weapon_equipped")
+	if new_weapon.get_parent():
+		new_weapon.get_parent().remove_child(new_weapon)
+		
+	$WeaponSocket.add_child(new_weapon)
+	new_weapon.position = Vector2.ZERO
 
 
+func _weapon_dropped(old_weapon: Weapon) -> void:
+	print("_weapon_dropped")
+	if old_weapon.get_parent():
+		old_weapon.get_parent().remove_child(old_weapon)
+	
+	get_tree().root.add_child(old_weapon)
+	old_weapon.position = $WeaponSocket.global_position
 
 
 #Main loop of the character
@@ -132,9 +154,14 @@ func handleMovement()-> void:
 	
 	if (directionHorizontal > 0):
 		$Sprite2D.flip_h = false
+		$WeaponSocket.position = Vector2(abs($WeaponSocket.position.x), $WeaponSocket.position.y)
+		$WeaponSocket.scale.x = abs($WeaponSocket.scale.x) 
 		direction = 1
+		
 	elif (directionHorizontal < 0):
 		$Sprite2D.flip_h = true
+		$WeaponSocket.position = Vector2(-abs($WeaponSocket.position.x), $WeaponSocket.position.y)
+		$WeaponSocket.scale.x = -abs($WeaponSocket.scale.x) 
 		direction = -1
 	#
 	#if (prevDirection != direction):
