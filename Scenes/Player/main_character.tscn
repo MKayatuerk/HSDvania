@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://mmy2rn1ftwp2"]
 
-[ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_j7k8t"]
+[ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
 [ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
-[ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/tilemapdetector.tscn" id="3_brbqs"]
+[ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
 
 [sub_resource type="Gradient" id="Gradient_3sj60"]
 offsets = PackedFloat32Array(0.350649, 0.814471)
@@ -72,8 +72,8 @@ collision_layer = 4
 script = ExtResource("1_j7k8t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(12, -14)
-zoom = Vector2(6, 6)
+position = Vector2(0, 2)
+zoom = Vector2(4, 4)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -116,6 +116,8 @@ one_shot = true
 [node name="CoyoteeTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="gameovertimer" type="Timer" parent="."]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, 4)
@@ -127,3 +129,4 @@ position = Vector2(0, 4)
 scale = Vector2(0.434009, 0.997852)
 
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
+[connection signal="timeout" from="gameovertimer" to="." method="_on_gameovertimer_timeout"]

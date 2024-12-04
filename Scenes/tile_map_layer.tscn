@@ -127,6 +127,31 @@ texture = ExtResource("1_su0no")
 8:0/0 = 0
 8:0/0/physics_layer_2/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:0/0/custom_data_0 = true
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+5:3/0 = 0
+4:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+0:4/0/physics_layer_3/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:4/0/custom_data_1 = 2
+1:4/next_alternative_id = 2
+1:4/0 = 0
+1:4/0/physics_layer_3/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:4/0/custom_data_1 = 1
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+9:3/0 = 0
+9:4/0 = 0
+8:4/0 = 0
+7:4/0 = 0
+6:4/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_k67dp"]
 physics_layer_0/collision_layer = 1
@@ -134,11 +159,14 @@ physics_layer_1/collision_layer = 33
 physics_layer_1/collision_mask = 4
 physics_layer_2/collision_layer = 2
 physics_layer_2/collision_mask = 4
+physics_layer_3/collision_layer = 16
+physics_layer_3/collision_mask = 5
 custom_data_layer_0/name = "Danger"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "PickUp"
+custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_ob1wx")
 
 [node name="TileMapLayer" type="TileMapLayer"]
 texture_filter = 1
 tile_set = SubResource("TileSet_k67dp")
-collision_visibility_mode = 1

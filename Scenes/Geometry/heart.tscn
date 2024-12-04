@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://uu68fybfthyc"]
+
+[ext_resource type="Script" path="res://Scripts/player/heart.gd" id="1_hhp4p"]
+[ext_resource type="Texture2D" uid="uid://b7r50gj6a4hm0" path="res://Assets/heart_full.png" id="2_cdsb8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jr6q"]
+size = Vector2(20.4082, 17.1735)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hucyx"]
+size = Vector2(10, 3.85714)
+
+[node name="Heart" type="RigidBody2D"]
+mass = 0.2
+gravity_scale = 0.4
+script = ExtResource("1_hhp4p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_cdsb8")
+
+[node name="pickupArea" type="Area2D" parent="."]
+scale = Vector2(0.7, 0.7)
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickupArea"]
+position = Vector2(2.98023e-07, -1.13214)
+scale = Vector2(0.7, 0.7)
+shape = SubResource("RectangleShape2D_1jr6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.65)
+scale = Vector2(0.7, 0.7)
+shape = SubResource("RectangleShape2D_hucyx")
+
+[connection signal="body_entered" from="pickupArea" to="." method="_on_area_2d_body_entered"]
