@@ -200,6 +200,10 @@ func update_animations(horizontal_direction):
 
 
 
+func _damage_healed(damage_healed) -> void:
+	update_health(-damage_healed)
+	
+
 func _damage_taken(damage_taken) -> void:
 	if _is_invincible:
 		return
@@ -214,9 +218,15 @@ func _damage_taken(damage_taken) -> void:
 	inv_timer.start(0.3)
 
 
-func _damage_healed(damage_healed) -> void:
-	update_health(-damage_healed)
-	
+func update_health(damage_taken) -> void:
+	if(health - damage_taken <= 0):
+		_game_over()
+		
+	else:
+		health -= damage_taken
+		var hud = get_parent().get_node("CanvasLayer/Hud")
+		if hud:
+			hud.update_health(health)
 
 
 func gravity(delta:float):
@@ -289,15 +299,7 @@ func _on_invincibilty_timer_timeout() -> void:
 
 
 	
-func update_health(damage_taken) -> void:
-	if(health - damage_taken <= 0):
-		_game_over()
-		
-	else:
-		health -= damage_taken
-		var hud = get_parent().get_node("CanvasLayer/Hud")
-		if hud:
-			hud.update_health(health)
+
 
 func knockback()-> void:
 	
@@ -311,7 +313,10 @@ func knockback()-> void:
 func _retry() -> void:
 	health = 100
 	position = Vector2(20,-24)
-	update_health(0)
+	velocity = Vector2.ZERO
+	_damage_healed(100)
+	if $gameovertimer.time_left > 0:
+		$gameovertimer.stop()
 	_unlock_movement()
 
 func _game_over() -> void:
@@ -324,9 +329,11 @@ func _game_over() -> void:
 func _lock_movement() -> void:
 	_is_in_cutscene = true
 	animationPlayer.play("Idle")
+	print("locked")
 	
 func _unlock_movement()-> void:
 	_is_in_cutscene = false
+	print("unlocked")
 
 
 func _on_gameovertimer_timeout() -> void:
