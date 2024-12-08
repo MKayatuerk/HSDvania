@@ -1,16 +1,16 @@
-extends Control
+extends Node2D
 
-@onready var heart_bar = $HeartBar
-@onready var health_bar = $HealthBar
-
-func update_health(hearts, health):
-	heart_bar.update(hearts)
-	health_bar.update(health)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-	
+	pass # Replace with function body.
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	Signalhive.emit_signal("player_healed", 30)
+	queue_free()

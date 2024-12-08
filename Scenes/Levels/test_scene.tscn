@@ -1,23 +1,13 @@
-[gd_scene load_steps=26 format=4 uid="uid://disecxccod4q0"]
+[gd_scene load_steps=15 format=4 uid="uid://cdekeyywmkg5h"]
 
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="2_grix3"]
-[ext_resource type="Texture2D" uid="uid://cjoenf5dq2emq" path="res://Assets/goldCoin1.png" id="3_j08jm"]
-[ext_resource type="Texture2D" uid="uid://cfvmtun86i3x6" path="res://Assets/goldCoin2.png" id="4_ofiuv"]
-[ext_resource type="Texture2D" uid="uid://dxenmm7qy623t" path="res://Assets/goldCoin3.png" id="5_rc4om"]
-[ext_resource type="Texture2D" uid="uid://dysq1kq0uc52p" path="res://Assets/goldCoin4.png" id="6_5tino"]
 [ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="7_45nvw"]
-[ext_resource type="Texture2D" uid="uid://cvcm866t3418" path="res://Assets/goldCoin6.png" id="8_3854g"]
-[ext_resource type="Texture2D" uid="uid://c0ulpblofb21y" path="res://Assets/goldCoin7.png" id="9_c3eea"]
-[ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="10_owq05"]
-[ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="11_miq2v"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="13_lnqqi"]
 [ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="14_6xla7"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="15_0thas"]
-[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/main_character.tscn" id="16_fy74t"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/Player/main_character.tscn" id="16_fy74t"]
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="17_0jrav"]
-[ext_resource type="PackedScene" uid="uid://p0yja3dph7f3" path="res://Scenes/fliegendeschrifftrolle.tscn" id="17_1fj5l"]
 [ext_resource type="PackedScene" uid="uid://dom3nqecplk56" path="res://Scenes/Geometry/spike.tscn" id="18_m10ag"]
-[ext_resource type="PackedScene" uid="uid://b63bdnwil11yv" path="res://slime.tscn" id="18_trqhd"]
 
 [sub_resource type="GDScript" id="GDScript_l0wr7"]
 script/source = "extends Node2D
@@ -30,41 +20,35 @@ func _process(delta: float) -> void:
 		get_tree().quit()
 "
 
-[sub_resource type="Curve2D" id="Curve2D_kuxu1"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 9.31323, -3.16165, 0, 0, 0, 0, 90.0002, -86.667, 0, 0, 0, 0, 127.066, -50.2377, 0, 0, 0, 0, 166.667, -3.33337, 0, 0, 0, 0, 240, -83.3334, 0, 0, 0, 0, 306.667, 0, 0, 0, 0, 0, 380, -73.3334, 0, 0, 0, 0, 443.333, 3.33325, 0, 0, 0, 0, 103.334, 3.33301, 0, 0, 0, 0, 6.66675, -3.33337)
-}
-point_count = 10
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_q33po"]
 animations = [{
 "frames": [{
 "duration": 2.0,
-"texture": ExtResource("3_j08jm")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ofiuv")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_rc4om")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_5tino")
+"texture": null
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_45nvw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_3854g")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_c3eea")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_owq05")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_miq2v")
+"texture": null
 }],
 "loop": true,
 "name": &"default",
@@ -116,24 +100,8 @@ _data = {
 [node name="Testscene" type="Node2D"]
 script = SubResource("GDScript_l0wr7")
 
-[node name="fliegendeschrifftrolle2" parent="." node_paths=PackedStringArray("path") instance=ExtResource("17_1fj5l")]
-position = Vector2(415, 458)
-collision_layer = 4
-collision_mask = 7
-path = NodePath("Path2D")
-
-[node name="Path2D" type="Path2D" parent="fliegendeschrifftrolle2"]
-position = Vector2(8.26957, -8.64159)
-scale = Vector2(1.25954, 3.59258)
-curve = SubResource("Curve2D_kuxu1")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="fliegendeschrifftrolle2/Path2D"]
-position = Vector2(9.31323, -3.16165)
-rotation = -0.802562
-
 [node name="Background" type="Sprite2D" parent="."]
-visibility_layer = 0
-position = Vector2(400, 368)
+position = Vector2(360, 453)
 scale = Vector2(0.652604, 0.165524)
 texture = ExtResource("2_grix3")
 
@@ -178,7 +146,7 @@ autoplay = "RESET"
 
 [node name="TestCharacter" parent="." instance=ExtResource("16_fy74t")]
 position = Vector2(264, 486)
-collision_mask = 7
+collision_mask = 3
 
 [node name="TileMapLayer" parent="." instance=ExtResource("17_0jrav")]
 position = Vector2(1, 0)
@@ -227,8 +195,5 @@ scale = Vector2(0.186862, 0.0483004)
 
 [node name="Spike3" parent="." instance=ExtResource("18_m10ag")]
 position = Vector2(344, 490)
-
-[node name="slime" parent="." instance=ExtResource("18_trqhd")]
-position = Vector2(91, 466)
 
 [connection signal="body_entered" from="DoubleJumpUpgrade/Area2D" to="TestCharacter" method="_on_area_2d_body_entered"]
