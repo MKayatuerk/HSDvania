@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=30 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dengtn5arpki1" path="res://Scenes/Geometry/Breakable_Screen.tscn" id="9_7o3x6"]
 [ext_resource type="PackedScene" uid="uid://dk5ielqnfwhr7" path="res://Scenes/Player/collectible.tscn" id="10_bmssv"]
 [ext_resource type="PackedScene" uid="uid://t3hiy8bby8og" path="res://Scenes/Player/weapon.tscn" id="11_ak6e8"]
+[ext_resource type="AudioStream" uid="uid://but24qro7p6if" path="res://Audio/Music/geoffreygunn+aquaticrealmofthespirits.mp3" id="12_mjm0q"]
 
 [sub_resource type="Gradient" id="Gradient_lcahi"]
 
@@ -253,3 +254,8 @@ tile_map_data = PackedByteArray("AAD+//3/AAABAAEAAAD+//7/AAABAAEAAAD8//3/AAABAAE
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(69, -378)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_mjm0q")
+autoplay = true
+parameters/looping = false
