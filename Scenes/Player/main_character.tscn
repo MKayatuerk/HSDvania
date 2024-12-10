@@ -1,9 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=15 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
-[ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_r0odt"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
+[ext_resource type="Texture2D" uid="uid://b1qhvlt7e0crc" path="res://Assets/Character/hsvaniaChar.png" id="3_lopyr"]
 [ext_resource type="Script" path="res://Scripts/player/inventory.gd" id="5_bg747"]
 
 [sub_resource type="Gradient" id="Gradient_3sj60"]
@@ -39,7 +39,23 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.18, 0.36, 0.54),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 1]
+"values": [0, 4, 5, 4]
+}
+
+[sub_resource type="Animation" id="Animation_umh2g"]
+length = 0.72
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.18, 0.36, 0.54),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_ek64m"]
@@ -55,12 +71,13 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 3, 0, 4]
+"values": [0, 6, 0, 7]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o2bif"]
 _data = {
 "Idle": SubResource("Animation_eejgd"),
+"Throw": SubResource("Animation_umh2g"),
 "Walk": SubResource("Animation_ek64m")
 }
 
@@ -80,13 +97,14 @@ zoom = Vector2(4, 4)
 texture_filter = 1
 texture_repeat = 1
 material = SubResource("ShaderMaterial_5ks8q")
-texture = ExtResource("2_r0odt")
+texture = ExtResource("3_lopyr")
 hframes = 3
-vframes = 2
+vframes = 3
 region_rect = Rect2(125, 1, 28, 5)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
+"output_section": true,
 "pending_changes": {}
 }
 metadata/_aseprite_wizard_config_ = {
@@ -94,14 +112,14 @@ metadata/_aseprite_wizard_config_ = {
 "keep_anim_length": false,
 "layer": "",
 "o_ex_p": "",
-"o_folder": "",
+"o_folder": "res://Assets/Character/Animations",
 "o_name": "",
 "only_visible": true,
 "player": "AnimationPlayer",
 "slice": "",
 "source": "res://Assets/Character/hsvaniaChar.aseprite"
 }
-metadata/_aseprite_wizard_source_file_hash_ = "2428bacb418eb0bae9a261f848fcab50"
+metadata/_aseprite_wizard_source_file_hash_ = "1f03a4e5188db903be2e7f772153da0a"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
