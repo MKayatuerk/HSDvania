@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dqxoy3lki4dog"
+path="res://.godot/imported/paperplaneProjectile.aseprite-4e15b8531e1a17eb494fb48ba28cd68f.res"
+
+[deps]
+
+source_file="res://Assets/Misc/paperplaneProjectile.aseprite"
+dest_files=["res://.godot/imported/paperplaneProjectile.aseprite-4e15b8531e1a17eb494fb48ba28cd68f.res"]
+
+[params]
+
