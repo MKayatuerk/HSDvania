@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://crfs00c8t10j5"
+path="res://.godot/imported/04 Evil Garden.mp3-c2e48fed3274e36e4729862c509060fd.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/04 Evil Garden.mp3"
+dest_files=["res://.godot/imported/04 Evil Garden.mp3-c2e48fed3274e36e4729862c509060fd.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
