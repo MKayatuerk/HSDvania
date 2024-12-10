@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf71rf7fw2eb8"
-path="res://.godot/imported/hsvaniaChar.png-6ed616ba814436b238deec9b993ba6b0.ctex"
+uid="uid://b1qhvlt7e0crc"
+path="res://.godot/imported/hsvaniaChar.png-2832c05406e86a12d0cfac0d0f73702e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Character/hsvaniaChar.png"
-dest_files=["res://.godot/imported/hsvaniaChar.png-6ed616ba814436b238deec9b993ba6b0.ctex"]
+source_file="res://Assets/Character/Animations/hsvaniaChar.png"
+dest_files=["res://.godot/imported/hsvaniaChar.png-2832c05406e86a12d0cfac0d0f73702e.ctex"]
 
 [params]
 
