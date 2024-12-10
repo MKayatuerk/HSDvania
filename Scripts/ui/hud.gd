@@ -3,6 +3,8 @@ extends  Control
 @onready var heart_bar = $HeartBar
 @onready var health_bar = $HealthBar
 
+@onready var gameover_sfx = $GameOver/GameoverSfx
+@onready var continue_sfx = $ContinueSfx
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,9 +23,10 @@ func update_health(health):
 func game_over_screen() -> void:
 	health_bar.visible = false
 	$GameOver.visible = true
+	gameover_sfx.play()
 
 
 func normal_HUD() -> void:
 	health_bar.visible = true
-
 	$GameOver.visible = false
+	continue_sfx.play()

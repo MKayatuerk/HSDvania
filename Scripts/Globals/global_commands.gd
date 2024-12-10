@@ -1,6 +1,5 @@
 extends Node
 
-
 var isInGameOverScreen = false
 
 func _ready() -> void:

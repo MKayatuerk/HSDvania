@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=4 uid="uid://cdekeyywmkg5h"]
+[gd_scene load_steps=14 format=4 uid="uid://cdekeyywmkg5h"]
 
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="2_grix3"]
-[ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="7_45nvw"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="13_lnqqi"]
 [ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="14_6xla7"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="15_0thas"]
@@ -36,7 +35,7 @@ animations = [{
 "texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_45nvw")
+"texture": null
 }, {
 "duration": 1.0,
 "texture": null

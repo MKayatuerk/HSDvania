@@ -37,11 +37,13 @@ func _process(delta: float) -> void:
 			if Input.is_action_just_pressed("ui_accept"):
 				tween.kill()
 				label.visible_characters = -1
-				end_symbol.text = "<-"
+				end_symbol.text = "Press SPACE"
+				$"../AudioStreamPlayer".play()
 				_change_state(State.FINISHED)
 		State.FINISHED:
 			if Input.is_action_just_pressed("ui_accept"):
 				_change_state(State.READY)
+				$"../AudioStreamPlayer".play()
 				_hide_textbox()
 				
 
