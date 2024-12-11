@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dokfmnokt6ltd"]
+
+[ext_resource type="Texture2D" uid="uid://b1qhvlt7e0crc" path="res://Assets/Character/hsvaniaChar.png" id="1_xc2ad"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4epsn"]
+size = Vector2(9, 6)
+
+[node name="Papierflieger" type="RigidBody2D"]
+gravity_scale = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xc2ad")
+region_enabled = true
+region_rect = Rect2(55, 14, 7, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_4epsn")

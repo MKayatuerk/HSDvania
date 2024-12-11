@@ -12,5 +12,5 @@ func _process(delta: float) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	Signalhive.emit_signal("player_healed", 30)
+	Signalhive.emit_signal("player_healed", 45)
 	queue_free()
