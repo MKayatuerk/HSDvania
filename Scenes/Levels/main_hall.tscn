@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=14 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
@@ -47,6 +47,12 @@ _data = {
 "RESET": SubResource("Animation_tljtl"),
 "moveToElevator": SubResource("Animation_f2agk")
 }
+
+[sub_resource type="Curve2D" id="Curve2D_fu0i2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 80, -46.6667, 0, 0, 0, 0, 180, -150, 0, 0, 0, 0, 243.333, -46.6667, 0, 0, 0, 0, 306.667, -140, 0, 0, 0, 0, 400, -53.3333, 0, 0, 0, 0, 240, 43.3333, 0, 0, 0, 0, 80, -46.6667)
+}
+point_count = 7
 
 [node name="Main Hall" type="Node2D"]
 script = ExtResource("1_jo633")
@@ -121,8 +127,16 @@ tile_map_data = PackedByteArray("AAD+//3/AAABAAEAAAD+//7/AAABAAEAAAD8//3/AAABAAE
 
 [node name="Hud" parent="CanvasLayer" instance=ExtResource("6_7la1n")]
 
-[node name="fliegendeschrifftrolle" parent="." instance=ExtResource("8_nu3nq")]
-position = Vector2(223, -44)
+[node name="fliegendeschrifftrolle" parent="." node_paths=PackedStringArray("path") instance=ExtResource("8_nu3nq")]
+position = Vector2(231, -57)
+path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="fliegendeschrifftrolle"]
+curve = SubResource("Curve2D_fu0i2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="fliegendeschrifftrolle/Path2D"]
+position = Vector2(80, -46.6667)
+rotation = -0.80179
 
 [node name="BreakableScreen" parent="." instance=ExtResource("9_7o3x6")]
 position = Vector2(68, -46)

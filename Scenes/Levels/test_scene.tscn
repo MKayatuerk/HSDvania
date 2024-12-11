@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=4 uid="uid://cdekeyywmkg5h"]
+[gd_scene load_steps=18 format=4 uid="uid://cdekeyywmkg5h"]
 
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="2_grix3"]
 [ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="7_45nvw"]
+[ext_resource type="PackedScene" uid="uid://p0yja3dph7f3" path="res://Scenes/fliegendeschrifftrolle.tscn" id="9_kbq8v"]
+[ext_resource type="PackedScene" uid="uid://d8d1lpk6y6yt" path="res://Scenes/enemy_professor.tscn" id="10_ckx50"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="13_lnqqi"]
 [ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="14_6xla7"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="15_0thas"]
@@ -96,6 +98,8 @@ _data = {
 "RESET": SubResource("Animation_jnoqb"),
 "move": SubResource("Animation_52t5h")
 }
+
+[sub_resource type="Curve2D" id="Curve2D_tf50i"]
 
 [node name="Testscene" type="Node2D"]
 script = SubResource("GDScript_l0wr7")
@@ -195,5 +199,18 @@ scale = Vector2(0.186862, 0.0483004)
 
 [node name="Spike3" parent="." instance=ExtResource("18_m10ag")]
 position = Vector2(344, 490)
+
+[node name="fliegendeschrifftrolle" parent="." node_paths=PackedStringArray("path") instance=ExtResource("9_kbq8v")]
+position = Vector2(383, 446)
+path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="fliegendeschrifftrolle"]
+curve = SubResource("Curve2D_tf50i")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="fliegendeschrifftrolle/Path2D"]
+
+[node name="EnemyProfessor" parent="." instance=ExtResource("10_ckx50")]
+position = Vector2(224, 472)
+scale = Vector2(0.4, 0.4)
 
 [connection signal="body_entered" from="DoubleJumpUpgrade/Area2D" to="TestCharacter" method="_on_area_2d_body_entered"]

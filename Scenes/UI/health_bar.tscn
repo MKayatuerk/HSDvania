@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Scripts/ui/health_bar.gd" id="1_60kp5"]
 
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4yxoh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ls5x"]
