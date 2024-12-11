@@ -9,11 +9,11 @@ var path_follow_2D : PathFollow2D = null;
 
 
 func _ready():
-    global_position = Vector2(415, 458)  # Stelle sicher, dass diese Position sichtbar ist
-    print("Schrifttrolle positioniert bei: ", global_position)
-    print("fliegendschriftrolle is ready at position: ", global_position)
-    # Mit getTree den Player suchen
-    player = get_node("../TestCharacter") as Node2D
+	global_position = Vector2(415, 458)  # Stelle sicher, dass diese Position sichtbar ist
+	print("Schrifttrolle positioniert bei: ", global_position)
+	print("fliegendschriftrolle is ready at position: ", global_position)
+	# Mit getTree den Player suchen
+	player = get_node("../TestCharacter") as Node2D
    # player = get_tree().root.get_node("TestCharacter") as Node2D
 	if player == null:
 		print("player not found")

@@ -74,7 +74,7 @@ func _ready() -> void:
 	Signalhive.connect("transported_player", _move_through_door)
 	Signalhive.connect("retry", _retry)
 	
-	Signalhive.connect("collected_bafoeg", _collected_bafoeg)
+	##Signalhive.connect("collected_bafoeg", _collected_bafoeg)
 	Signalhive.connect("collected_double_jump",_collected_double_jump)
 	
 	Signalhive.connect("entered_cutsene", _lock_movement)
@@ -276,8 +276,6 @@ func _collected_double_jump() -> void:
 	_has_double_jump_upgrade = true
 
 
-func _collected_bafoeg() -> void:
-	print("yippie")
 
 func _touching_ladder() -> void:
 	_can_climb = true
@@ -354,3 +352,10 @@ func cancelAttack():
 		animation.kill()
 		current_weapon.queue_free()
 		_can_attack = true
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Throw":
+		print("lol")
+	else:
+		print("lmao")
