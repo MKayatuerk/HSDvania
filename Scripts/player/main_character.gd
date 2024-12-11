@@ -18,6 +18,8 @@ const CLIMBING_SPEED = -50
 @onready var inv_timer: Timer = $"Invincibilty timer"
 @onready var jump_buffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
+@onready var player_collision = $CollisionShape2D
+
 
 ### HEALTH ###
 #var hearts:int = 3
@@ -60,6 +62,7 @@ var animation: Tween
 
 var current_weapon
 
+
 func _ready() -> void:
 	#Subscribing to relevant signals
 	Signalhive.connect("collected",_collected)
@@ -80,6 +83,8 @@ func _ready() -> void:
 	Signalhive.connect("entered_cutsene", _lock_movement)
 	Signalhive.connect("exited_cutscene", _unlock_movement)
 	
+	Signalhive.connect("entered_stairs", is_on_stairs)
+	Signalhive.connect("left_stairs", is_on_stairs)
 
 func _collected(collectible: Collectible)-> void:
 	print("Collected item: ", collectible.item_name)
@@ -354,8 +359,19 @@ func cancelAttack():
 		_can_attack = true
 
 
+func is_on_stairs(isOnStairs: bool) -> void:
+	print(isOnStairs)
+	if isOnStairs:
+		player_collision.disabled = true
+		player_collision.set_deferred("disabled",true)
+	else:
+		player_collision.disabled = false
+		player_collision.set_deferred("disabled",false)
+
+
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Throw":
 		print("lol")
 	else:
 		print("lmao")
+

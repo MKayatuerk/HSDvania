@@ -149,9 +149,8 @@ texture = ExtResource("1_su0no")
 8:4/0 = 0
 7:4/0 = 0
 6:4/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-8:3/0 = 0
+6:4/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, 8, -8, 6, -5.25, 5.875, -4.875, 2, -0.75, 2, -0.625, -2, 3.375, -2.625, 3.625, -6.75, 8, -6.375, 8, -4.5, 4.5, -4.25, 4.25, -0.625, 0.25, -0.25, 0.5, 3.375, -3.875, 4.125, -4, 6.875)
+6:4/0/custom_data_2 = true
 
 [sub_resource type="TileSet" id="TileSet_k67dp"]
 physics_layer_0/collision_layer = 1
@@ -165,8 +164,11 @@ custom_data_layer_0/name = "Danger"
 custom_data_layer_0/type = 1
 custom_data_layer_1/name = "PickUp"
 custom_data_layer_1/type = 2
+custom_data_layer_2/name = "IsOnStair"
+custom_data_layer_2/type = 1
 sources/0 = SubResource("TileSetAtlasSource_ob1wx")
 
 [node name="TileMapLayer" type="TileMapLayer"]
 texture_filter = 1
 tile_set = SubResource("TileSet_k67dp")
+collision_visibility_mode = 1
