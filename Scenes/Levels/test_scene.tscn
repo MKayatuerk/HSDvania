@@ -1,19 +1,10 @@
-[gd_scene load_steps=23 format=4 uid="uid://disecxccod4q0"]
+[gd_scene load_steps=14 format=4 uid="uid://cdekeyywmkg5h"]
 
 [ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="2_grix3"]
-[ext_resource type="Texture2D" uid="uid://cjoenf5dq2emq" path="res://Assets/goldCoin1.png" id="3_j08jm"]
-[ext_resource type="Texture2D" uid="uid://cfvmtun86i3x6" path="res://Assets/goldCoin2.png" id="4_ofiuv"]
-[ext_resource type="Texture2D" uid="uid://dxenmm7qy623t" path="res://Assets/goldCoin3.png" id="5_rc4om"]
-[ext_resource type="Texture2D" uid="uid://dysq1kq0uc52p" path="res://Assets/goldCoin4.png" id="6_5tino"]
-[ext_resource type="Texture2D" uid="uid://cvkbuabwf1qom" path="res://Assets/goldCoin5.png" id="7_45nvw"]
-[ext_resource type="Texture2D" uid="uid://cvcm866t3418" path="res://Assets/goldCoin6.png" id="8_3854g"]
-[ext_resource type="Texture2D" uid="uid://c0ulpblofb21y" path="res://Assets/goldCoin7.png" id="9_c3eea"]
-[ext_resource type="Texture2D" uid="uid://7va4dvfxflww" path="res://Assets/goldCoin8.png" id="10_owq05"]
-[ext_resource type="Texture2D" uid="uid://d10ggjihnpalg" path="res://Assets/goldCoin9.png" id="11_miq2v"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="13_lnqqi"]
 [ext_resource type="PackedScene" uid="uid://4evetl6d01h1" path="res://Scenes/enemy.tscn" id="14_6xla7"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="15_0thas"]
-[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/main_character.tscn" id="16_fy74t"]
+[ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/Player/main_character.tscn" id="16_fy74t"]
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="17_0jrav"]
 [ext_resource type="PackedScene" uid="uid://dom3nqecplk56" path="res://Scenes/Geometry/spike.tscn" id="18_m10ag"]
 
@@ -32,31 +23,31 @@ func _process(delta: float) -> void:
 animations = [{
 "frames": [{
 "duration": 2.0,
-"texture": ExtResource("3_j08jm")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ofiuv")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_rc4om")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_5tino")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_45nvw")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_3854g")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_c3eea")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_owq05")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_miq2v")
+"texture": null
 }],
 "loop": true,
 "name": &"default",

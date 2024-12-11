@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://mjh3aku36l4c"]
+
+[ext_resource type="FontFile" uid="uid://c1ph3eh4mmfws" path="res://Assets/Fonts/Pixelcastle-Regular.otf" id="1_4858b"]
+[ext_resource type="Script" path="res://Scripts/Globals/textbox.gd" id="1_lux0d"]
+[ext_resource type="AudioStream" uid="uid://dgcxg32dsrrup" path="res://Audio/Sfx/menu-button-88360.mp3" id="3_ap4rs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sroqx"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="Textbox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_lux0d")
+
+[node name="TextboxContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -217.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/TextboxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sroqx")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TextboxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/TextboxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/TextboxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Start" type="Label" parent="CanvasLayer/TextboxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_4858b")
+theme_override_font_sizes/font_size = 30
+text = ">"
+
+[node name="Label" type="Label" parent="CanvasLayer/TextboxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_4858b")
+theme_override_font_sizes/font_size = 50
+text = "Placeholder b"
+autowrap_mode = 2
+clip_text = true
+
+[node name="End" type="Label" parent="CanvasLayer/TextboxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_4858b")
+theme_override_font_sizes/font_size = 30
+text = ">"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ap4rs")

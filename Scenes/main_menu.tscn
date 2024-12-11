@@ -1,10 +1,35 @@
-[gd_scene load_steps=14 format=3 uid="uid://dx5ory3yth7fh"]
+[gd_scene load_steps=21 format=3 uid="uid://dx5ory3yth7fh"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_2x5gi"]
 [ext_resource type="FontFile" uid="uid://c1ph3eh4mmfws" path="res://Assets/Fonts/Pixelcastle-Regular.otf" id="1_5rnvp"]
-[ext_resource type="Texture2D" uid="uid://bf71rf7fw2eb8" path="res://Assets/Character/hsvaniaChar.png" id="2_xd77l"]
+[ext_resource type="Shader" path="res://Shaders/transition.gdshader" id="2_qbtis"]
+[ext_resource type="Texture2D" uid="uid://b1qhvlt7e0crc" path="res://Assets/Character/hsvaniaChar.png" id="2_xd77l"]
 [ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="3_3uh6r"]
-[ext_resource type="Texture2D" uid="uid://bjx38o2wxur5f" path="res://Assets/BG City.jpg" id="5_apyia"]
+[ext_resource type="AudioStream" uid="uid://dgcxg32dsrrup" path="res://Audio/Sfx/menu-button-88360.mp3" id="5_33i56"]
+[ext_resource type="Texture2D" uid="uid://gqg0btfqotd" path="res://Assets/VorlesungBackground.png" id="5_moo2q"]
+[ext_resource type="AudioStream" uid="uid://cpk3ea78rbr5k" path="res://Audio/Sfx/gong.mp3" id="6_p08nm"]
+[ext_resource type="AudioStream" uid="uid://crfs00c8t10j5" path="res://Audio/Music/04 Evil Garden.mp3" id="7_gvusp"]
+[ext_resource type="AudioStream" uid="uid://c5edmqn0hx30t" path="res://Audio/Sfx/hsdvaniasfx.mp3" id="7_sq6hm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kbv7k"]
+shader = ExtResource("2_qbtis")
+shader_parameter/progress = 0.175
+shader_parameter/pixelation_amount = 0.2
+shader_parameter/mask_scale = Vector2(1, 1)
+shader_parameter/mask_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ukipp"]
+font = ExtResource("1_5rnvp")
+font_size = 128
+font_color = Color(0.9, 0.9, 0.9, 1)
+shadow_size = 0
+shadow_color = Color(0.00860005, 0.230345, 0.105107, 1)
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ev50"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3ig0q"]
+size = Vector2(200, 200)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cw0o"]
 atlas = ExtResource("2_xd77l")
@@ -49,16 +74,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ukipp"]
-font = ExtResource("1_5rnvp")
-font_size = 128
-font_color = Color(0.9, 0.8118, 0.648, 1)
-shadow_size = 0
-shadow_color = Color(0.192157, 0.152941, 0.329412, 1)
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ev50"]
-
 [node name="main_menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -73,6 +88,15 @@ position = Vector2(576, 324)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="Transition" type="ColorRect" parent="UI"]
+z_index = 1
+material = SubResource("ShaderMaterial_kbv7k")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,11 +104,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_right = 96
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI/MarginContainer"]
-position = Vector2(255, 420)
-scale = Vector2(8, 8)
-sprite_frames = SubResource("SpriteFrames_i03ep")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
 layout_mode = 2
@@ -128,31 +147,44 @@ theme_override_font_sizes/font_size = 64
 text = "Beenden
 "
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="UiHoverSfx" type="AudioStreamPlayer" parent="UI/MarginContainer/VBoxContainer"]
+stream = ExtResource("5_33i56")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(1000, 0)
+[node name="GongSfx" type="AudioStreamPlayer" parent="UI/MarginContainer/VBoxContainer"]
+stream = ExtResource("6_p08nm")
+volume_db = -3.0
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-scale = Vector2(0.47, 0.385)
-texture = ExtResource("5_apyia")
+[node name="HsdVaniaSfx" type="AudioStreamPlayer" parent="UI/MarginContainer/VBoxContainer"]
+stream = ExtResource("7_sq6hm")
+volume_db = 10.0
+
+[node name="Occluder" type="Sprite2D" parent="UI/MarginContainer"]
+clip_children = 1
+texture = SubResource("PlaceholderTexture2D_3ig0q")
+offset = Vector2(327.53, 303.695)
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="UI/MarginContainer/Occluder"]
+texture_filter = 1
+position = Vector2(322.895, 341.26)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_i03ep")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(6.72165, 6.72165)
+texture = ExtResource("5_moo2q")
 centered = false
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.75, 0.75)
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_gvusp")
+autoplay = true
+parameters/looping = false
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.25, 0.25)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-visible = false
-
-[connection signal="ready" from="UI/MarginContainer/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_ready"]
+[connection signal="mouse_entered" from="UI/MarginContainer/VBoxContainer/Spielen" to="." method="_on_spielen_mouse_entered"]
 [connection signal="pressed" from="UI/MarginContainer/VBoxContainer/Spielen" to="." method="_on_spielen_pressed"]
+[connection signal="mouse_entered" from="UI/MarginContainer/VBoxContainer/Optionen" to="." method="_on_optionen_mouse_entered"]
 [connection signal="pressed" from="UI/MarginContainer/VBoxContainer/Optionen" to="." method="_on_optionen_pressed"]
+[connection signal="mouse_entered" from="UI/MarginContainer/VBoxContainer/Beenden" to="." method="_on_beenden_mouse_entered"]
 [connection signal="pressed" from="UI/MarginContainer/VBoxContainer/Beenden" to="." method="_on_beenden_pressed"]
+[connection signal="ready" from="UI/MarginContainer/Occluder/CharacterSprite" to="." method="_on_animated_sprite_2d_ready"]

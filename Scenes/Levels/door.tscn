@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=4 uid="uid://cs2uyfgbxpa8b"]
+
+[ext_resource type="Script" path="res://Scripts/door.gd" id="1_6b5f5"]
+[ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="2_a5h8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7qp4"]
+size = Vector2(43, 45)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_6b5f5")
+
+[node name="TileMapLayer" parent="." instance=ExtResource("2_a5h8v")]
+tile_map_data = PackedByteArray("AAD+//7/AAAGAAIAAAD+////AAAGAAMAAAD+/wAAAAAGAAQAAAD///7/AAAHAAIAAAD/////AAAHAAMAAAD//wAAAAAHAAQAAAAAAP7/AAAIAAIAAAAAAP//AAAIAAMAAAAAAAAAAAAIAAQAAAABAP7/AAAJAAIAAAABAP//AAAJAAMAAAABAAAAAAAJAAQAAAA=")
+
+[node name="Leading to Label" type="Label" parent="."]
+offset_left = -21.0
+offset_top = -46.0
+offset_right = 19.0
+offset_bottom = -29.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -7.5)
+shape = SubResource("RectangleShape2D_t7qp4")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
