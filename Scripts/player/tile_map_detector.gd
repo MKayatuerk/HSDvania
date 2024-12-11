@@ -3,6 +3,7 @@ extends Node
 var tilemap: TileMapLayer
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	print("test")
 	if body is TileMapLayer:
 		tilemap = body
 		var collided_tile_cord = tilemap.get_coords_for_body_rid(body_rid)
@@ -18,3 +19,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 				print("hey")
 				tilemap.set_cell(collided_tile_cord,-1)
 				Signalhive.emit_signal("collected_double_jump")
+			if tile_data.get_custom_data("IsOnStair"):
+				Signalhive.emit_signal("entered_stairs",true)
+			else: 
+				Signalhive.emit_signal("left_stairs",false)

@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=16 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
-[ext_resource type="Texture2D" uid="uid://b1qhvlt7e0crc" path="res://Assets/Character/hsvaniaChar.png" id="3_lopyr"]
+[ext_resource type="Texture2D" uid="uid://f72sc4gkylkk" path="res://Scenes/Player/hsvaniaChar.png" id="3_lopyr"]
 [ext_resource type="Script" path="res://Scripts/player/inventory.gd" id="5_bg747"]
 
 [sub_resource type="Gradient" id="Gradient_3sj60"]
@@ -84,11 +84,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4srqk"]
 size = Vector2(12, 24)
 
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_qd464"]
-length = 16.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrcnv"]
-size = Vector2(16, 20)
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_4cuvp"]
+length = 18.0
 
 [node name="TestCharacter" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -97,7 +94,7 @@ script = ExtResource("1_j7k8t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 2)
-zoom = Vector2(4, 4)
+zoom = Vector2(5, 5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -147,18 +144,16 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(-1, 2.25)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_4srqk")
 
 [node name="Tilemapdetector" parent="." instance=ExtResource("3_brbqs")]
-visible = false
 position = Vector2(0, 4)
 scale = Vector2(0.434009, 0.997852)
-collision_mask = 67
 
-[node name="RaySeperationShape" type="CollisionShape2D" parent="."]
-position = Vector2(4, 0)
-shape = SubResource("SeparationRayShape2D_qd464")
+[node name="CollisionShape2D" parent="Tilemapdetector" index="0"]
+position = Vector2(0, 1.00215)
+scale = Vector2(1, 1)
 
 [node name="WeaponSocket" type="Node2D" parent="."]
 position = Vector2(12, 4)
@@ -166,11 +161,12 @@ position = Vector2(12, 4)
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("5_bg747")
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
+[node name="RaySeperation" type="CollisionShape2D" parent="."]
+position = Vector2(4, 0)
+shape = SubResource("SeparationRayShape2D_4cuvp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_jrcnv")
-
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
 [connection signal="timeout" from="gameovertimer" to="." method="_on_gameovertimer_timeout"]
+
+[editable path="Tilemapdetector"]

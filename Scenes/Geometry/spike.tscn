@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/damage_area.gd" id="1_yie8u"]
 [ext_resource type="Texture2D" uid="uid://bvlodlievh2x6" path="res://Assets/spike A.png" id="2_l2d2f"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wtft"]
 size = Vector2(242.627, 161.752)
 
