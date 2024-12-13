@@ -11,10 +11,10 @@ func _on_spielen_pressed() -> void:
 	hsdvania_sfx.play()
 	await get_tree().create_timer(3).timeout
 	get_tree().change_scene_to_file("res://Scenes/Levels/main_hall.tscn")
-	
-	
+
+
 func _on_optionen_pressed() -> void:
-	pass
+	$Settings.ToggleVisibility(true)
 
 func _on_beenden_pressed() -> void:
 	get_tree().quit()
@@ -28,7 +28,7 @@ func _on_animated_sprite_2d_ready() -> void:
 
 
 func _on_spielen_mouse_entered() -> void:
-		ui_hover_sound.play()
+	ui_hover_sound.play()
 
 
 func _on_optionen_mouse_entered() -> void:

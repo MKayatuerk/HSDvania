@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=3 uid="uid://b67r3klauhadi"]
+
+[ext_resource type="Script" path="res://Scripts/ui/settings.gd" id="1_kvspi"]
+[ext_resource type="Texture2D" uid="uid://gqg0btfqotd" path="res://Assets/VorlesungBackground.png" id="2_xu6hs"]
+[ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="3_w8ixo"]
+[ext_resource type="PackedScene" uid="uid://ck8cocmaryugc" path="res://Scenes/Sound/sfx_handler.tscn" id="4_q6ftk"]
+[ext_resource type="AudioStream" uid="uid://dgcxg32dsrrup" path="res://Audio/Sfx/menu-button-88360.mp3" id="5_5e1kk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_clyhs"]
+font_size = 40
+shadow_size = 14
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("overlay", "background")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kvspi")
+overlay = NodePath("Overlay")
+background = NodePath("Background")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = 5
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xu6hs")
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+layer = 10
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Overlay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.5
+offset_top = -30.0
+offset_right = 134.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Master Volume" type="Label" parent="Overlay/VBoxContainer"]
+layout_mode = 2
+text = "Master Volume"
+label_settings = SubResource("LabelSettings_clyhs")
+
+[node name="MasterVolume" type="HSlider" parent="Overlay/VBoxContainer"]
+layout_mode = 2
+min_value = -60.0
+max_value = 0.0
+
+[node name="Back" type="Button" parent="Overlay"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 59.0
+offset_top = -115.0
+offset_right = 269.0
+offset_bottom = -45.0
+grow_vertical = 0
+theme = ExtResource("3_w8ixo")
+theme_override_font_sizes/font_size = 70
+text = "BACK"
+
+[node name="MenuSound" parent="Overlay/Back" instance=ExtResource("4_q6ftk")]
+stream = ExtResource("5_5e1kk")
+
+[connection signal="value_changed" from="Overlay/VBoxContainer/MasterVolume" to="." method="_on_master_volume_value_changed"]
+[connection signal="mouse_entered" from="Overlay/Back" to="." method="_on_back_mouse_entered"]
+[connection signal="pressed" from="Overlay/Back" to="." method="_on_back_pressed"]

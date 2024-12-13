@@ -9,6 +9,7 @@ const CLIMBING_SPEED = -50
 @export var jump_height: float = 60
 @export var jump_seconds_to_peak: float = 0.5
 @export var jump_seconds_to_descent: float = 0.3
+@export var setting_screen: Control
 
 @onready var jump_velocity: float = ((2 * jump_height) / jump_seconds_to_peak) * -1
 @onready var jump_gravity: float = ((-2 * jump_height) / pow(jump_seconds_to_peak,2)) * -1
@@ -110,14 +111,19 @@ func _weapon_dropped(old_weapon: Weapon) -> void:
 
 #Main loop of the character
 func _physics_process(delta: float) -> void:
-	if !_is_in_cutscene:
-		gravity(delta)
-		handleJump(delta)
-		_was_on_floor = is_on_floor()
-		handleMovement()
-		attack()
-		prevVelocity = velocity
-		prevDirection = direction
+	if Input.is_action_just_pressed("pause"):
+		GlobalVariables.paused = !GlobalVariables.paused
+		setting_screen.ToggleVisibility(GlobalVariables.paused)
+	
+	if !GlobalVariables.paused:
+		if !_is_in_cutscene:
+			gravity(delta)
+			handleJump(delta)
+			_was_on_floor = is_on_floor()
+			handleMovement()
+			attack()
+			prevVelocity = velocity
+			prevDirection = direction
 
 
 # Function that handles the Jump functionality
@@ -374,4 +380,3 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		print("lol")
 	else:
 		print("lmao")
-
