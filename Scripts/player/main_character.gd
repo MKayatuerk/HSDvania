@@ -128,27 +128,27 @@ func _physics_process(delta: float) -> void:
 
 # Function that handles the Jump functionality
 func handleJump(delta: float)-> void:
-	 
-	if Input.is_action_just_pressed("jump"):
-		jump_buffer.start(0.10)
-		# Check for the diffrent possible cases when pressing jump
-		if  is_on_floor():
-			velocity.y = jump_velocity
-			
-		# Handle the double jump
-		elif !is_on_floor() and (canCurrentlyDoubleJump() or coyotee_timer.time_left > 0):
-			if coyotee_timer.time_left == 0:
-				_can_double_jump = false
-			velocity.y = jump_velocity
-	elif is_on_floor() and (jump_buffer.time_left > 0):
-		velocity.y = jump_velocity
-		
-	#Allows for variable Jumphight
-	elif Input.is_action_just_released("jump"):
-		velocity.y *= 0.3
-	#Enable double Jump when on the floor
-	if(velocity.y == 0):
-		_can_double_jump = true
+     
+    if Input.is_action_just_pressed("jump"):
+        jump_buffer.start(0.10)
+        # Check for the diffrent possible cases when pressing jump
+        if  is_on_floor():
+            velocity.y = jump_velocity
+            
+        # Handle the double jump
+        elif !is_on_floor() and (canCurrentlyDoubleJump() or coyotee_timer.time_left > 0):
+            if coyotee_timer.time_left == 0:
+                _can_double_jump = false
+            velocity.y = jump_velocity
+    elif is_on_floor() and (jump_buffer.time_left > 0):
+        velocity.y = jump_velocity
+        
+    #Allows for variable Jumphight
+    elif Input.is_action_just_released("jump"):
+        velocity.y *= 0.3
+    #Enable double Jump when on the floor
+    if(velocity.y == 0):
+        _can_double_jump = true
 
 
 
@@ -201,13 +201,13 @@ func handleMovement()-> void:
 
 # Function that fires the walking animation of the player upon walking
 func update_animations(horizontal_direction):
-	if is_on_floor():
-		if horizontal_direction == 0:
-			animationPlayer.play("Idle")
-		else:
-			animationPlayer.play("Walk")
-	else:
-		pass
+    if is_on_floor():
+        if horizontal_direction == 0:
+            animationPlayer.play("Idle")
+        else:
+            animationPlayer.play("Walk")
+    else:
+        pass
 
 
 
@@ -216,17 +216,17 @@ func _damage_healed(damage_healed) -> void:
 	
 
 func _damage_taken(damage_taken) -> void:
-	if _is_invincible:
-		return
-		
-	knockback()
-	update_health(damage_taken)
-	
-	$Sprite2D.material.set_shader_parameter("hit", true)
-	
-	_is_invincible = true
-	_can_move = false
-	inv_timer.start(0.3)
+    if _is_invincible:
+        return
+        
+    knockback()
+    update_health(damage_taken)
+    
+    $Sprite2D.material.set_shader_parameter("hit", true)
+    
+    _is_invincible = true
+    _can_move = false
+    inv_timer.start(0.3)
 
 
 func update_health(damage_taken) -> void:
@@ -241,42 +241,42 @@ func update_health(damage_taken) -> void:
 
 
 func gravity(delta:float):
-		# Add the gravity
-	if  not is_on_floor():
-		if velocity.y < 0:
-			velocity.y += jump_gravity * delta
-		else:
-			velocity.y += fall_gravity * delta
-		
-		if _was_on_floor:
-			coyotee_timer.start(0.10)
+        # Add the gravity
+    if  not is_on_floor():
+        if velocity.y < 0:
+            velocity.y += jump_gravity * delta
+        else:
+            velocity.y += fall_gravity * delta
+        
+        if _was_on_floor:
+            coyotee_timer.start(0.10)
 
 func attack() -> void:
-	if Input.is_action_just_pressed("attack") and _can_attack:
-		
-		add_child(_instantiate_weapon(), true)
-		
-		current_weapon = get_child(-1)
-		animation = get_tree().create_tween()
-		animation.connect("finished", _attack_tween_finished)
-		
-		if !_can_attack:
-			return
-		else:
-			_can_attack = false
-			animation.tween_property(current_weapon, "position:x" , direction * 12, 0.5)
-			animation.tween_property(current_weapon, "position:x" , 0, 0.7)
-			animation.tween_callback(current_weapon.queue_free)
+    if Input.is_action_just_pressed("attack") and _can_attack:
+        
+        add_child(_instantiate_weapon(), true)
+        
+        current_weapon = get_child(-1)
+        animation = get_tree().create_tween()
+        animation.connect("finished", _attack_tween_finished)
+        
+        if !_can_attack:
+            return
+        else:
+            _can_attack = false
+            animation.tween_property(current_weapon, "position:x" , direction * 12, 0.5)
+            animation.tween_property(current_weapon, "position:x" , 0, 0.7)
+            animation.tween_callback(current_weapon.queue_free)
 
 
 
 #Function that returns true if all conditions are met to allow the character
 #To double jump
 func canCurrentlyDoubleJump() -> bool:
-	if _has_double_jump_upgrade and _can_double_jump:
-		return true
-	else:
-		return false
+    if _has_double_jump_upgrade and _can_double_jump:
+        return true
+    else:
+        return false
 
 
 
@@ -289,35 +289,35 @@ func _collected_double_jump(_pos, _type) -> void:
 
 
 func _touching_ladder() -> void:
-	_can_climb = true
-	
+    _can_climb = true
+    
 
 
 func _leaving_ladder() -> void:
-	_can_climb = false
-	
+    _can_climb = false
+    
 
 func _move_through_door(newPos: Vector2) -> void:
-	print(newPos)
-	position = newPos
+    print(newPos)
+    position = newPos
 
 func _on_invincibilty_timer_timeout() -> void:
-	_can_move = true
-	_is_invincible = false
-	$Sprite2D.material.set_shader_parameter("hit", false)
+    _can_move = true
+    _is_invincible = false
+    $Sprite2D.material.set_shader_parameter("hit", false)
 
 
 	
 
 
 func knockback()-> void:
-	
-	if velocity.x >= 0:
-		velocity.x = -120
-	else:
-		velocity.x = 120
-	velocity.y = -230
-	
+    
+    if velocity.x >= 0:
+        velocity.x = -120
+    else:
+        velocity.x = 120
+    velocity.y = -230
+    
 
 func _retry() -> void:
 	health = 100
@@ -329,12 +329,12 @@ func _retry() -> void:
 	_unlock_movement()
 
 func _game_over() -> void:
-	
-	Signalhive.emit_signal("player_died")
-	Engine.time_scale = 0.3
-	$gameovertimer.start(0.7)
+    
+    Signalhive.emit_signal("player_died")
+    Engine.time_scale = 0.3
+    $gameovertimer.start(0.7)
 
-	
+    
 func _lock_movement() -> void:
 	_is_in_cutscene = true
 	animationPlayer.play("Idle")
@@ -346,16 +346,16 @@ func _unlock_movement()-> void:
 
 
 func _on_gameovertimer_timeout() -> void:
-	_lock_movement()
-	
+    _lock_movement()
+    
 
 func _attack_tween_finished():
-	_can_attack = true
+    _can_attack = true
 
 
 func _instantiate_weapon() -> Node2D:
-	var weapon_instance = shortsword.instantiate()
-	return weapon_instance
+    var weapon_instance = shortsword.instantiate()
+    return weapon_instance
 
 
 func cancelAttack():
