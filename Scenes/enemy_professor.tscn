@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d8d1lpk6y6yt"]
+[gd_scene load_steps=25 format=3 uid="uid://x7fudq03qswp"]
 
 [ext_resource type="Texture2D" uid="uid://bvqgj6gm74eu0" path="res://Assets/profsprite-RecoveredRichtig.png" id="1_d7l7c"]
 [ext_resource type="Script" path="res://Scripts/enemy_professor.gd" id="1_eprlo"]
@@ -159,9 +159,8 @@ script = ExtResource("1_eprlo")
 position = Vector2(0, 5)
 scale = Vector2(1, 1.07813)
 sprite_frames = SubResource("SpriteFrames_ijt5o")
-animation = &"Walking"
+animation = &"idle"
 autoplay = "Walking"
-frame_progress = 0.929658
 
 [node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
 

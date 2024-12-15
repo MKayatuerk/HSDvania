@@ -12,7 +12,8 @@ var can_shoot = true
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ToPlayer: RayCast2D = $ToPlayer
 @onready var bullet_scene: PackedScene = preload("res://Scenes/Bullet.tscn")  # Adjust path as necessary
-@onready var player = get_tree().get_nodes_in_group("PlayerGroup")[0]
+@onready var player = $"../MainCharacter"
+#get_tree().get_nodes_in_group("PlayerGroup")[0]
 # Called every frame.
 func _process(delta):
 	# Check for collisions and flip direction

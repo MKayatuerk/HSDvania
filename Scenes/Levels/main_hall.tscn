@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=35 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dk5ielqnfwhr7" path="res://Scenes/Player/collectible.tscn" id="10_bmssv"]
 [ext_resource type="PackedScene" uid="uid://t3hiy8bby8og" path="res://Scenes/Player/weapon.tscn" id="11_ak6e8"]
 [ext_resource type="AudioStream" uid="uid://but24qro7p6if" path="res://Audio/Music/geoffreygunn+aquaticrealmofthespirits.mp3" id="12_mjm0q"]
+[ext_resource type="PackedScene" uid="uid://x7fudq03qswp" path="res://Scenes/enemy_professor.tscn" id="13_nfxwl"]
 
 [sub_resource type="Gradient" id="Gradient_lcahi"]
 
@@ -180,12 +181,6 @@ _data = {
 "moveToElevator": SubResource("Animation_f2agk"),
 "to_DBS": SubResource("Animation_gltiv")
 }
-
-[sub_resource type="Curve2D" id="Curve2D_fu0i2"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 80, -46.6667, 0, 0, 0, 0, 180, -150, 0, 0, 0, 0, 243.333, -46.6667, 0, 0, 0, 0, 306.667, -140, 0, 0, 0, 0, 400, -53.3333, 0, 0, 0, 0, 240, 43.3333, 0, 0, 0, 0, 80, -46.6667)
-}
-point_count = 7
 
 [node name="Main Hall" type="Node2D"]
 script = ExtResource("1_jo633")
@@ -383,3 +378,6 @@ position = Vector2(69, -378)
 stream = ExtResource("12_mjm0q")
 autoplay = true
 parameters/looping = false
+
+[node name="EnemyProfessor" parent="." instance=ExtResource("13_nfxwl")]
+position = Vector2(871, -75)
