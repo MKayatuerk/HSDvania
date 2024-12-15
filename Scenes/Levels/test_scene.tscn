@@ -96,6 +96,8 @@ _data = {
 "move": SubResource("Animation_52t5h")
 }
 
+[sub_resource type="Curve2D" id="Curve2D_tf50i"]
+
 [node name="Testscene" type="Node2D"]
 script = SubResource("GDScript_l0wr7")
 
@@ -194,5 +196,18 @@ scale = Vector2(0.186862, 0.0483004)
 
 [node name="Spike3" parent="." instance=ExtResource("18_m10ag")]
 position = Vector2(344, 490)
+
+[node name="fliegendeschrifftrolle" parent="." node_paths=PackedStringArray("path") instance=ExtResource("9_kbq8v")]
+position = Vector2(383, 446)
+path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="fliegendeschrifftrolle"]
+curve = SubResource("Curve2D_tf50i")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="fliegendeschrifftrolle/Path2D"]
+
+[node name="EnemyProfessor" parent="." instance=ExtResource("10_ckx50")]
+position = Vector2(224, 472)
+scale = Vector2(0.4, 0.4)
 
 [connection signal="body_entered" from="DoubleJumpUpgrade/Area2D" to="TestCharacter" method="_on_area_2d_body_entered"]

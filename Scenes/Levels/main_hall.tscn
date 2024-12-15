@@ -182,6 +182,12 @@ _data = {
 "to_DBS": SubResource("Animation_gltiv")
 }
 
+[sub_resource type="Curve2D" id="Curve2D_fu0i2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 80, -46.6667, 0, 0, 0, 0, 180, -150, 0, 0, 0, 0, 243.333, -46.6667, 0, 0, 0, 0, 306.667, -140, 0, 0, 0, 0, 400, -53.3333, 0, 0, 0, 0, 240, 43.3333, 0, 0, 0, 0, 80, -46.6667)
+}
+point_count = 7
+
 [node name="Main Hall" type="Node2D"]
 script = ExtResource("1_jo633")
 
