@@ -24,6 +24,7 @@ Signalhive="*res://Scripts/Globals/signal_hive.gd"
 GlobalCommands="*res://Scripts/Globals/global_commands.gd"
 TextBoxManager="*res://Scenes/UI/text_box.tscn"
 GlobalVariables="*res://Scripts/Globals/global_variables.gd"
+ProgressKeeper="*res://Scripts/Globals/progress.gd"
 
 [display]
 

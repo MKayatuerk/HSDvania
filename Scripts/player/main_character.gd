@@ -280,7 +280,7 @@ func canCurrentlyDoubleJump() -> bool:
 
 
 
-func _collected_double_jump() -> void:
+func _collected_double_jump(_pos, _type) -> void:
 	
 	Signalhive.emit_signal("queued_message","I found the Dual-Core boots!")
 	Signalhive.emit_signal("queued_message","With the power of multithreading, i can split the legwork to jump,  effectivly letting me double jump!")
@@ -338,11 +338,11 @@ func _game_over() -> void:
 func _lock_movement() -> void:
 	_is_in_cutscene = true
 	animationPlayer.play("Idle")
-	print("locked")
+	
 	
 func _unlock_movement()-> void:
 	_is_in_cutscene = false
-	print("unlocked")
+	
 
 
 func _on_gameovertimer_timeout() -> void:

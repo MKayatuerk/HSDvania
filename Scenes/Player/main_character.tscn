@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
-[ext_resource type="Texture2D" uid="uid://f72sc4gkylkk" path="res://Assets/Character/hsvaniaChar.png" id="3_lopyr"]
+[ext_resource type="Texture2D" uid="uid://f72sc4gkylkk" path="res://Scenes/Player/hsvaniaChar.png" id="3_lopyr"]
 [ext_resource type="Script" path="res://Scripts/player/inventory.gd" id="5_bg747"]
 [ext_resource type="PackedScene" uid="uid://b67r3klauhadi" path="res://Scenes/UI/settings.tscn" id="6_mgmb3"]
 

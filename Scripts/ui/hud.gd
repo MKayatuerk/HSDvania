@@ -34,6 +34,6 @@ func normal_HUD() -> void:
 	continue_sfx.play()
 
 
-func update_bafoeg_text() -> void:
+func update_bafoeg_text(_pos,_type) -> void:
 	bafoeg_count += 1
 	$BafoegText.text = str("Bafög: " ,bafoeg_count ,"/10")
