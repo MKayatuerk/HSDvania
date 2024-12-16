@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dk5ielqnfwhr7" path="res://Scenes/Player/collectible.tscn" id="10_bmssv"]
 [ext_resource type="PackedScene" uid="uid://t3hiy8bby8og" path="res://Scenes/Player/weapon.tscn" id="11_ak6e8"]
 [ext_resource type="AudioStream" uid="uid://but24qro7p6if" path="res://Audio/Music/geoffreygunn+aquaticrealmofthespirits.mp3" id="12_mjm0q"]
-[ext_resource type="PackedScene" uid="uid://x7fudq03qswp" path="res://Scenes/enemy_professor.tscn" id="13_nfxwl"]
+[ext_resource type="PackedScene" uid="uid://cqercf02o0yep" path="res://Scenes/Sound/MusicHandler.tscn" id="12_shslj"]
 
 [sub_resource type="Gradient" id="Gradient_lcahi"]
 
@@ -374,10 +374,6 @@ tile_map_data = PackedByteArray("AAD+//3/AAABAAEAAAD+//7/AAABAAEAAAD8//3/AAABAAE
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(69, -378)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicHandler" parent="." instance=ExtResource("12_shslj")]
 stream = ExtResource("12_mjm0q")
 autoplay = true
-parameters/looping = false
-
-[node name="EnemyProfessor" parent="." instance=ExtResource("13_nfxwl")]
-position = Vector2(871, -75)
