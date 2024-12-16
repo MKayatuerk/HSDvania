@@ -183,6 +183,7 @@ centered = false
 
 [node name="MusicHandler" parent="." instance=ExtResource("10_ukr7w")]
 stream = ExtResource("7_gvusp")
+volume_db = -5.0
 autoplay = true
 
 [node name="Settings" parent="." instance=ExtResource("12_nl856")]

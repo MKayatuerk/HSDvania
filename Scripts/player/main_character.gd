@@ -23,6 +23,7 @@ const CLIMBING_SPEED = -50
 
 @onready var pause_sfx = $Settings/PauseSfx
 @onready var continue_sfx = $Settings/ContinueSfx
+@onready var door_sfx = $DoorSfx
 @onready var jumping_sfx = $JumpingSfx
 @onready var attack1_sfx = $Attack1Sfx
 @onready var attack2_sfx = $Attack2Sfx
@@ -85,7 +86,7 @@ func _ready() -> void:
 	Signalhive.connect("transported_player", _move_through_door)
 	Signalhive.connect("retry", _retry)
 	
-	##Signalhive.connect("collected_bafoeg", _collected_bafoeg)
+	Signalhive.connect("collected_bafoeg", _collected_bafoeg)
 	Signalhive.connect("collected_double_jump",_collected_double_jump)
 	
 	Signalhive.connect("entered_cutsene", _lock_movement)
@@ -298,7 +299,14 @@ func _collected_double_jump(_pos, _type) -> void:
 	Signalhive.emit_signal("queued_message","With the power of multithreading, i can split the legwork to jump,  effectivly letting me double jump!")
 	_has_double_jump_upgrade = true
 
-
+func _collected_bafoeg(_pos, _type) -> void:
+	if(!GlobalVariables.collectedFirstBafoeg):
+		GlobalVariables.collectedFirstBafoeg = true
+		Signalhive.emit_signal("queued_message", "What is this? A piece of my Bafoeg Application?")
+		Signalhive.emit_signal("queued_message", "Oh no... Of course I forgot to finish my Bafoeg Application.")
+		Signalhive.emit_signal("queued_message", "I should collect all of these, and finish them as soon as I can!")
+	else:
+		Signalhive.emit_signal("queued_message", "Found another one!")
 
 func _touching_ladder() -> void:
 	_can_climb = true
@@ -310,6 +318,7 @@ func _leaving_ladder() -> void:
 	
 
 func _move_through_door(newPos: Vector2) -> void:
+	door_sfx.play()
 	print(newPos)
 	position = newPos
 

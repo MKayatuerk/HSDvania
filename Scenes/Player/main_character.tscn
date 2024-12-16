@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=25 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://c230y1h538cw" path="res://Audio/Sfx/continue.mp3" id="9_k0twx"]
 [ext_resource type="AudioStream" uid="uid://jl8ircfl3pku" path="res://Audio/Sfx/attack2.mp3" id="10_upi0k"]
 [ext_resource type="AudioStream" uid="uid://et5ex6cgu1hs" path="res://Audio/Sfx/attack3.mp3" id="11_5ijhs"]
+[ext_resource type="AudioStream" uid="uid://72m8qcfvbukt" path="res://Audio/Sfx/door.mp3" id="14_pmrrn"]
 
 [sub_resource type="Gradient" id="Gradient_3sj60"]
 offsets = PackedFloat32Array(0.350649, 0.814471)
@@ -192,6 +193,9 @@ stream = ExtResource("10_upi0k")
 
 [node name="Attack3Sfx" parent="." instance=ExtResource("5_5ls4o")]
 stream = ExtResource("11_5ijhs")
+
+[node name="DoorSfx" parent="." instance=ExtResource("5_5ls4o")]
+stream = ExtResource("14_pmrrn")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
