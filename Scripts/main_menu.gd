@@ -5,6 +5,8 @@ var ui_hover_sound = $UI/MarginContainer/VBoxContainer/UiHoverSfx
 var gong_sound = $UI/MarginContainer/VBoxContainer/GongSfx
 @onready
 var hsdvania_sfx = $UI/MarginContainer/VBoxContainer/HsdVaniaSfx
+@onready
+var quit_sfx = $UI/MarginContainer/VBoxContainer/QuitSfx
 
 func _on_spielen_pressed() -> void:
 	gong_sound.play()
@@ -17,6 +19,8 @@ func _on_optionen_pressed() -> void:
 	$Settings.ToggleVisibility(true)
 
 func _on_beenden_pressed() -> void:
+	quit_sfx.play()
+	await get_tree().create_timer(2).timeout
 	get_tree().quit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

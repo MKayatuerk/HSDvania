@@ -1,11 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=24 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
 [ext_resource type="Texture2D" uid="uid://f72sc4gkylkk" path="res://Scenes/Player/hsvaniaChar.png" id="3_lopyr"]
+[ext_resource type="PackedScene" uid="uid://ck8cocmaryugc" path="res://Scenes/Sound/sfx_handler.tscn" id="5_5ls4o"]
 [ext_resource type="Script" path="res://Scripts/player/inventory.gd" id="5_bg747"]
 [ext_resource type="PackedScene" uid="uid://b67r3klauhadi" path="res://Scenes/UI/settings.tscn" id="6_mgmb3"]
+[ext_resource type="AudioStream" uid="uid://dxu2b4frrrpdr" path="res://Audio/Sfx/pause.mp3" id="8_dige8"]
+[ext_resource type="AudioStream" uid="uid://b02yuh00q5g81" path="res://Audio/Sfx/jumping.mp3" id="8_sb0qx"]
+[ext_resource type="AudioStream" uid="uid://8c72ridg0cxb" path="res://Audio/Sfx/attack1.mp3" id="9_0iv4r"]
+[ext_resource type="AudioStream" uid="uid://c230y1h538cw" path="res://Audio/Sfx/continue.mp3" id="9_k0twx"]
+[ext_resource type="AudioStream" uid="uid://jl8ircfl3pku" path="res://Audio/Sfx/attack2.mp3" id="10_upi0k"]
+[ext_resource type="AudioStream" uid="uid://et5ex6cgu1hs" path="res://Audio/Sfx/attack3.mp3" id="11_5ijhs"]
 
 [sub_resource type="Gradient" id="Gradient_3sj60"]
 offsets = PackedFloat32Array(0.350649, 0.814471)
@@ -167,6 +174,24 @@ position = Vector2(4, 0)
 shape = SubResource("SeparationRayShape2D_4cuvp")
 
 [node name="Settings" parent="." instance=ExtResource("6_mgmb3")]
+
+[node name="PauseSfx" parent="Settings" instance=ExtResource("5_5ls4o")]
+stream = ExtResource("8_dige8")
+
+[node name="ContinueSfx" parent="Settings" instance=ExtResource("5_5ls4o")]
+stream = ExtResource("9_k0twx")
+
+[node name="JumpingSfx" parent="." instance=ExtResource("5_5ls4o")]
+stream = ExtResource("8_sb0qx")
+
+[node name="Attack1Sfx" parent="." instance=ExtResource("5_5ls4o")]
+stream = ExtResource("9_0iv4r")
+
+[node name="Attack2Sfx" parent="." instance=ExtResource("5_5ls4o")]
+stream = ExtResource("10_upi0k")
+
+[node name="Attack3Sfx" parent="." instance=ExtResource("5_5ls4o")]
+stream = ExtResource("11_5ijhs")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]

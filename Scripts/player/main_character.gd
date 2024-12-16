@@ -21,6 +21,13 @@ const CLIMBING_SPEED = -50
 @onready var coyotee_timer: Timer = $CoyoteeTimer
 @onready var player_collision = $CollisionShape2D
 
+@onready var pause_sfx = $Settings/PauseSfx
+@onready var continue_sfx = $Settings/ContinueSfx
+@onready var jumping_sfx = $JumpingSfx
+@onready var attack1_sfx = $Attack1Sfx
+@onready var attack2_sfx = $Attack2Sfx
+@onready var attack3_sfx = $Attack3Sfx
+
 
 ### HEALTH ###
 #var hearts:int = 3
@@ -113,6 +120,10 @@ func _weapon_dropped(old_weapon: Weapon) -> void:
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		GlobalVariables.paused = !GlobalVariables.paused
+		if GlobalVariables.paused:
+			pause_sfx.play()
+		else:
+			continue_sfx.play()
 		setting_screen.ToggleVisibility(GlobalVariables.paused)
 	
 	if !GlobalVariables.paused:
@@ -131,6 +142,7 @@ func handleJump(delta: float)-> void:
 	 
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer.start(0.10)
+		jumping_sfx.play()
 		# Check for the diffrent possible cases when pressing jump
 		if  is_on_floor():
 			velocity.y = jump_velocity
@@ -253,7 +265,7 @@ func gravity(delta:float):
 
 func attack() -> void:
 	if Input.is_action_just_pressed("attack") and _can_attack:
-		
+		handleAttackSound().play()
 		add_child(_instantiate_weapon(), true)
 		
 		current_weapon = get_child(-1)
@@ -380,3 +392,11 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		print("lol")
 	else:
 		print("lmao")
+
+func handleAttackSound() -> AudioStreamPlayer:
+	var rng = RandomNumberGenerator.new().randi_range(1,3)
+	print(rng)
+	match rng:
+		1: return attack1_sfx
+		2: return attack2_sfx
+		_: return attack3_sfx
