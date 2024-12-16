@@ -376,4 +376,5 @@ position = Vector2(69, -378)
 
 [node name="MusicHandler" parent="." instance=ExtResource("12_shslj")]
 stream = ExtResource("12_mjm0q")
+volume_db = -5.0
 autoplay = true
