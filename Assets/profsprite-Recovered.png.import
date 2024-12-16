@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1qhvlt7e0crc"
-valid=false
+uid="uid://bxrntrt64vs8m"
+path="res://.godot/imported/profsprite-Recovered.png-3d2e96e2cfc99dfb30425a7466322e10.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Character/hsvaniaChar.png"
+source_file="res://Assets/profsprite-Recovered.png"
+dest_files=["res://.godot/imported/profsprite-Recovered.png-3d2e96e2cfc99dfb30425a7466322e10.ctex"]
 
 [params]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://mjh3aku36l4c"]
+[gd_scene load_steps=6 format=3 uid="uid://mjh3aku36l4c"]
 
 [ext_resource type="FontFile" uid="uid://c1ph3eh4mmfws" path="res://Assets/Fonts/Pixelcastle-Regular.otf" id="1_4858b"]
 [ext_resource type="Script" path="res://Scripts/Globals/textbox.gd" id="1_lux0d"]
+[ext_resource type="PackedScene" uid="uid://ck8cocmaryugc" path="res://Scenes/Sound/sfx_handler.tscn" id="3_5shk6"]
 [ext_resource type="AudioStream" uid="uid://dgcxg32dsrrup" path="res://Audio/Sfx/menu-button-88360.mp3" id="3_ap4rs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sroqx"]
@@ -70,5 +71,5 @@ theme_override_fonts/font = ExtResource("1_4858b")
 theme_override_font_sizes/font_size = 30
 text = ">"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" parent="." instance=ExtResource("3_5shk6")]
 stream = ExtResource("3_ap4rs")

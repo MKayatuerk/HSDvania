@@ -9,6 +9,7 @@ const CLIMBING_SPEED = -50
 @export var jump_height: float = 60
 @export var jump_seconds_to_peak: float = 0.5
 @export var jump_seconds_to_descent: float = 0.3
+@export var setting_screen: Control
 
 @onready var jump_velocity: float = ((2 * jump_height) / jump_seconds_to_peak) * -1
 @onready var jump_gravity: float = ((-2 * jump_height) / pow(jump_seconds_to_peak,2)) * -1
@@ -18,6 +19,8 @@ const CLIMBING_SPEED = -50
 @onready var inv_timer: Timer = $"Invincibilty timer"
 @onready var jump_buffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
+@onready var player_collision = $CollisionShape2D
+
 
 ### HEALTH ###
 #var hearts:int = 3
@@ -60,6 +63,7 @@ var animation: Tween
 
 var current_weapon
 
+
 func _ready() -> void:
 	#Subscribing to relevant signals
 	Signalhive.connect("collected",_collected)
@@ -74,12 +78,14 @@ func _ready() -> void:
 	Signalhive.connect("transported_player", _move_through_door)
 	Signalhive.connect("retry", _retry)
 	
-	Signalhive.connect("collected_bafoeg", _collected_bafoeg)
+	##Signalhive.connect("collected_bafoeg", _collected_bafoeg)
 	Signalhive.connect("collected_double_jump",_collected_double_jump)
 	
 	Signalhive.connect("entered_cutsene", _lock_movement)
 	Signalhive.connect("exited_cutscene", _unlock_movement)
 	
+	Signalhive.connect("entered_stairs", is_on_stairs)
+	Signalhive.connect("left_stairs", is_on_stairs)
 
 func _collected(collectible: Collectible)-> void:
 	print("Collected item: ", collectible.item_name)
@@ -105,14 +111,19 @@ func _weapon_dropped(old_weapon: Weapon) -> void:
 
 #Main loop of the character
 func _physics_process(delta: float) -> void:
-	if !_is_in_cutscene:
-		gravity(delta)
-		handleJump(delta)
-		_was_on_floor = is_on_floor()
-		handleMovement()
-		attack()
-		prevVelocity = velocity
-		prevDirection = direction
+	if Input.is_action_just_pressed("pause"):
+		GlobalVariables.paused = !GlobalVariables.paused
+		setting_screen.ToggleVisibility(GlobalVariables.paused)
+	
+	if !GlobalVariables.paused:
+		if !_is_in_cutscene:
+			gravity(delta)
+			handleJump(delta)
+			_was_on_floor = is_on_floor()
+			handleMovement()
+			attack()
+			prevVelocity = velocity
+			prevDirection = direction
 
 
 # Function that handles the Jump functionality
@@ -269,15 +280,13 @@ func canCurrentlyDoubleJump() -> bool:
 
 
 
-func _collected_double_jump() -> void:
+func _collected_double_jump(_pos, _type) -> void:
 	
 	Signalhive.emit_signal("queued_message","I found the Dual-Core boots!")
 	Signalhive.emit_signal("queued_message","With the power of multithreading, i can split the legwork to jump,  effectivly letting me double jump!")
 	_has_double_jump_upgrade = true
 
 
-func _collected_bafoeg() -> void:
-	print("yippie")
 
 func _touching_ladder() -> void:
 	_can_climb = true
@@ -329,11 +338,11 @@ func _game_over() -> void:
 func _lock_movement() -> void:
 	_is_in_cutscene = true
 	animationPlayer.play("Idle")
-	print("locked")
+	
 	
 func _unlock_movement()-> void:
 	_is_in_cutscene = false
-	print("unlocked")
+	
 
 
 func _on_gameovertimer_timeout() -> void:
@@ -354,3 +363,20 @@ func cancelAttack():
 		animation.kill()
 		current_weapon.queue_free()
 		_can_attack = true
+
+
+func is_on_stairs(isOnStairs: bool) -> void:
+	print(isOnStairs)
+	if isOnStairs:
+		player_collision.disabled = true
+		player_collision.set_deferred("disabled",true)
+	else:
+		player_collision.disabled = false
+		player_collision.set_deferred("disabled",false)
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Throw":
+		print("lol")
+	else:
+		print("lmao")

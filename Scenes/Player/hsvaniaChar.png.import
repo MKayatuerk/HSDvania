@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1qhvlt7e0crc"
-valid=false
+uid="uid://f72sc4gkylkk"
+path="res://.godot/imported/hsvaniaChar.png-c7b0872775a6a94a5e6013ddd3249884.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Character/hsvaniaChar.png"
+source_file="res://Scenes/Player/hsvaniaChar.png"
+dest_files=["res://.godot/imported/hsvaniaChar.png-c7b0872775a6a94a5e6013ddd3249884.ctex"]
 
 [params]
 

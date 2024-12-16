@@ -11,15 +11,15 @@ signal gotStomped
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if $lookLeft.is_colliding():
-		direction = 1
-		$Sprite2D.flip_h = true
-	elif $lookRight.is_colliding():
-		direction = -1
-		$Sprite2D.flip_h = false
-		
-	position.x += SPEED * delta * direction
+    if $lookLeft.is_colliding():
+        direction = 1
+        $Sprite2D.flip_h = true
+    elif $lookRight.is_colliding():
+        direction = -1
+        $Sprite2D.flip_h = false
+        
+    position.x += SPEED * delta * direction
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	gotStomped.emit()
-	queue_free()
+    gotStomped.emit()
+    queue_free()

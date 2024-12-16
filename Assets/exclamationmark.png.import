@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1qhvlt7e0crc"
-valid=false
+uid="uid://binnbtnqr7fag"
+path="res://.godot/imported/exclamationmark.png-763fb736c54fa8610d2b7979d345bab9.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Character/hsvaniaChar.png"
+source_file="res://Assets/exclamationmark.png"
+dest_files=["res://.godot/imported/exclamationmark.png-763fb736c54fa8610d2b7979d345bab9.ctex"]
 
 [params]
 
