@@ -84,6 +84,7 @@ stream = ExtResource("6_nqcsj")
 volume_db = 10.0
 
 [node name="BafoegText" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

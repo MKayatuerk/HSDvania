@@ -30,8 +30,8 @@ const CLIMBING_SPEED = -50
 @onready var attack3_sfx = $Attack3Sfx
 
 
-### HEALTH ###
-#var hearts:int = 3
+
+
 var health:int = 100
 
 var selected_weapon:int = 0
@@ -40,7 +40,7 @@ var selected_weapon:int = 0
 var prevVelocity:Vector2 = Vector2.ZERO
 var prevDirection = 0
 
-# Checks if the Doublejump upgrade has been collected
+#Checks if the Doublejump upgrade has been collected
 var _has_double_jump_upgrade:bool = false
 
 # Checks if the character can currently doubleJump
@@ -62,10 +62,13 @@ var _is_in_cutscene:bool = false
 var _was_on_floor:bool = true
 
 var _can_attack:bool = true
+var _can_request:bool = true
+
 
 var direction = 1
 
 var shortsword = preload("res://Scenes/Player/shortsword.tscn")
+var flieger = preload("res://Scenes/Player/papierfliegerProjectil.tscn")
 
 var animation: Tween
 
@@ -94,6 +97,8 @@ func _ready() -> void:
 	
 	Signalhive.connect("entered_stairs", is_on_stairs)
 	Signalhive.connect("left_stairs", is_on_stairs)
+	Signalhive.connect("request_recieved", await_request)
+	
 
 func _collected(collectible: Collectible)-> void:
 	print("Collected item: ", collectible.item_name)
@@ -203,7 +208,7 @@ func handleMovement()-> void:
 			velocity.y = directionVerical * CLIMBING_SPEED
 	
 	if Input.is_key_label_pressed(KEY_Z):
-		velocity.x = 400 * direction
+		httpRequest()
 	
 	move_and_slide()
 	update_animations(directionHorizontal)
@@ -247,7 +252,7 @@ func update_health(damage_taken) -> void:
 		_game_over()
 		
 	else:
-		health -= damage_taken
+		health = min(100, health - damage_taken)
 		var hud = get_parent().get_node("CanvasLayer/Hud")
 		if hud:
 			hud.update_health(health)
@@ -270,6 +275,7 @@ func attack() -> void:
 		add_child(_instantiate_weapon(), true)
 		
 		current_weapon = get_child(-1)
+		current_weapon.position.y = 10
 		animation = get_tree().create_tween()
 		animation.connect("finished", _attack_tween_finished)
 		
@@ -281,7 +287,25 @@ func attack() -> void:
 			animation.tween_property(current_weapon, "position:x" , 0, 0.7)
 			animation.tween_callback(current_weapon.queue_free)
 
-
+func httpRequest() -> void:
+	if _can_request:
+		
+		animation = get_tree().create_tween()
+		var httpRequest = flieger.instantiate()
+		move_child(httpRequest, 1)
+		
+		_can_request = false
+		if is_on_floor():
+			animation.tween_property(self, "position:y", -60, 0.1)
+			animation.set_parallel()
+		animation.tween_callback(add_child.bind(httpRequest))
+		animation.set_parallel()
+		animation.tween_property(httpRequest,"position:y", 15, 0)
+			##animation.tween_callback(move_child.bind(httpRequest,1))
+		
+		##get_child(1).position.y = 25
+		
+		
 
 #Function that returns true if all conditions are met to allow the character
 #To double jump
@@ -300,13 +324,7 @@ func _collected_double_jump(_pos, _type) -> void:
 	_has_double_jump_upgrade = true
 
 func _collected_bafoeg(_pos, _type) -> void:
-	if(!GlobalVariables.collectedFirstBafoeg):
-		GlobalVariables.collectedFirstBafoeg = true
-		Signalhive.emit_signal("queued_message", "What is this? A piece of my Bafoeg Application?")
-		Signalhive.emit_signal("queued_message", "Oh no... Of course I forgot to finish my Bafoeg Application.")
-		Signalhive.emit_signal("queued_message", "I should collect all of these, and finish them as soon as I can!")
-	else:
-		Signalhive.emit_signal("queued_message", "Found another one!")
+	pass
 
 func _touching_ladder() -> void:
 	_can_climb = true
@@ -348,7 +366,12 @@ func _retry() -> void:
 	if $gameovertimer.time_left > 0:
 		$gameovertimer.stop()
 	_unlock_movement()
-
+	if GlobalVariables.didntDieBefore:
+		GlobalVariables.didntDieBefore = false
+		Signalhive.emit_signal("queued_message","Wh-what just happened?")
+		Signalhive.emit_signal("queued_message","Everything just went black... But i think im alright now")
+		if GlobalVariables.collectedFirstBafoeg:
+			Signalhive.emit_signal("queued_message","OH SHOOT! I lost my Bafoeg documents. I got to collect them again!")
 func _game_over() -> void:
 	
 	Signalhive.emit_signal("player_died")
@@ -386,8 +409,10 @@ func cancelAttack():
 		_can_attack = true
 
 
+func await_request():
+	_can_request = true
+
 func is_on_stairs(isOnStairs: bool) -> void:
-	print(isOnStairs)
 	if isOnStairs:
 		player_collision.disabled = true
 		player_collision.set_deferred("disabled",true)
@@ -404,7 +429,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 func handleAttackSound() -> AudioStreamPlayer:
 	var rng = RandomNumberGenerator.new().randi_range(1,3)
-	print(rng)
 	match rng:
 		1: return attack1_sfx
 		2: return attack2_sfx

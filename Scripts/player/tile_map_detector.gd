@@ -9,7 +9,6 @@ var damage_sfx = $DamageSfx
 var tilemap: TileMapLayer
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	print("test")
 	if body is TileMapLayer:
 		tilemap = body
 		var collided_tile_cord = tilemap.get_coords_for_body_rid(body_rid)

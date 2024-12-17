@@ -1,22 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://fgccuy6mn64q"]
 
 [ext_resource type="Script" path="res://Scripts/player/shortsword.gd" id="1_y86q5"]
+[ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="2_q411m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6o05"]
-size = Vector2(14, 4)
-
-[sub_resource type="QuadMesh" id="QuadMesh_c6uf3"]
+size = Vector2(56, 16)
 
 [node name="Shortsword" type="Area2D"]
-scale = Vector2(4, 2)
 collision_layer = 64
 collision_mask = 0
 script = ExtResource("1_y86q5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -4)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_b6o05")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-scale = Vector2(7, 1.96)
-mesh = SubResource("QuadMesh_c6uf3")
+[node name="TileMapLayer" parent="." instance=ExtResource("2_q411m")]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 255, 255, 0, 0, 1, 0, 10, 0, 0, 0)
