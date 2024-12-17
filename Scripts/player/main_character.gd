@@ -15,7 +15,9 @@ const CLIMBING_SPEED = -50
 @onready var jump_gravity: float = ((-2 * jump_height) / pow(jump_seconds_to_peak,2)) * -1
 @onready var fall_gravity: float = ((-2 * jump_height) / pow(jump_seconds_to_descent,2)) * -1   
 
-@onready var animationPlayer = $AnimationPlayer
+@onready var animation_player = $SubViewportContainer/SubViewport/Avatar/AnimationPlayer
+@onready var sprite_2d = $SubViewportContainer/Sprite2D
+
 @onready var inv_timer: Timer = $"Invincibilty timer"
 @onready var jump_buffer: Timer = $Jumpbuffer
 @onready var coyotee_timer: Timer = $CoyoteeTimer
@@ -149,6 +151,7 @@ func handleJump(delta: float)-> void:
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer.start(0.10)
 		jumping_sfx.play()
+		animation_player.play("Jumping")
 		# Check for the diffrent possible cases when pressing jump
 		if  is_on_floor():
 			velocity.y = jump_velocity
@@ -182,13 +185,13 @@ func handleMovement()-> void:
 	
 	
 	if (directionHorizontal > 0):
-		$Sprite2D.flip_h = false
+		sprite_2d.flip_h = false
 		$WeaponSocket.position = Vector2(abs($WeaponSocket.position.x), $WeaponSocket.position.y)
 		$WeaponSocket.scale.x = abs($WeaponSocket.scale.x) 
 		direction = 1
 		
 	elif (directionHorizontal < 0):
-		$Sprite2D.flip_h = true
+		sprite_2d.flip_h = true
 		$WeaponSocket.position = Vector2(-abs($WeaponSocket.position.x), $WeaponSocket.position.y)
 		$WeaponSocket.scale.x = -abs($WeaponSocket.scale.x) 
 		direction = -1
@@ -221,9 +224,9 @@ func handleMovement()-> void:
 func update_animations(horizontal_direction):
 	if is_on_floor():
 		if horizontal_direction == 0:
-			animationPlayer.play("Idle")
+			animation_player.play("Idle")
 		else:
-			animationPlayer.play("Walk")
+			animation_player.play("Walking")
 	else:
 		pass
 
@@ -240,7 +243,7 @@ func _damage_taken(damage_taken) -> void:
 	knockback()
 	update_health(damage_taken)
 	
-	$Sprite2D.material.set_shader_parameter("hit", true)
+	sprite_2d.material.set_shader_parameter("is_hit", true)
 	
 	_is_invincible = true
 	_can_move = false
@@ -343,7 +346,7 @@ func _move_through_door(newPos: Vector2) -> void:
 func _on_invincibilty_timer_timeout() -> void:
 	_can_move = true
 	_is_invincible = false
-	$Sprite2D.material.set_shader_parameter("hit", false)
+	sprite_2d.material.set_shader_parameter("is_hit", false)
 
 
 	
@@ -381,7 +384,7 @@ func _game_over() -> void:
 	
 func _lock_movement() -> void:
 	_is_in_cutscene = true
-	animationPlayer.play("Idle")
+	animation_player.play("Idle")
 	
 	
 func _unlock_movement()-> void:

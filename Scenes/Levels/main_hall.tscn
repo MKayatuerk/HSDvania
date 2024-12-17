@@ -1,11 +1,10 @@
-[gd_scene load_steps=36 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=21 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
 [ext_resource type="Script" path="res://Scripts/ui/main_hall.gd" id="1_jo633"]
 [ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/Player/main_character.tscn" id="2_71y8l"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="2_pmor1"]
-[ext_resource type="Shader" path="res://Shaders/fog.gdshader" id="2_xavgu"]
 [ext_resource type="PackedScene" uid="uid://cs2uyfgbxpa8b" path="res://Scenes/Levels/door.tscn" id="3_invnu"]
 [ext_resource type="PackedScene" uid="uid://dvprl1706bxvj" path="res://Scenes/UI/hud.tscn" id="6_7la1n"]
 [ext_resource type="PackedScene" uid="uid://dengtn5arpki1" path="res://Scenes/Geometry/Breakable_Screen.tscn" id="9_7o3x6"]
@@ -14,63 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://but24qro7p6if" path="res://Audio/Music/geoffreygunn+aquaticrealmofthespirits.mp3" id="12_mjm0q"]
 [ext_resource type="PackedScene" uid="uid://cqercf02o0yep" path="res://Scenes/Sound/MusicHandler.tscn" id="12_shslj"]
 [ext_resource type="PackedScene" uid="uid://dokfmnokt6ltd" path="res://Scenes/Player/papierfliegerProjectil.tscn" id="14_wtuh3"]
-
-[sub_resource type="Gradient" id="Gradient_lcahi"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_x3rod"]
-seed = 1610
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kdyw4"]
-seamless = true
-color_ramp = SubResource("Gradient_lcahi")
-noise = SubResource("FastNoiseLite_x3rod")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2451r"]
-shader = ExtResource("2_xavgu")
-shader_parameter/color = Color(0.593567, 0.908254, 0.865742, 1)
-shader_parameter/density = 0.25
-shader_parameter/speed = Vector2(0.02, 0.005)
-shader_parameter/pixel_count = Vector2(128, 128)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_kdyw4")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dkn3c"]
-
-[sub_resource type="Gradient" id="Gradient_22sb0"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ob5ho"]
-seed = 1065
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w7aj5"]
-seamless = true
-color_ramp = SubResource("Gradient_22sb0")
-noise = SubResource("FastNoiseLite_ob5ho")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl1of"]
-shader = ExtResource("2_xavgu")
-shader_parameter/color = Color(0.592157, 0.909804, 0.866667, 1)
-shader_parameter/density = 0.25
-shader_parameter/speed = Vector2(0.02, 0.005)
-shader_parameter/pixel_count = Vector2(256, 256)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_w7aj5")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_whdax"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_32fbp"]
-seed = 620
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mwp0j"]
-seamless = true
-noise = SubResource("FastNoiseLite_32fbp")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cfp4b"]
-shader = ExtResource("2_xavgu")
-shader_parameter/color = Color(0.592157, 0.909804, 0.866667, 1)
-shader_parameter/density = 0.193
-shader_parameter/speed = Vector2(0.02, 0.005)
-shader_parameter/pixel_count = Vector2(256, 256)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_mwp0j")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lfds2"]
 
 [sub_resource type="Animation" id="Animation_0a0lo"]
 resource_name = "Bother1"
@@ -185,32 +127,6 @@ _data = {
 
 [node name="Main Hall" type="Node2D"]
 script = ExtResource("1_jo633")
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.3, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-material = SubResource("ShaderMaterial_2451r")
-scale = Vector2(1000, 1000)
-texture = SubResource("PlaceholderTexture2D_dkn3c")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-material = SubResource("ShaderMaterial_pl1of")
-scale = Vector2(1000, 1000)
-texture = SubResource("PlaceholderTexture2D_whdax")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.7, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-material = SubResource("ShaderMaterial_cfp4b")
-scale = Vector2(1000, 1000)
-texture = SubResource("PlaceholderTexture2D_lfds2")
 
 [node name="Labels" type="Control" parent="."]
 layout_mode = 3
@@ -356,12 +272,7 @@ leading_to_name = "1nd Story"
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_71y8l")]
 position = Vector2(671, -48)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_cfp4b")
-position = Vector2(9, -6)
-scale = Vector2(1e+06, 1e+06)
-texture = SubResource("PlaceholderTexture2D_lfds2")
+scale = Vector2(1, 1)
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_a5gr3")]
 position = Vector2(-1, 0)

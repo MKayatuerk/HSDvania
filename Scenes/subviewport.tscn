@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/framerate_controller.gd" id="1_3gk3p"]
 [ext_resource type="Shader" path="res://Shaders/pixelate.gdshader" id="2_1wose"]
-[ext_resource type="ArrayMesh" uid="uid://bmx5gsj2dbhji" path="res://Assets/Models/Knot.res" id="2_4sp6t"]
+[ext_resource type="ArrayMesh" uid="uid://bmx5gsj2dbhji" path="res://Assets/3D/Models/Knot.res" id="2_4sp6t"]
+
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ahli"]
 diffuse_mode = 3

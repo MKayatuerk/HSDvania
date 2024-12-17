@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://d25q8c7ep2fqe"]
+
+[ext_resource type="Script" path="res://Scripts/framerate_controller.gd" id="1_oiewi"]
+[ext_resource type="PackedScene" uid="uid://cfeoxny05nixa" path="res://Assets/3D/Models/Avatar/avatar.tscn" id="2_w0kty"]
+[ext_resource type="Shader" path="res://Shaders/character.gdshader" id="3_modmo"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ywfix"]
+
+[sub_resource type="Sky" id="Sky_6clml"]
+sky_material = SubResource("PhysicalSkyMaterial_ywfix")
+
+[sub_resource type="Environment" id="Environment_ugs4f"]
+sky = SubResource("Sky_6clml")
+ambient_light_source = 2
+ambient_light_color = Color(0.8, 0.8, 0.8, 1)
+reflected_light_source = 2
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_use_occlusion = true
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nj7ak"]
+shader = ExtResource("3_modmo")
+shader_parameter/width = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/pixel_count = Vector2(64, 64)
+shader_parameter/is_hit = null
+shader_parameter/hit_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flicker_speed = 100.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gf5cs"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Scene" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+script = ExtResource("1_oiewi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_ugs4f")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860318, 2)
+projection = 1
+current = true
+size = 1.857
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(0.0553779, 0.521447, 0.851485, -0.407103, -0.766896, 0.496122, 0.911702, -0.374116, 0.169814, 0, 8, 0)
+shadow_enabled = true
+
+[node name="Avatar" parent="SubViewport" instance=ExtResource("2_w0kty")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_nj7ak")
+texture = SubResource("ViewportTexture_gf5cs")

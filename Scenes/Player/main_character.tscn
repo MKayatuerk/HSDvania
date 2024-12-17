@@ -1,9 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=20 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
-[ext_resource type="Shader" path="res://Shaders/aura_shader.gdshader" id="2_qgvsk"]
+[ext_resource type="PackedScene" uid="uid://d25q8c7ep2fqe" path="res://Scenes/3D/character.tscn" id="2_q0svv"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
-[ext_resource type="Texture2D" uid="uid://f72sc4gkylkk" path="res://Scenes/Player/hsvaniaChar.png" id="3_lopyr"]
 [ext_resource type="PackedScene" uid="uid://ck8cocmaryugc" path="res://Scenes/Sound/sfx_handler.tscn" id="5_5ls4o"]
 [ext_resource type="Script" path="res://Scripts/player/inventory.gd" id="5_bg747"]
 [ext_resource type="PackedScene" uid="uid://b67r3klauhadi" path="res://Scenes/UI/settings.tscn" id="6_mgmb3"]
@@ -15,73 +14,18 @@
 [ext_resource type="AudioStream" uid="uid://et5ex6cgu1hs" path="res://Audio/Sfx/attack3.mp3" id="11_5ijhs"]
 [ext_resource type="AudioStream" uid="uid://72m8qcfvbukt" path="res://Audio/Sfx/door.mp3" id="14_pmrrn"]
 
-[sub_resource type="Gradient" id="Gradient_3sj60"]
-offsets = PackedFloat32Array(0.350649, 0.814471)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_eigr6"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c0cnt"]
-seamless = true
-color_ramp = SubResource("Gradient_3sj60")
-noise = SubResource("FastNoiseLite_eigr6")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ks8q"]
-shader = ExtResource("2_qgvsk")
-shader_parameter/width = 2.105
-shader_parameter/noise_scale = 100.0
-shader_parameter/outline_color = Color(0, 1, 1, 1)
-shader_parameter/direction = Vector2(0, 1)
-shader_parameter/speed = 0.5
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_c0cnt")
-
 [sub_resource type="Animation" id="Animation_eejgd"]
 length = 0.72
 loop_mode = 1
 step = 0.0333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.18, 0.36, 0.54),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 4, 5, 4]
-}
 
 [sub_resource type="Animation" id="Animation_umh2g"]
 length = 0.72
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.18, 0.36, 0.54),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
 
 [sub_resource type="Animation" id="Animation_ek64m"]
 length = 0.8
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 6, 0, 7]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o2bif"]
 _data = {
@@ -106,33 +50,9 @@ setting_screen = NodePath("Settings")
 position = Vector2(0, 2)
 zoom = Vector2(5, 5)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture_repeat = 1
-material = SubResource("ShaderMaterial_5ks8q")
-texture = ExtResource("3_lopyr")
-hframes = 3
-vframes = 3
-region_rect = Rect2(125, 1, 28, 5)
-metadata/_aseprite_wizard_interface_config_ = {
-"animation_section": true,
-"layer_section": true,
-"output_section": true,
-"pending_changes": {}
-}
-metadata/_aseprite_wizard_config_ = {
-"i_mode": -1,
-"keep_anim_length": false,
-"layer": "",
-"o_ex_p": "",
-"o_folder": "res://Assets/Character/Animations",
-"o_name": "",
-"only_visible": true,
-"player": "AnimationPlayer",
-"slice": "",
-"source": "res://Assets/Character/hsvaniaChar.aseprite"
-}
-metadata/_aseprite_wizard_source_file_hash_ = "1f03a4e5188db903be2e7f772153da0a"
+[node name="SubViewportContainer" parent="." instance=ExtResource("2_q0svv")]
+position = Vector2(0, 4.775)
+scale = Vector2(0.058, 0.058)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
