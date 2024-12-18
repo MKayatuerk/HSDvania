@@ -44,10 +44,6 @@ current = true
 fov = 85.0
 size = 12.228
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
-transform = Transform3D(0.0553779, 0.521447, 0.851485, -0.407103, -0.766896, 0.496122, 0.911702, -0.374116, 0.169814, 0, 8, 0)
-shadow_enabled = true
-
 [node name="CSGCombiner3D2" type="CSGCombiner3D" parent="SubViewport"]
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]

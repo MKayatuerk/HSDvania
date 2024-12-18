@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d25q8c7ep2fqe"]
 
 [ext_resource type="Script" path="res://Scripts/framerate_controller.gd" id="1_oiewi"]
-[ext_resource type="PackedScene" uid="uid://cfeoxny05nixa" path="res://Assets/3D/Models/Avatar/avatar.tscn" id="2_w0kty"]
+[ext_resource type="PackedScene" uid="uid://by142aylipl8y" path="res://Assets/3D/Models/Avatar/avatar.tscn" id="2_w0kty"]
 [ext_resource type="Shader" path="res://Shaders/character.gdshader" id="3_modmo"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ywfix"]

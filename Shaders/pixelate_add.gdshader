@@ -9,6 +9,6 @@ void fragment()
 	uv *= pixel_count;
 	uv = floor(uv);
 	uv = uv / pixel_count;
-	
+
 	COLOR = texture(TEXTURE, uv);
 }

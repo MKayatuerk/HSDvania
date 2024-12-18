@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=22 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://t3hiy8bby8og" path="res://Scenes/Player/weapon.tscn" id="11_ak6e8"]
 [ext_resource type="AudioStream" uid="uid://but24qro7p6if" path="res://Audio/Music/geoffreygunn+aquaticrealmofthespirits.mp3" id="12_mjm0q"]
 [ext_resource type="PackedScene" uid="uid://cqercf02o0yep" path="res://Scenes/Sound/MusicHandler.tscn" id="12_shslj"]
+[ext_resource type="PackedScene" uid="uid://df2h0mbjaip5u" path="res://Scenes/3D/pool.tscn" id="14_6mhh8"]
 [ext_resource type="PackedScene" uid="uid://dokfmnokt6ltd" path="res://Scenes/Player/papierfliegerProjectil.tscn" id="14_wtuh3"]
 
 [sub_resource type="Animation" id="Animation_0a0lo"]
@@ -127,6 +128,10 @@ _data = {
 
 [node name="Main Hall" type="Node2D"]
 script = ExtResource("1_jo633")
+
+[node name="Scene" parent="." instance=ExtResource("14_6mhh8")]
+position = Vector2(110, -20)
+scale = Vector2(0.445, 0.445)
 
 [node name="Labels" type="Control" parent="."]
 layout_mode = 3
@@ -271,8 +276,7 @@ leading_to = Vector2(125, -204)
 leading_to_name = "1nd Story"
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_71y8l")]
-position = Vector2(671, -48)
-scale = Vector2(1, 1)
+position = Vector2(15, -34)
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_a5gr3")]
 position = Vector2(-1, 0)

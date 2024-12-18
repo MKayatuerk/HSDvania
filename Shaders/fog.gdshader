@@ -9,7 +9,7 @@ uniform vec2 pixel_count = vec2(256.0);
 void fragment() {
 
 	vec2 uv = UV * 10.0 + speed * TIME;
-	
+
 	uv *= pixel_count;
 	uv = floor(uv);
 	uv = uv / pixel_count;

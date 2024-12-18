@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf2rvalb5xwwx"]
+
+[ext_resource type="PackedScene" uid="uid://df6u6g85dq0q2" path="res://Assets/3D/Models/Pool/PoolExport.glb" id="1_m3da7"]
+
+[node name="PoolExport" instance=ExtResource("1_m3da7")]

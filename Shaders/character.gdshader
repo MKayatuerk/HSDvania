@@ -24,10 +24,10 @@ vec2 pixelate(vec2 uv) {
 float outline(sampler2D texture, vec2 uv, float outline_width) {
     if (outline_width == 0.0)
         return 0.00;
-    
+
     vec2 unit = 1.0 / vec2(textureSize(texture, 0));
     float alpha_sum = 0.0;
-    
+
     // Loop through surrounding pixels, but pixelate the offsets
     for (float x = -floor(outline_width); x <= floor(outline_width); x++) {
         for (float y = -floor(outline_width); y <= floor(outline_width); y++) {

@@ -41,7 +41,6 @@ size = Vector2(12, 24)
 length = 18.0
 
 [node name="TestCharacter" type="CharacterBody2D" node_paths=PackedStringArray("setting_screen")]
-scale = Vector2(0.5, 0.5)
 collision_layer = 4
 script = ExtResource("1_j7k8t")
 setting_screen = NodePath("Settings")
