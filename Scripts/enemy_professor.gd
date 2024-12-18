@@ -1,66 +1,110 @@
-extends Node2D
-
+extends CharacterBody2D
 const SPEED = 60
-const BULLET_SPEED = 300
-const SHOOT_DELAY = 1.5  # Time between shots in seconds
+
 
 var direction = 1 
-var can_shoot = true
+var player_in_sight: bool = false
+var player: Node2D = null
+
+@export var shoot_cooldown: float = 1.5
+@export var projectile_scene: PackedScene  # Projektil-Szene
+@onready var shoot_timer = $Timer
+@onready var shoot_marker = $Marker2D
+@export var patrol_speed: float = 100
 
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var ToPlayer: RayCast2D = $ToPlayer
-@onready var bullet_scene: PackedScene = preload("res://Scenes/Bullet.tscn")  # Adjust path as necessary
-@onready var player = $"../MainCharacter"
-#get_tree().get_nodes_in_group("PlayerGroup")[0]
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var ray_cast_for_exclamation_mark_left: RayCast2D = $RayCastForExclamationMarkLeft
+@onready var ray_cast_for_exclamation_mark_right: RayCast2D = $RayCastForExclamationMarkRight
+
+
+
+func _ready():
+    shoot_timer.wait_time = shoot_cooldown
+    shoot_timer.connect("timeout", _shoot)
+
+
+
 # Called every frame.
 func _process(delta):
-	# Check for collisions and flip direction
-	if ray_cast_right.is_colliding():
-		direction = -1
-		animated_sprite.flip_h = true
-	if ray_cast_left.is_colliding():
-		direction = 1
-		animated_sprite.flip_h = false
+    # Check for collisions and flip direction
+   # if ray_cast_right.is_colliding():
+       # direction = -1
+        #animated_sprite.flip_h = true
+   # if ray_cast_left.is_colliding():
+      #  direction = 1
+      #  animated_sprite.flip_h = false
 
-	position.x += direction * SPEED * delta
+ #   position.x += direction * SPEED * delta
 
-	# Show exclamation mark if the player is in range
-	ToPlayer.target_position = ToPlayer.to_local(player.Hitbox.global_position)
-	
+    # Show exclamation mark if the player is in range
+    if ray_cast_for_exclamation_mark_left.is_colliding() or ray_cast_for_exclamation_mark_right.is_colliding():
+        $Exclamationmark.visible = true
+        $AnimatedSprite2D.play("shooting")
+    else:
+        $Exclamationmark.visible = false 
+        patrol(delta)
+        
+        
+func patrol(delta):
+    $AnimatedSprite2D.play("Walking")
+    velocity.x = patrol_speed * direction
+    move_and_slide()
 
-	if ToPlayer.is_colliding():
-		$Exclamationmark.visible = true
-	  #  if can_shoot:
-		 #   shoot_bullet()
-	else:
-		$Exclamationmark.visible = false
+    # Richtungswechsel prüfen
+    if is_on_wall():
+       direction *= -1
+       scale.x *= -1  # Gegner spiegeln*= -1
+        
+        
+      #
+#func _on_area2d_body_entered(body):
+    #if body.name == "Player":
+        #player_in_sight = true
+        #player = body
+        #shoot_timer.start()
+        #
+#func _on_area2d_body_exited(body):
+    #if body.name == "MainCharacter":
+        #player_in_sight = false
+        #player = null
+        #shoot_timer.stop()
+    #
+        
+        
+func _shoot():
+    print("Shoot function triggered")# debug zwecke
+    if player_in_sight and player:
+        var projectile = projectile_scene.instantiate()
+        projectile.global_position = shoot_marker.global_position
+        # Richtung zum Spieler berechnen
+        var shoot_direction = (player.global_position - global_position).normalized()
+        projectile.direction = shoot_direction
+        get_parent().add_child(projectile)
+        
 
-## Shooting function
-#func shoot_bullet():
-	#can_shoot = false
-	#animated_sprite.play("shooting")  # Play the shooting animation
-#
-	## instanz einer bullet
-	#if bullet_scene:
-		#var bullet = bullet_scene.instantiate()
-		#if bullet and bullet is Area2D:
-			#get_parent().add_child(bullet)
-#
-			## setze bullet position and richtung
-			#bullet.position = position
-			#bullet.direction = direction
-		#else:
-			#print("Bullet scene is not an Area2D. Check the Bullet.tscn setup.")
-#
-	## Reset shooting cooldown
-	#var timer = Timer.new()
-	#timer.wait_time = SHOOT_DELAY
-	#timer.one_shot = true
-   ## timer.connect("timeout", self, "_reset_can_shoot") -> throws error
-	#add_child(timer)
-	#timer.start()
-#
-#func _reset_can_shoot():
-	#can_shoot = true
+
+
+func _on_area_2d_2_body_entered(body: Node2D) -> void:
+     print("Body entered: ", body.name)# debug zwecke
+     if body.name == "MainCharacter":
+        player_in_sight = true
+        player = body
+        print("Player in sight")
+        shoot_timer.start()
+        print("Shoot Timer started")
+          # Drehen des Professors in Richtung des Spielers
+        #if player.global_position.x > global_position.x:
+         #   direction = 1  # Spieler ist rechts
+        #else:
+        #    direction = -1  # Spieler ist links
+
+        #scale.x = abs(scale.x)*direction  # Sprite spiegel
+
+
+
+func _on_area_2d_2_body_exited(body: Node2D) -> void: if body.name == "MainCharacter":
+        player_in_sight = false
+        player = null
+        shoot_timer.stop()
