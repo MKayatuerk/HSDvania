@@ -208,7 +208,7 @@ shape = SubResource("RectangleShape2D_uwwp1")
 position = Vector2(0, 5)
 scale = Vector2(1, 1.07813)
 collision_layer = 9
-collision_mask = 5
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 position = Vector2(-5, 16.6956)

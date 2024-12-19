@@ -80,6 +80,8 @@ func _shoot():
         projectile.global_position = shoot_marker.global_position
         # Richtung zum Spieler berechnen
         var shoot_direction = (player.global_position - global_position).normalized()
+        animated_sprite_2d.flip_h = (shoot_direction.x > 0)
+        print(shoot_direction)
         projectile.direction = shoot_direction
         get_parent().add_child(projectile)
         
