@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var chaseSpeed = 60
+var chaseSpeed = 40
 var path_speed = 0.1
 var player: Node2D = null
 @export var path: Path2D = null
@@ -9,11 +9,11 @@ var path_follow_2D: PathFollow2D = null
 
 func _ready():
     # Positioniere die Schriftrolle
-    global_position = Vector2(383, 446)
+    global_position = Vector2(250, -220)
     print("Schrifttrolle positioniert bei: ", global_position)
     
     # Finde den Spieler
-    player = get_node("../TestCharacter") as Node2D
+    player = get_node("../MainCharacter") as Node2D
     if player == null:
         print("Spieler wurde nicht gefunden!")
 
