@@ -39,6 +39,10 @@ project/assembly_name="HSDvania"
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [gui]
 
 fonts/dynamic_fonts/use_oversampling=false

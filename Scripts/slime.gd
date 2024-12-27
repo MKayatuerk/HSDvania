@@ -1,26 +1,27 @@
-extends Node2D
+extends CharacterBody2D
 
-const SPEED = 60
+const SPEED = 50  # Geschwindigkeit des Gegners
+const GRAVITY = 500  # Schwerkraft (optional, falls nötig)
+var direction = 1  # Richtung des Gegners
 
-var direction = 1 
+@onready var ray_cast_right = $RayCastRight
+@onready var ray_cast_left = $RayCastLeft
+@onready var animated_sprite = $AnimatedSprite2D
 
-@onready var ray_cast_right: RayCast2D = $RayCastRight
-@onready var ray_cast_left: RayCast2D = $RayCastLeft
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+func _physics_process(delta):
+	# Schwerkraft anwenden
+	velocity.y += GRAVITY * delta #kann man rauslöschen, but idk falls man mehrer spawnt und die in der luft sind sollen die fallen
 
+	# Bewegung horizontal
+	velocity.x = SPEED * direction
 
-# Called every frame.
-#'delta' ist die zeit zum letzten frame
-func _process(delta):
-	#for every frame we check if the enemy is colliding with a block
+	# Kollisionsabfrage mit Raycasts
 	if ray_cast_right.is_colliding():
 		direction = -1
 		animated_sprite.flip_h = true
-	if ray_cast_left.is_colliding():
+	elif ray_cast_left.is_colliding():
 		direction = 1
 		animated_sprite.flip_h = false
 
-		
-		
-		# 60 pixel(speed konstante) pro sekunde
-	position.x += direction * SPEED * delta 
+	# Bewegung ausführen
+	move_and_slide()
