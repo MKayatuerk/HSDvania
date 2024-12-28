@@ -281,7 +281,7 @@ leading_to = Vector2(125, -204)
 leading_to_name = "1nd Story"
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_71y8l")]
-position = Vector2(519, -452)
+position = Vector2(34, -39)
 collision_mask = 9
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_a5gr3")]
