@@ -28,11 +28,14 @@ func add_to_collected_list(tile_cord:Vector2i, type: int) -> void:
 
 	match type:
 		1:
+			GlobalVariables.bafoeg_count += 1
 			if(!GlobalVariables.collectedFirstBafoeg):
 				GlobalVariables.collectedFirstBafoeg = true
 				Signalhive.emit_signal("queued_message", "What is this? A piece of my Bafoeg Application?")
 				Signalhive.emit_signal("queued_message", "Oh no... Of course I forgot to finish my Bafoeg Application.")
 				Signalhive.emit_signal("queued_message", "I should collect all of these, and finish them as soon as I can!")
+			elif(GlobalVariables.bafoeg_count == 8):
+				get_tree().change_scene_to_file("res://Scenes/Levels/awsome_creditsroom.tscn")
 			else:
 				Signalhive.emit_signal("queued_message", "Found another one!")
 			already_collected_list.append(tile_cord)

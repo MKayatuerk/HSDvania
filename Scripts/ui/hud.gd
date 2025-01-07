@@ -36,7 +36,7 @@ func normal_HUD() -> void:
 	health_bar.visible = true
 	$GameOver.visible = false
 	bafoeg_text.visible = true
-	bafoeg_text.text = "Bafög: 0/?"
+	bafoeg_text.text = "Bafög: 0/8"
 	GlobalVariables.bafoeg_count = 0
 	continue_sfx.play()
 
@@ -44,5 +44,4 @@ func normal_HUD() -> void:
 func update_bafoeg_text(_pos,_type) -> void:
 	if !bafoeg_text.visible:
 		bafoeg_text.visible = !bafoeg_text.visible
-	GlobalVariables.bafoeg_count += 1
-	bafoeg_text.text = str("Bafög: " ,GlobalVariables.bafoeg_count ,"/?")
+	bafoeg_text.text = str("Bafög: " ,GlobalVariables.bafoeg_count ,"/8")
