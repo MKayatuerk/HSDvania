@@ -67,56 +67,6 @@ tracks/0/keys = {
 "values": [Vector2(1209, -466), Vector2(1096, -466)]
 }
 
-[sub_resource type="Animation" id="Animation_tljtl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(501, -179)]
-}
-
-[sub_resource type="Animation" id="Animation_f2agk"]
-resource_name = "moveToElevator"
-length = 2.5
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(501, -179), Vector2(318, -179)]
-}
-
-[sub_resource type="Animation" id="Animation_gltiv"]
-resource_name = "to_DBS"
-length = 2.0
-loop_mode = 2
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.5, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(302, -361), Vector2(302, -361), Vector2(451, -361), Vector2(451, -361)]
-}
-
 [sub_resource type="Animation" id="Animation_rdaww"]
 resource_name = "MedgeMovement"
 length = 8.0
@@ -168,6 +118,56 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(2177, -792), Vector2(2177, -792), Vector2(2177, -630), Vector2(2177, -630), Vector2(2347, -630), Vector2(2347, -630), Vector2(2347, -792), Vector2(2347, -792)]
+}
+
+[sub_resource type="Animation" id="Animation_tljtl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(501, -179)]
+}
+
+[sub_resource type="Animation" id="Animation_f2agk"]
+resource_name = "moveToElevator"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(501, -179), Vector2(318, -179)]
+}
+
+[sub_resource type="Animation" id="Animation_gltiv"]
+resource_name = "to_DBS"
+length = 2.0
+loop_mode = 2
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(302, -361), Vector2(302, -361), Vector2(451, -361), Vector2(451, -361)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3d5en"]
@@ -385,7 +385,6 @@ leading_to_name = "Mediadesign"
 
 [node name="FromMedge" parent="Geometry/doors" instance=ExtResource("3_invnu")]
 position = Vector2(2233.36, -840.391)
-scale = Vector2(1, 1)
 leading_to = Vector2(1010, -237)
 leading_to_name = "1st Floor"
 
@@ -436,10 +435,9 @@ leading_to_name = "1nd Story"
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(996, -398)
-scale = Vector2(1, 1)
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_71y8l")]
-position = Vector2(2227, -597)
+position = Vector2(26, -36)
 collision_mask = 9
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_a5gr3")]
