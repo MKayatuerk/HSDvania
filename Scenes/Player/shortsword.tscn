@@ -17,4 +17,4 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_b6o05")
 
 [node name="TileMapLayer" parent="." instance=ExtResource("2_q411m")]
-tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 255, 255, 0, 0, 1, 0, 10, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 255, 255, 0, 0, 1, 0, 9, 0, 0, 0)
