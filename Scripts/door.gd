@@ -2,8 +2,6 @@ extends Node2D
 
 @export var leading_to:Vector2
 @export var leading_to_name: String = "narnia"
-
-
 var letThrough = false
 
 func _ready() -> void:
@@ -18,8 +16,6 @@ func _process(delta: float) -> void:
 		if letThrough:
 			print("go")
 			Signalhive.emit_signal("transported_player",leading_to)
-		
-		
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
