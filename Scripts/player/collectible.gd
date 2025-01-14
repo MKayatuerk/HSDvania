@@ -21,5 +21,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func collect() -> void:
 	Signalhive.emit_signal("collected", self)
-	if glow:
-		glow.emitting = false
+	queue_free()

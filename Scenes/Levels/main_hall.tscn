@@ -5,11 +5,12 @@
 [ext_resource type="Script" path="res://Scripts/ui/main_hall.gd" id="1_jo633"]
 [ext_resource type="PackedScene" uid="uid://mmy2rn1ftwp2" path="res://Scenes/Player/main_character.tscn" id="2_71y8l"]
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="2_pmor1"]
+[ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="3_d0fll"]
 [ext_resource type="PackedScene" uid="uid://cs2uyfgbxpa8b" path="res://Scenes/Levels/door.tscn" id="3_invnu"]
+[ext_resource type="FontFile" uid="uid://6k8qt3jkoc8x" path="res://Assets/Fonts/OptimusPrincepsSemiBold.ttf" id="4_4j174"]
 [ext_resource type="PackedScene" uid="uid://dvprl1706bxvj" path="res://Scenes/UI/hud.tscn" id="6_7la1n"]
 [ext_resource type="PackedScene" uid="uid://dengtn5arpki1" path="res://Scenes/Geometry/Breakable_Screen.tscn" id="9_7o3x6"]
-[ext_resource type="PackedScene" uid="uid://dk5ielqnfwhr7" path="res://Scenes/Player/collectible.tscn" id="10_bmssv"]
-[ext_resource type="PackedScene" uid="uid://t3hiy8bby8og" path="res://Scenes/Player/weapon.tscn" id="11_ak6e8"]
+[ext_resource type="PackedScene" uid="uid://t3hiy8bby8og" path="res://Scenes/Player/lineal.tscn" id="11_ak6e8"]
 [ext_resource type="AudioStream" uid="uid://but24qro7p6if" path="res://Audio/Music/geoffreygunn+aquaticrealmofthespirits.mp3" id="12_mjm0q"]
 [ext_resource type="PackedScene" uid="uid://cqercf02o0yep" path="res://Scenes/Sound/MusicHandler.tscn" id="12_shslj"]
 [ext_resource type="PackedScene" uid="uid://df2h0mbjaip5u" path="res://Scenes/3D/pool.tscn" id="14_6mhh8"]
@@ -206,15 +207,14 @@ offset_top = -80.1487
 offset_right = -332.901
 offset_bottom = 72.8513
 scale = Vector2(0.584387, 0.584387)
+theme = ExtResource("3_d0fll")
+theme_override_fonts/font = ExtResource("4_4j174")
 text = "A/D = Move
 W = Move through doors 
 Space = Jump
 X = Attack
 R = Reload
 Q = Quit"
-
-[node name="Collectible" parent="." instance=ExtResource("10_bmssv")]
-position = Vector2(119, -25)
 
 [node name="Sword" parent="." instance=ExtResource("11_ak6e8")]
 position = Vector2(81, -25)

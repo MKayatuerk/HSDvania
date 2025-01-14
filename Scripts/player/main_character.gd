@@ -16,6 +16,13 @@ const CLIMBING_SPEED = -50
 @onready var fall_gravity: float = ((-2 * jump_height) / pow(jump_seconds_to_descent,2)) * -1   
 
 @onready var animation_player = $SubViewportContainer/SubViewport/Avatar/AnimationPlayer
+@onready var armature = $SubViewportContainer/SubViewport/Avatar/Armature
+@onready var weapon_socket = $SubViewportContainer/SubViewport/Avatar/Armature/Skeleton3D/BoneAttachment3D
+@onready var lineal_scene = preload("res://Assets/3D/Models/Lineal/lineal.tscn")
+@onready var attack_collision = $AttackArea2D/AttackCollisionShape2D
+
+@onready var inventory = $Inventory
+
 @onready var sprite_2d = $SubViewportContainer/Sprite2D
 
 @onready var inv_timer: Timer = $"Invincibilty timer"
@@ -31,8 +38,7 @@ const CLIMBING_SPEED = -50
 @onready var attack2_sfx = $Attack2Sfx
 @onready var attack3_sfx = $Attack3Sfx
 
-
-
+var _anim_montage_playing = false
 
 var health:int = 100
 
@@ -80,9 +86,6 @@ var current_weapon
 func _ready() -> void:
 	#Subscribing to relevant signals
 	Signalhive.connect("collected",_collected)
-	Signalhive.connect("weapon_equipped",_weapon_equipped)
-	Signalhive.connect("weapon_dropped",_weapon_dropped)
-	
 	Signalhive.connect("player_entered",_touching_ladder)
 	Signalhive.connect("player_exited", _leaving_ladder)
 	Signalhive.connect("player_damaged", _damage_taken)
@@ -101,29 +104,18 @@ func _ready() -> void:
 	Signalhive.connect("left_stairs", is_on_stairs)
 	Signalhive.connect("request_recieved", await_request)
 	
+	animation_player.connect("animation_finished", _on_animation_player_animation_finished)
 
-func _collected(collectible: Collectible)-> void:
+func _collected(collectible: Collectible) -> void:
 	print("Collected item: ", collectible.item_name)
-	$Inventory.add(collectible)
 	
-func _weapon_equipped(new_weapon: Weapon) -> void:
-	print("_weapon_equipped")
-	if new_weapon.get_parent():
-		new_weapon.get_parent().remove_child(new_weapon)
-		
-	$WeaponSocket.add_child(new_weapon)
-	new_weapon.position = Vector2.ZERO
-
-
-func _weapon_dropped(old_weapon: Weapon) -> void:
-	print("_weapon_dropped")
-	if old_weapon.get_parent():
-		old_weapon.get_parent().remove_child(old_weapon)
-	
-	get_tree().root.add_child(old_weapon)
-	old_weapon.position = $WeaponSocket.global_position
-
-
+	match collectible.item_name:
+		"Lineal":
+			var lineal_instance = lineal_scene.instantiate()
+			weapon_socket.add_child(lineal_instance)
+		_:
+			pass
+	inventory.add(collectible)
 #Main loop of the character
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
@@ -137,7 +129,8 @@ func _physics_process(delta: float) -> void:
 	if !GlobalVariables.paused:
 		if !_is_in_cutscene:
 			gravity(delta)
-			handleJump(delta)
+			jump()
+			climb()
 			_was_on_floor = is_on_floor()
 			handleMovement()
 			attack()
@@ -146,12 +139,11 @@ func _physics_process(delta: float) -> void:
 
 
 # Function that handles the Jump functionality
-func handleJump(delta: float)-> void:
-	 
+func jump()-> void:
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer.start(0.10)
 		jumping_sfx.play()
-		animation_player.play("Jumping")
+		play_animation(AnimationState.JUMPING, 2)
 		# Check for the diffrent possible cases when pressing jump
 		if  is_on_floor():
 			velocity.y = jump_velocity
@@ -182,18 +174,12 @@ func handleMovement()-> void:
 	var directionHorizontal = Input.get_axis("left", "right")
 	var directionVerical = Input.get_axis("down","up")
 	
-	
-	
 	if (directionHorizontal > 0):
-		sprite_2d.flip_h = false
-		$WeaponSocket.position = Vector2(abs($WeaponSocket.position.x), $WeaponSocket.position.y)
-		$WeaponSocket.scale.x = abs($WeaponSocket.scale.x) 
+		armature.scale.z = 1
 		direction = 1
 		
 	elif (directionHorizontal < 0):
-		sprite_2d.flip_h = true
-		$WeaponSocket.position = Vector2(-abs($WeaponSocket.position.x), $WeaponSocket.position.y)
-		$WeaponSocket.scale.x = -abs($WeaponSocket.scale.x) 
+		armature.scale.z = -1
 		direction = -1
 	#
 	#if (prevDirection != direction):
@@ -222,14 +208,15 @@ func handleMovement()-> void:
 
 # Function that fires the walking animation of the player upon walking
 func update_animations(horizontal_direction):
+	if _anim_montage_playing:
+		return
 	if is_on_floor():
 		if horizontal_direction == 0:
 			animation_player.play("Idle")
 		else:
 			animation_player.play("Walking")
-	else:
-		pass
-
+	elif _can_climb:
+		animation_player.play("Climbing")
 
 
 func _damage_healed(damage_healed) -> void:
@@ -244,12 +231,28 @@ func _damage_taken(damage_taken) -> void:
 	update_health(damage_taken)
 	
 	sprite_2d.material.set_shader_parameter("is_hit", true)
+	_play_hit_anim()
 	
 	_is_invincible = true
 	_can_move = false
 	inv_timer.start(0.3)
+  
+func _play_hit_anim() -> void:
+	var hit_animation_chances = {
+	"Hit": 0.5,
+	"Hit Harder": 0.3,
+	"Hit Backpain": 0.2
+	}
 
+	var random_value = randf()  #random float zwischen 0 und 1
+	var threshold = 0.0
 
+	for animation_name in hit_animation_chances.keys():
+		threshold += hit_animation_chances[animation_name]
+
+		if random_value < threshold:
+			animation_player.play(animation_name)
+			break
 func update_health(damage_taken) -> void:
 	if(health - damage_taken <= 0):
 		_game_over()
@@ -273,12 +276,13 @@ func gravity(delta:float):
 			coyotee_timer.start(0.10)
 
 func attack() -> void:
-	if Input.is_action_just_pressed("attack") and _can_attack:
+	if Input.is_action_just_pressed("attack") and _can_attack and inventory.get_equipped_weapon() != null and inventory.get_equipped_weapon() == "Lineal":
 		handleAttackSound().play()
-		add_child(_instantiate_weapon(), true)
 		
-		current_weapon = get_child(-1)
-		current_weapon.position.y = 10
+		_anim_montage_playing = true
+
+		play_animation(AnimationState.ATTACKING, 2)  #High priority for attack
+		_next_state = AnimationState.IDLE
 		animation = get_tree().create_tween()
 		animation.connect("finished", _attack_tween_finished)
 		
@@ -286,9 +290,10 @@ func attack() -> void:
 			return
 		else:
 			_can_attack = false
-			animation.tween_property(current_weapon, "position:x" , direction * 12, 0.5)
-			animation.tween_property(current_weapon, "position:x" , 0, 0.7)
-			animation.tween_callback(current_weapon.queue_free)
+			animation.tween_property(attack_collision, "disabled" , false, 0)
+			animation.tween_property(attack_collision, "position:x" , direction * 12, 0.7)
+			animation.tween_property(attack_collision, "position:x" , 0, 0.7)
+			animation.tween_property(attack_collision, "disabled" , true, 0)
 
 func httpRequest() -> void:
 	if _can_request:
@@ -376,8 +381,9 @@ func _retry() -> void:
 		Signalhive.emit_signal("queued_message","Everything just went black... But i think im alright now")
 		if GlobalVariables.collectedFirstBafoeg:
 			Signalhive.emit_signal("queued_message","OH SHOOT! I lost my Bafoeg documents. I got to collect them again!")
+			
 func _game_over() -> void:
-	
+	animation_player.play("Hit Backpain")
 	Signalhive.emit_signal("player_died")
 	Engine.time_scale = 0.3
 	$gameovertimer.start(0.7)
@@ -399,6 +405,7 @@ func _on_gameovertimer_timeout() -> void:
 
 func _attack_tween_finished():
 	_can_attack = true
+	_anim_montage_playing = false
 
 
 func _instantiate_weapon() -> Node2D:
@@ -424,16 +431,73 @@ func is_on_stairs(isOnStairs: bool) -> void:
 		player_collision.disabled = false
 		player_collision.set_deferred("disabled",false)
 
-
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "Throw":
-		print("lol")
-	else:
-		print("lmao")
-
 func handleAttackSound() -> AudioStreamPlayer:
 	var rng = RandomNumberGenerator.new().randi_range(1,3)
 	match rng:
 		1: return attack1_sfx
 		2: return attack2_sfx
 		_: return attack3_sfx
+
+# Priority-based states for animations
+enum AnimationState {
+	IDLE,
+	WALKING,
+	CLIMBING,
+	JUMPING,
+	ATTACKING,
+	DAMAGED,
+	FALLING
+}
+
+var _current_state: int = AnimationState.IDLE
+var _animation_priority: int = 0  # Priority of the currently playing animation
+var _next_state: int = AnimationState.IDLE  # Queue next state after animation ends
+
+# Function to play animations with priorities
+func play_animation(state: int, priority: int = 0) -> void:
+	if priority < _animation_priority:
+		return  # Do not play if current animation has higher priority
+
+	_current_state = state
+	_animation_priority = priority
+
+	match _current_state:
+		AnimationState.IDLE:
+			animation_player.play("Idle")
+		AnimationState.WALKING:
+			animation_player.play("Walking")
+		AnimationState.CLIMBING:
+			animation_player.play("Climbing")
+		AnimationState.JUMPING:
+			animation_player.play("Jumping")
+		AnimationState.ATTACKING:
+			animation_player.play("Stabbing")
+		AnimationState.DAMAGED:
+			animation_player.play("Damaged")
+		AnimationState.FALLING:
+			animation_player.play("Falling")
+
+
+# Reset animation priority after specific animations finish
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name in ["Attack Melee", "Damaged"]:
+		_animation_priority = 0
+		_current_state = _next_state  # Return to queued state (e.g., Idle, Walking)
+
+# Update movement-based animations
+func update_movement_animation(horizontal_direction: int) -> void:
+	if is_on_floor():
+		if horizontal_direction == 0:
+			play_animation(AnimationState.IDLE, 1)
+		else:
+			play_animation(AnimationState.WALKING, 1)
+	elif velocity.y < 0:
+		play_animation(AnimationState.JUMPING, 1)
+	elif velocity.y > 0:
+		play_animation(AnimationState.FALLING, 1)
+
+
+# Handle climbing
+func climb() -> void:
+	if _can_climb and Input.is_action_pressed("climb"):
+		play_animation(AnimationState.CLIMBING, 1)

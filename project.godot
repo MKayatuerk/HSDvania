@@ -28,7 +28,7 @@ ProgressKeeper="*res://Scripts/Globals/progress.gd"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [dotnet]
@@ -42,11 +42,6 @@ enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 [filesystem]
 
 import/blender/enabled=false
-
-[gui]
-
-fonts/dynamic_fonts/use_oversampling=false
-theme/custom_font="res://Assets/Fonts/Pixelcastle-Regular.otf"
 
 [input]
 

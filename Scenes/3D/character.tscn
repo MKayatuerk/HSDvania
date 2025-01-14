@@ -25,7 +25,7 @@ shader = ExtResource("3_modmo")
 shader_parameter/width = 0.0
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/pixel_count = Vector2(64, 64)
-shader_parameter/is_hit = null
+shader_parameter/is_hit = false
 shader_parameter/hit_color = Color(1, 1, 1, 1)
 shader_parameter/hit_flicker_speed = 100.0
 
@@ -36,6 +36,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
+size = Vector2i(64, 64)
 script = ExtResource("1_oiewi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
@@ -56,4 +57,5 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_nj7ak")
+scale = Vector2(8, 8)
 texture = SubResource("ViewportTexture_gf5cs")

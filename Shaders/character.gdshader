@@ -53,7 +53,7 @@ float outline(sampler2D texture, vec2 uv, float outline_width) {
 void fragment() {
     vec2 pixelUV = pixelate(UV);
 
-    vec4 pixel_color = texture(TEXTURE, pixelUV);
+    vec4 pixel_color = texture(TEXTURE, UV);
 
     if (pixel_color.a == 0.0) {
         pixel_color.rgb = outline_color;

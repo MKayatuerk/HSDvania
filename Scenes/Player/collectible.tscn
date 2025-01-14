@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dk5ielqnfwhr7"]
+[gd_scene load_steps=19 format=3 uid="uid://dk5ielqnfwhr7"]
 
 [ext_resource type="Script" path="res://Scripts/player/collectible.gd" id="1_skf3f"]
 [ext_resource type="Shader" path="res://Shaders/collectible.gdshader" id="3_5mrdp"]
 [ext_resource type="Texture2D" uid="uid://bfflfnr7c0vfx" path="res://Assets/Particles/random_selection.png" id="3_db35v"]
 [ext_resource type="Shader" path="res://Shaders/pixelate_add.gdshader" id="4_cxwbr"]
-[ext_resource type="Texture2D" uid="uid://ianxac6oseov" path="res://Assets/heart_half.png" id="5_4kaqm"]
+[ext_resource type="Script" path="res://Scripts/framerate_controller.gd" id="5_nt5wl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xvjlu"]
 radius = 12.0
@@ -43,6 +43,25 @@ shader_parameter/pixel_count = Vector2(128, 128)
 [sub_resource type="ViewportTexture" id="ViewportTexture_dp12l"]
 viewport_path = NodePath("Area2D/ParticleViewport")
 
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_su60n"]
+
+[sub_resource type="Sky" id="Sky_6clml"]
+sky_material = SubResource("PhysicalSkyMaterial_su60n")
+
+[sub_resource type="Environment" id="Environment_yvxff"]
+sky = SubResource("Sky_6clml")
+ambient_light_source = 2
+ambient_light_color = Color(0.8, 0.8, 0.8, 1)
+reflected_light_source = 2
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_use_occlusion = true
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_oppfp"]
+viewport_path = NodePath("SubViewport")
+
 [node name="Collectible" type="Node2D"]
 script = ExtResource("1_skf3f")
 
@@ -69,7 +88,21 @@ material = SubResource("ShaderMaterial_uh3hp")
 scale = Vector2(0.105, 0.105)
 texture = SubResource("ViewportTexture_dp12l")
 
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(96, 96)
+script = ExtResource("5_nt5wl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_yvxff")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
+projection = 1
+current = true
+size = 4.468
+
 [node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("5_4kaqm")
+texture = SubResource("ViewportTexture_oppfp")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

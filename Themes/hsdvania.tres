@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://qhr0010dk67q"]
 
-[ext_resource type="FontFile" uid="uid://c1ph3eh4mmfws" path="res://Assets/Fonts/Pixelcastle-Regular.otf" id="1_yi6fl"]
+[ext_resource type="FontFile" uid="uid://6k8qt3jkoc8x" path="res://Assets/Fonts/OptimusPrincepsSemiBold.ttf" id="1_wrg5u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cnoeo"]
 content_margin_left = 4.0
@@ -31,7 +31,7 @@ Button/colors/font_focus_color = Color(0.9, 0.9, 0.9, 1)
 Button/colors/font_hover_color = Color(0.632518, 0.110003, 0.177381, 1)
 Button/colors/font_hover_pressed_color = Color(0.9, 0.9, 0.9, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.00784314, 0.231373, 0.105882, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
 Button/colors/icon_focus_color = Color(1, 1, 1, 1)
 Button/colors/icon_hover_color = Color(1, 1, 1, 1)
@@ -42,8 +42,8 @@ Button/constants/align_to_largest_stylebox = 0
 Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
-Button/font_sizes/font_size = 16
-Button/fonts/font = ExtResource("1_yi6fl")
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_wrg5u")
 Button/styles/disabled = SubResource("StyleBoxFlat_cnoeo")
 Button/styles/focus = SubResource("StyleBoxEmpty_wc75h")
 Button/styles/hover = SubResource("StyleBoxEmpty_k1sdd")

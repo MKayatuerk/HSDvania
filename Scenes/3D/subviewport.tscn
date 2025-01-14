@@ -5,11 +5,11 @@
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ywfix"]
 
-[sub_resource type="Sky" id="Sky_6clml"]
+[sub_resource type="Sky" id="Sky_wnmts"]
 sky_material = SubResource("PhysicalSkyMaterial_ywfix")
 
 [sub_resource type="Environment" id="Environment_ugs4f"]
-sky = SubResource("Sky_6clml")
+sky = SubResource("Sky_wnmts")
 ambient_light_source = 2
 ambient_light_color = Color(0.8, 0.8, 0.8, 1)
 reflected_light_source = 2

@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://t3hiy8bby8og"]
+
+[ext_resource type="PackedScene" uid="uid://dk5ielqnfwhr7" path="res://Scenes/Player/collectible.tscn" id="1_737dk"]
+[ext_resource type="Script" path="res://Scripts/player/long_sword.gd" id="1_b22sv"]
+[ext_resource type="PackedScene" uid="uid://dtwf3yhr4jg6w" path="res://Assets/3D/Models/Lineal/lineal.tscn" id="3_pbgii"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8ds0"]
+size = Vector2(12, 12)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4rqq8"]
+viewport_path = NodePath("Area2D/ParticleViewport")
+
+[sub_resource type="Animation" id="Animation_n7h7p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.638476, 0.114616, 0.463228)]
+}
+
+[sub_resource type="Animation" id="Animation_tkc71"]
+resource_name = "rotate"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.638476, 0.114616, 0.463228), Vector3(-0.63879, 6.39838, 0.462512)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w8vbo"]
+_data = {
+"RESET": SubResource("Animation_n7h7p"),
+"rotate": SubResource("Animation_tkc71")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mjgbv"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Lineal" instance=ExtResource("1_737dk")]
+script = ExtResource("1_b22sv")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." index="1"]
+collision_layer = 16
+sleeping = true
+
+[node name="RigidBodyCollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" index="0"]
+shape = SubResource("RectangleShape2D_d8ds0")
+disabled = true
+
+[node name="PixelatedGlow" parent="." index="2"]
+texture = SubResource("ViewportTexture_4rqq8")
+
+[node name="Node3D" type="Node3D" parent="SubViewport" index="0"]
+transform = Transform3D(0.858289, -0.504882, 0.0918358, 0.358813, 0.71838, 0.595972, -0.366869, -0.478565, 0.797736, -10, 0, -1)
+
+[node name="Lineal2" parent="SubViewport/Node3D" index="0" instance=ExtResource("3_pbgii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.287484, -0.0744115, -0.0282524)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport" index="1"]
+root_node = NodePath("../Node3D")
+libraries = {
+"": SubResource("AnimationLibrary_w8vbo")
+}
+autoplay = "rotate"
+
+[node name="Camera3D" parent="SubViewport" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0.125)
+size = 1.688
+
+[node name="Icon" parent="." index="4"]
+scale = Vector2(0.475, 0.475)
+texture = SubResource("ViewportTexture_mjgbv")
