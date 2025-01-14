@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://df2h0mbjaip5u" path="res://Scenes/3D/pool.tscn" id="14_6mhh8"]
 [ext_resource type="PackedScene" uid="uid://x7fudq03qswp" path="res://Scenes/enemy_professor.tscn" id="15_xqw21"]
 [ext_resource type="PackedScene" uid="uid://p0yja3dph7f3" path="res://Scenes/fliegendeschrifftrolle.tscn" id="16_jdx1y"]
+[ext_resource type="PackedScene" uid="uid://cqpc5y8wk3m5l" path="res://Scenes/Geometry/Cutscene_Area.tscn" id="16_wkqcc"]
 
 [sub_resource type="Animation" id="Animation_0a0lo"]
 resource_name = "Bother1"
@@ -498,3 +499,45 @@ path = NodePath("Path2D")
 curve = SubResource("Curve2D_l6clc")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Enemies/fliegendeschrifftrolle4/Path2D"]
+
+[node name="CutsceneAreas" type="Node2D" parent="."]
+
+[node name="CutsceneAreaForStart" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
+position = Vector2(30, -26)
+message1 = "What? Where am I? I just wanted to doze off a little during class..."
+message2 = "Is this the HSD?"
+message3 = "It looks different somehow..."
+
+[node name="CutsceneAreaForCables" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
+position = Vector2(330, -26)
+message1 = "Man, these cables look dangerous."
+message2 = "I shouldn't touch them."
+message3 = "Why would the HSD leave dangerous stuff like this lay out in the open..."
+
+[node name="CutsceneAreaForEnemy" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
+position = Vector2(793, -58)
+message1 = "WHOA?!"
+message2 = "Who is this? Why does he look so aggressive?!"
+message3 = "These lecturer sure look terrifying!"
+
+[node name="CutsceneAreaForAudimax" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
+position = Vector2(-729, -170)
+message1 = "The Audimax... yeah the lecture sure was boring. "
+message2 = "But where is everyone?"
+message3 = "Ahh! I should also look for my stuff I forgot here during lecture!"
+
+[node name="CutsceneAreaForSecondFloor" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
+position = Vector2(1359, -395)
+message1 = "The Second Floor!"
+message2 = "Is it already time for the Programming Praktikum?!"
+message3 = "I should hurry... or I could buy some Spezi from the Fachschaftsraum first..."
+
+[node name="CutsceneAreaForFachschaftsraum" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
+position = Vector2(-653, -891)
+message1 = "No one here... aww man, come on!"
+
+[node name="CutsceneAreaForInfoPool" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
+position = Vector2(1967, 245)
+message1 = "Still, no one, not even Marko who practically lives here!"
+message2 = "Maybe I should just use the Bafoeg Applications to kill some time till they show up..."
+message3 = "Boring..."

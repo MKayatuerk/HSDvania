@@ -86,7 +86,6 @@ var current_weapon
 func _ready() -> void:
 	#Subscribing to relevant signals
 	Signalhive.connect("collected",_collected)
-	
 	Signalhive.connect("player_entered",_touching_ladder)
 	Signalhive.connect("player_exited", _leaving_ladder)
 	Signalhive.connect("player_damaged", _damage_taken)
@@ -117,7 +116,6 @@ func _collected(collectible: Collectible) -> void:
 		_:
 			pass
 	inventory.add(collectible)
-	
 #Main loop of the character
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
@@ -142,13 +140,10 @@ func _physics_process(delta: float) -> void:
 
 # Function that handles the Jump functionality
 func jump()-> void:
-	 
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer.start(0.10)
 		jumping_sfx.play()
-		
 		play_animation(AnimationState.JUMPING, 2)
-		
 		# Check for the diffrent possible cases when pressing jump
 		if  is_on_floor():
 			velocity.y = jump_velocity
@@ -241,7 +236,7 @@ func _damage_taken(damage_taken) -> void:
 	_is_invincible = true
 	_can_move = false
 	inv_timer.start(0.3)
-
+  
 func _play_hit_anim() -> void:
 	var hit_animation_chances = {
 	"Hit": 0.5,
@@ -258,8 +253,6 @@ func _play_hit_anim() -> void:
 		if random_value < threshold:
 			animation_player.play(animation_name)
 			break
-
-	
 func update_health(damage_taken) -> void:
 	if(health - damage_taken <= 0):
 		_game_over()
@@ -290,7 +283,6 @@ func attack() -> void:
 
 		play_animation(AnimationState.ATTACKING, 2)  #High priority for attack
 		_next_state = AnimationState.IDLE
-		
 		animation = get_tree().create_tween()
 		animation.connect("finished", _attack_tween_finished)
 		

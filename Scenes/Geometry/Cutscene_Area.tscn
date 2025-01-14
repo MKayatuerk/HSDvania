@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqpc5y8wk3m5l"]
+
+[ext_resource type="Script" path="res://Scenes/Geometry/cutscene_area.gd" id="1_ndnac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_464c5"]
+
+[node name="CutsceneArea" type="Node2D"]
+script = ExtResource("1_ndnac")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_464c5")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
