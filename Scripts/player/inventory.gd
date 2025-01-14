@@ -1,7 +1,7 @@
 extends Node
 
 var _collectibles: Array = []
-var _equipped_weapon: Weapon = null
+var _equipped_weapon = null
 
 func add(new_collectible: Collectible) -> void:
 	if new_collectible is Weapon:
@@ -15,13 +15,19 @@ func add(new_collectible: Collectible) -> void:
 func _equip_weapon(new_weapon: Weapon) -> void:
 	if _equipped_weapon:
 		_drop_weapon(_equipped_weapon)
-	_equipped_weapon = new_weapon
+	_equipped_weapon = new_weapon.item_name
 	Signalhive.emit_signal("weapon_equipped", new_weapon)
 
 func _drop_weapon(current_weapon: Weapon) -> void:
 	Signalhive.emit_signal("weapon_dropped", current_weapon)
 	#print("Weapon dropped: ", current_weapon.item_name)
 	pass
+	
+func get_collectibles() -> Array:
+	return _collectibles
+	
+func get_equipped_weapon():
+	return _equipped_weapon	
 
 func _ready() -> void:
 	pass # Replace with function body.

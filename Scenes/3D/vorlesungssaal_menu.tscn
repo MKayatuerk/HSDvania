@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3v78socwb884"]
+[gd_scene load_steps=11 format=3 uid="uid://d3v78socwb884"]
 
 [ext_resource type="Script" path="res://Scripts/framerate_controller.gd" id="1_j6sqg"]
 [ext_resource type="Material" uid="uid://dhnn71rg1r7ku" path="res://Assets/3D/Materials/toon.tres" id="2_1gyby"]
 [ext_resource type="PackedScene" uid="uid://by142aylipl8y" path="res://Assets/3D/Models/Avatar/avatar.tscn" id="2_w1fby"]
 [ext_resource type="Material" uid="uid://lqvh5r02xaqh" path="res://Assets/3D/Materials/toon_red_2.tres" id="3_sglo5"]
 [ext_resource type="ArrayMesh" uid="uid://dmgt4y1gfxf82" path="res://Assets/3D/Models/stuhl.tres" id="4_8xaks"]
-[ext_resource type="Shader" path="res://Shaders/pixelate.gdshader" id="5_4x0e8"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ywfix"]
 
@@ -24,8 +23,6 @@ fog_mode = 1
 fog_density = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xui70"]
-shader = ExtResource("5_4x0e8")
-shader_parameter/pixel_count = Vector2(256, 256)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gf5cs"]
 viewport_path = NodePath("SubViewport")
@@ -34,6 +31,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
+size = Vector2i(256, 256)
 script = ExtResource("1_j6sqg")
 
 [node name="AvatarExport" parent="SubViewport" instance=ExtResource("2_w1fby")]
@@ -430,4 +428,5 @@ material = ExtResource("2_1gyby")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xui70")
+scale = Vector2(2, 2)
 texture = SubResource("ViewportTexture_gf5cs")

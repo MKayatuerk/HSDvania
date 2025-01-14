@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=4 uid="uid://cs2uyfgbxpa8b"]
+[gd_scene load_steps=5 format=4 uid="uid://cs2uyfgbxpa8b"]
 
 [ext_resource type="Script" path="res://Scripts/door.gd" id="1_6b5f5"]
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="2_a5h8v"]
+[ext_resource type="LabelSettings" uid="uid://2076kcukacf7" path="res://Themes/label_settings.tres" id="3_kj3tn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t7qp4"]
 size = Vector2(43, 45)
@@ -17,6 +18,7 @@ offset_left = -21.0
 offset_top = -46.0
 offset_right = 19.0
 offset_bottom = -29.0
+label_settings = ExtResource("3_kj3tn")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 4

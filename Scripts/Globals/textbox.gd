@@ -44,7 +44,8 @@ func _process(delta: float) -> void:
 			if Input.is_action_just_pressed("ui_accept"):
 				_change_state(State.READY)
 				$"../AudioStreamPlayer".play()
-				_hide_textbox()
+				if text_queue.is_empty():
+					_hide_textbox()
 				
 
 func _queue_text(next_text) -> void: #"Liste" mit Dialogoptionen wird appended.
