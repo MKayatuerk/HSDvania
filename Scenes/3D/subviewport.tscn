@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpa0kr84d15j1"]
+
+[ext_resource type="Script" path="res://Scripts/framerate_controller.gd" id="1_3gk3p"]
+[ext_resource type="Shader" path="res://Shaders/pixelate.gdshader" id="2_1wose"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ywfix"]
+
+[sub_resource type="Sky" id="Sky_6clml"]
+sky_material = SubResource("PhysicalSkyMaterial_ywfix")
+
+[sub_resource type="Environment" id="Environment_ugs4f"]
+sky = SubResource("Sky_6clml")
+ambient_light_source = 2
+ambient_light_color = Color(0.8, 0.8, 0.8, 1)
+reflected_light_source = 2
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_use_occlusion = true
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xui70"]
+shader = ExtResource("2_1wose")
+shader_parameter/pixel_count = Vector2(96, 96)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gf5cs"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Scene" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+script = ExtResource("1_3gk3p")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_ugs4f")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
+projection = 1
+current = true
+size = 4.468
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(0.0553779, 0.521447, 0.851485, -0.407103, -0.766896, 0.496122, 0.911702, -0.374116, 0.169814, 0, 8, 0)
+shadow_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xui70")
+texture = SubResource("ViewportTexture_gf5cs")

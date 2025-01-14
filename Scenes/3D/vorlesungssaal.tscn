@@ -1,0 +1,430 @@
+[gd_scene load_steps=11 format=3 uid="uid://doek4g0xhefm1"]
+
+[ext_resource type="Script" path="res://Scripts/framerate_controller.gd" id="1_ba81p"]
+[ext_resource type="Material" uid="uid://dhnn71rg1r7ku" path="res://Assets/3D/Materials/toon.tres" id="2_bdtlp"]
+[ext_resource type="Material" uid="uid://lqvh5r02xaqh" path="res://Assets/3D/Materials/toon_red_2.tres" id="3_wwe5x"]
+[ext_resource type="ArrayMesh" uid="uid://dmgt4y1gfxf82" path="res://Assets/3D/Models/stuhl.tres" id="4_mrk8e"]
+[ext_resource type="Shader" path="res://Shaders/pixelate.gdshader" id="5_atj2n"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ywfix"]
+
+[sub_resource type="Sky" id="Sky_6clml"]
+sky_material = SubResource("PhysicalSkyMaterial_ywfix")
+
+[sub_resource type="Environment" id="Environment_ugs4f"]
+sky = SubResource("Sky_6clml")
+ambient_light_source = 2
+ambient_light_color = Color(0.8, 0.8, 0.8, 1)
+reflected_light_source = 2
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_use_occlusion = true
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xui70"]
+shader = ExtResource("5_atj2n")
+shader_parameter/pixel_count = Vector2(256, 256)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gf5cs"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Scene" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+script = ExtResource("1_ba81p")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_ugs4f")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 1.615, 12.557)
+current = true
+fov = 85.0
+size = 12.228
+
+[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="SubViewport"]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+size = Vector3(12.5, 7, 12.5)
+material = ExtResource("2_bdtlp")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0.25)
+operation = 2
+size = Vector3(12, 6.5, 12.5)
+material = ExtResource("2_bdtlp")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.75, 2.75)
+operation = 2
+size = Vector3(2, 5, 2)
+material = ExtResource("2_bdtlp")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4.25, -0.25)
+operation = 2
+size = Vector3(2, 4, 2)
+material = ExtResource("2_bdtlp")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4.75, -3.25)
+operation = 2
+size = Vector3(2, 3, 2)
+material = ExtResource("2_bdtlp")
+
+[node name="_MeshInstance3D_20676" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 3.84014, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20649" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -4.15986, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20648" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -4.15986, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20647" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -4.15986, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20646" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -4.15986, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20645" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -4.15986, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20644" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -4.15986, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20643" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -4.15986, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20642" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -3.15986, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20641" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -3.15986, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20640" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -3.15986, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20639" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -3.15986, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20638" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -3.15986, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20637" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -3.15986, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20636" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -3.15986, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20635" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -2.15986, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20634" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -2.15986, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20633" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -2.15986, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20632" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -2.15986, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20631" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -2.15986, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20630" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -2.15986, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20629" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -2.15986, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20628" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -1.15986, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20627" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -1.15986, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20626" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -1.15986, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20625" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -1.15986, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20624" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -1.15986, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20623" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -1.15986, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20622" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -1.15986, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20621" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -0.159857, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20620" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -0.159858, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20619" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -0.159858, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20618" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -0.159858, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20617" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -0.159858, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20616" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -0.159858, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20615" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, -0.159858, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20614" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 0.840142, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20613" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 0.840142, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20612" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 0.840142, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20611" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 0.840142, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20610" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 0.840142, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20609" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 0.840142, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20608" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 0.840142, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20607" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 1.84014, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20606" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 1.84014, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20605" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 1.84014, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20604" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 1.84014, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20603" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 1.84014, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20602" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 1.84014, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20601" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 1.84014, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20600" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 2.84014, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20599" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 2.84014, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20598" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 2.84014, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20597" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 2.84014, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20596" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 2.84014, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20595" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 2.84014, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20594" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 2.84014, 0.233706, 3.78797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20593" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 3.84014, 3.23371, -3.71203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20592" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 3.84014, 2.73371, -2.46203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20591" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 3.84014, 2.23371, -1.21203)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20590" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 3.84014, 1.73371, 0.0379732)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_MeshInstance3D_20589" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 3.84014, 1.23371, 1.28797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(3.72529e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, 3.72529e-09, 3.84014, 0.733706, 2.53797)
+material_override = ExtResource("3_wwe5x")
+mesh = ExtResource("4_mrk8e")
+
+[node name="_CSGBox3D_23977" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(-12.0847, 0, -8.74228e-08, 0, 1, 0, 1.05647e-06, 0, -1, 4.62207e-06, 0.488142, 2.28035)
+size = Vector3(1, 0.5, 1.25)
+material = ExtResource("2_bdtlp")
+
+[node name="_CSGBox3D_22797" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(-12.0847, 0, -8.74228e-08, 0, 1, 0, 1.05647e-06, 0, -1, -3.30148e-06, 3.48814, -5.21965)
+size = Vector3(1, 0.5, 1.25)
+material = ExtResource("2_bdtlp")
+
+[node name="_CSGBox3D_22796" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(-12.0847, 0, -8.74228e-08, 0, 1, 0, 1.05647e-06, 0, -1, -1.98089e-06, 2.98814, -3.96965)
+size = Vector3(1, 0.5, 1.25)
+material = ExtResource("2_bdtlp")
+
+[node name="_CSGBox3D_22795" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(-12.0847, 0, -8.74228e-08, 0, 1, 0, 1.05647e-06, 0, -1, -6.60296e-07, 2.48814, -2.71965)
+size = Vector3(1, 0.5, 1.25)
+material = ExtResource("2_bdtlp")
+
+[node name="_CSGBox3D_22794" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(-12.0847, 0, -8.74228e-08, 0, 1, 0, 1.05647e-06, 0, -1, 6.60296e-07, 1.98814, -1.46965)
+size = Vector3(1, 0.5, 1.25)
+material = ExtResource("2_bdtlp")
+
+[node name="_CSGBox3D_22793" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(-12.0847, 0, -8.74228e-08, 0, 1, 0, 1.05647e-06, 0, -1, 1.98089e-06, 1.48814, -0.219654)
+size = Vector3(1, 0.5, 1.25)
+material = ExtResource("2_bdtlp")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/CSGCombiner3D2"]
+transform = Transform3D(-12.0847, 0, -8.74228e-08, 0, 1, 0, 1.05647e-06, 0, -1, 3.30148e-06, 0.988142, 1.03035)
+size = Vector3(1, 0.5, 1.25)
+material = ExtResource("2_bdtlp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xui70")
+texture = SubResource("ViewportTexture_gf5cs")

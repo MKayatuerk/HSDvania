@@ -84,6 +84,7 @@ stream = ExtResource("6_nqcsj")
 volume_db = 10.0
 
 [node name="BafoegText" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -94,6 +95,6 @@ offset_right = -24.0
 offset_bottom = 93.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 44
-text = "Bafög: 0/10"
+text = "Bafög: 0/9"
 horizontal_alignment = 1
 vertical_alignment = 1

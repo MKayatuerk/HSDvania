@@ -6,13 +6,16 @@ extends  Control
 @onready var gameover_sfx = $GameOver/GameoverSfx
 @onready var continue_sfx = $ContinueSfx
 
-var bafoeg_count = 0
+@onready var bafoeg_text: Label = $BafoegText
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Signalhive.connect("player_died", game_over_screen)
 	Signalhive.connect("retry", normal_HUD)
 	Signalhive.connect("collected_bafoeg", update_bafoeg_text)
+	
+	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -24,6 +27,7 @@ func update_health(health):
 	
 func game_over_screen() -> void:
 	health_bar.visible = false
+	bafoeg_text.visible = false
 	$GameOver.visible = true
 	gameover_sfx.play()
 
@@ -31,9 +35,13 @@ func game_over_screen() -> void:
 func normal_HUD() -> void:
 	health_bar.visible = true
 	$GameOver.visible = false
+	bafoeg_text.visible = true
+	bafoeg_text.text = "Bafög: 0/8"
+	GlobalVariables.bafoeg_count = 0
 	continue_sfx.play()
 
 
 func update_bafoeg_text(_pos,_type) -> void:
-	bafoeg_count += 1
-	$BafoegText.text = str("Bafög: " ,bafoeg_count ,"/10")
+	if !bafoeg_text.visible:
+		bafoeg_text.visible = !bafoeg_text.visible
+	bafoeg_text.text = str("Bafög: " ,GlobalVariables.bafoeg_count ,"/8")

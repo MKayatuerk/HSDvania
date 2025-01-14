@@ -1,7 +1,6 @@
 shader_type canvas_item;
 
 uniform vec2 pixel_count = vec2(64.0);
-render_mode blend_add;
 
 void fragment()
 {

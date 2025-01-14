@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://x7fudq03qswp"]
+[gd_scene load_steps=27 format=3 uid="uid://x7fudq03qswp"]
 
 [ext_resource type="Texture2D" uid="uid://bvqgj6gm74eu0" path="res://Assets/profsprite-RecoveredRichtig.png" id="1_d7l7c"]
 [ext_resource type="Script" path="res://Scripts/enemy_professor.gd" id="1_eprlo"]
+[ext_resource type="PackedScene" uid="uid://btl0sgycfdyn4" path="res://Scenes/Projektil.tscn" id="2_ln06g"]
 [ext_resource type="Texture2D" uid="uid://bxrntrt64vs8m" path="res://Assets/profsprite-Recovered.png" id="3_jyul1"]
 [ext_resource type="Texture2D" uid="uid://binnbtnqr7fag" path="res://Assets/exclamationmark.png" id="4_mk5w2"]
 
@@ -149,24 +150,24 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbg0g"]
-size = Vector2(38, 62.1449)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwwp1"]
+size = Vector2(44, 56)
 
-[node name="EnemyProfessor" type="Node2D" groups=["Enemy"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbg0g"]
+size = Vector2(500, 62.1449)
+
+[node name="EnemyProfessor" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 8
+collision_mask = 5
 script = ExtResource("1_eprlo")
+projectile_scene = ExtResource("2_ln06g")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 5)
 scale = Vector2(1, 1.07813)
 sprite_frames = SubResource("SpriteFrames_ijt5o")
-animation = &"idle"
+animation = &"Walking"
 autoplay = "Walking"
-
-[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
-position = Vector2(-5, 16.6956)
-shape = SubResource("RectangleShape2D_gbg0g")
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(0, 26)
@@ -184,11 +185,34 @@ texture = ExtResource("4_mk5w2")
 [node name="RayCastForExclamationMarkLeft" type="RayCast2D" parent="."]
 position = Vector2(-23, 42)
 scale = Vector2(4, 4)
-target_position = Vector2(-279, 0)
+target_position = Vector2(-75, -0.5)
 collision_mask = 4
 
 [node name="RayCastForExclamationMarkRight" type="RayCast2D" parent="."]
 position = Vector2(12, 42)
 scale = Vector2(4, 4)
-target_position = Vector2(279, 0)
+target_position = Vector2(74, -0.25)
 collision_mask = 4
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 12.649
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(17, 24)
+
+[node name="BodyOfEnemy" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 21)
+shape = SubResource("RectangleShape2D_uwwp1")
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(0, 5)
+scale = Vector2(1, 1.07813)
+collision_layer = 9
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(-5, 16.6956)
+shape = SubResource("RectangleShape2D_gbg0g")
+
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]

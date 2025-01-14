@@ -8,6 +8,12 @@ var hsdvania_sfx = $UI/MarginContainer/VBoxContainer/HsdVaniaSfx
 @onready
 var quit_sfx = $UI/MarginContainer/VBoxContainer/QuitSfx
 
+@onready
+var animation_player = $Scene/SubViewport/AvatarExport/AnimationPlayer
+
+func _ready() -> void:
+	animation_player.play("Sitting Idle")
+
 func _on_spielen_pressed() -> void:
 	gong_sound.play()
 	hsdvania_sfx.play()

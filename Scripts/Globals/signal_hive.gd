@@ -11,6 +11,8 @@ signal player_exited
 signal player_damaged(damage_taken)
 signal entered_stairs
 signal left_stairs
+signal request_recieved
+
 signal player_healed(damage_healed)
 signal player_died
 
