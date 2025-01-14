@@ -8,6 +8,8 @@ var direction = 1  # Richtung des Gegners
 @onready var ray_cast_left = $RayCastLeft
 @onready var animated_sprite = $AnimatedSprite2D
 
+signal got_stomped
+
 func _physics_process(delta):
     # Schwerkraft anwenden
     velocity.y += GRAVITY * delta #kann man rauslöschen, but idk falls man mehrer spawnt und die in der luft sind sollen die fallen
@@ -25,3 +27,13 @@ func _physics_process(delta):
 
     # Bewegung ausführen
     move_and_slide()
+
+
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+    print("Kollidierter Node:", body.name)
+    if body is CharacterBody2D:  # Prüft ob es ein Charakter ist
+        print("Charakter erkannt!")
+        got_stomped.emit()
+        queue_free() # slime löschen
