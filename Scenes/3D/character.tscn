@@ -36,7 +36,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(64, 64)
+size = Vector2i(96, 96)
 script = ExtResource("1_oiewi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
@@ -46,7 +46,7 @@ environment = SubResource("Environment_ugs4f")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860318, 2)
 projection = 1
 current = true
-size = 1.857
+size = 2.5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
 transform = Transform3D(0.0553779, 0.521447, 0.851485, -0.407103, -0.766896, 0.496122, 0.911702, -0.374116, 0.169814, 0, 8, 0)

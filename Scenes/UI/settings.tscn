@@ -1,18 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://b67r3klauhadi"]
+[gd_scene load_steps=9 format=3 uid="uid://b67r3klauhadi"]
 
 [ext_resource type="Script" path="res://Scripts/ui/settings.gd" id="1_kvspi"]
-[ext_resource type="Texture2D" uid="uid://gqg0btfqotd" path="res://Assets/VorlesungBackground.png" id="2_xu6hs"]
+[ext_resource type="FontFile" uid="uid://6k8qt3jkoc8x" path="res://Assets/Fonts/OptimusPrincepsSemiBold.ttf" id="3_oqb2u"]
 [ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="3_w8ixo"]
 [ext_resource type="PackedScene" uid="uid://ck8cocmaryugc" path="res://Scenes/Sound/sfx_handler.tscn" id="4_q6ftk"]
 [ext_resource type="AudioStream" uid="uid://dgcxg32dsrrup" path="res://Audio/Sfx/menu-button-88360.mp3" id="5_5e1kk"]
+[ext_resource type="Shader" path="res://Shaders/pixelate_scene_texture.gdshader" id="5_t1u6i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgk2d"]
+shader = ExtResource("5_t1u6i")
+shader_parameter/pixel_size = 8.0
+shader_parameter/blur_radius = 15.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_clyhs"]
+font = ExtResource("3_oqb2u")
 font_size = 40
-shadow_size = 14
-shadow_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.631373, 0.109804, 0.176471, 1)
+shadow_offset = Vector2(4.885, 4.1)
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("overlay", "background")]
-visible = false
+[node name="Settings" type="Control" node_paths=PackedStringArray("overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,23 +27,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kvspi")
 overlay = NodePath("Overlay")
-background = NodePath("Background")
 
-[node name="Background" type="CanvasLayer" parent="."]
-layer = 5
-visible = false
+[node name="Overlay" type="CanvasLayer" parent="."]
+layer = 10
 
-[node name="TextureRect" type="TextureRect" parent="Background"]
+[node name="Blur" type="ColorRect" parent="Overlay"]
+material = SubResource("ShaderMaterial_fgk2d")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_xu6hs")
-
-[node name="Overlay" type="CanvasLayer" parent="."]
-layer = 10
-visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Overlay"]
 anchors_preset = 8

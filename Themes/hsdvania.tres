@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://qhr0010dk67q"]
 
-[ext_resource type="FontFile" uid="uid://dpplay83vrgpg" path="res://Assets/Fonts/OptimusPrincepsSemiBold.ttf" id="1_wrg5u"]
+[ext_resource type="FontFile" uid="uid://6k8qt3jkoc8x" path="res://Assets/Fonts/OptimusPrincepsSemiBold.ttf" id="1_wrg5u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cnoeo"]
 content_margin_left = 4.0

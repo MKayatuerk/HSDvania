@@ -1,15 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=15 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="PackedScene" uid="uid://d25q8c7ep2fqe" path="res://Scenes/3D/character.tscn" id="2_q0svv"]
 [ext_resource type="PackedScene" uid="uid://bfla10se41emq" path="res://Scenes/Player/tile_map_detector.tscn" id="3_brbqs"]
 [ext_resource type="PackedScene" uid="uid://ck8cocmaryugc" path="res://Scenes/Sound/sfx_handler.tscn" id="5_5ls4o"]
 [ext_resource type="Script" path="res://Scripts/player/inventory.gd" id="5_bg747"]
-[ext_resource type="PackedScene" uid="uid://b67r3klauhadi" path="res://Scenes/UI/settings.tscn" id="6_mgmb3"]
-[ext_resource type="AudioStream" uid="uid://dxu2b4frrrpdr" path="res://Audio/Sfx/pause.mp3" id="8_dige8"]
 [ext_resource type="AudioStream" uid="uid://b02yuh00q5g81" path="res://Audio/Sfx/jumping.mp3" id="8_sb0qx"]
 [ext_resource type="AudioStream" uid="uid://8c72ridg0cxb" path="res://Audio/Sfx/attack1.mp3" id="9_0iv4r"]
-[ext_resource type="AudioStream" uid="uid://c230y1h538cw" path="res://Audio/Sfx/continue.mp3" id="9_k0twx"]
 [ext_resource type="AudioStream" uid="uid://jl8ircfl3pku" path="res://Audio/Sfx/attack2.mp3" id="10_upi0k"]
 [ext_resource type="AudioStream" uid="uid://et5ex6cgu1hs" path="res://Audio/Sfx/attack3.mp3" id="11_5ijhs"]
 [ext_resource type="AudioStream" uid="uid://72m8qcfvbukt" path="res://Audio/Sfx/door.mp3" id="14_pmrrn"]
@@ -49,7 +46,7 @@ zoom = Vector2(5, 5)
 
 [node name="SubViewportContainer" parent="." instance=ExtResource("2_q0svv")]
 position = Vector2(0, 4.775)
-scale = Vector2(0.058, 0.058)
+scale = Vector2(0.052, 0.052)
 
 [node name="Invincibilty timer" type="Timer" parent="."]
 one_shot = true
@@ -81,14 +78,6 @@ script = ExtResource("5_bg747")
 [node name="RaySeperation" type="CollisionShape2D" parent="."]
 position = Vector2(4, 0)
 shape = SubResource("SeparationRayShape2D_4cuvp")
-
-[node name="Settings" parent="." instance=ExtResource("6_mgmb3")]
-
-[node name="PauseSfx" parent="Settings" instance=ExtResource("5_5ls4o")]
-stream = ExtResource("8_dige8")
-
-[node name="ContinueSfx" parent="Settings" instance=ExtResource("5_5ls4o")]
-stream = ExtResource("9_k0twx")
 
 [node name="JumpingSfx" parent="." instance=ExtResource("5_5ls4o")]
 stream = ExtResource("8_sb0qx")

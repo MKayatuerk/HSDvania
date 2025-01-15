@@ -1,11 +1,11 @@
 extends Control
 
 @export var overlay: CanvasLayer
-@export var background: CanvasLayer
 @onready var menu_sound: AudioStreamPlayer = $Overlay/Back/MenuSound
 
 
 func _ready() -> void:
+	overlay.visible = false
 	$Overlay/VBoxContainer/MasterVolume.value = GlobalVariables.master_volume
 
 func _on_master_volume_value_changed(value: float) -> void:
@@ -15,7 +15,6 @@ func _on_master_volume_value_changed(value: float) -> void:
 func ToggleVisibility(state: bool) -> void:
 	visible = state
 	overlay.visible = state
-	background.visible = state
 
 
 func _on_back_pressed() -> void:
