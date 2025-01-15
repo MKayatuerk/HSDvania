@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://cfa1pfhgilr04"]
+[gd_scene load_steps=28 format=4 uid="uid://cfa1pfhgilr04"]
 
 [ext_resource type="PackedScene" uid="uid://psd3afwb1obn" path="res://Scenes/tile_map_layer.tscn" id="1_a5gr3"]
 [ext_resource type="PackedScene" uid="uid://br113o4fc0jr0" path="res://Scenes/Geometry/ladder.tscn" id="1_boig7"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ck00dg60041rp" path="res://Scenes/Geometry/moving_platform.tscn" id="2_pmor1"]
 [ext_resource type="Theme" uid="uid://qhr0010dk67q" path="res://Themes/hsdvania.tres" id="3_d0fll"]
 [ext_resource type="PackedScene" uid="uid://cs2uyfgbxpa8b" path="res://Scenes/Levels/door.tscn" id="3_invnu"]
-[ext_resource type="FontFile" uid="uid://6k8qt3jkoc8x" path="res://Assets/Fonts/OptimusPrincepsSemiBold.ttf" id="4_4j174"]
+[ext_resource type="FontFile" uid="uid://dpplay83vrgpg" path="res://Assets/Fonts/OptimusPrincepsSemiBold.ttf" id="4_4j174"]
 [ext_resource type="PackedScene" uid="uid://dvprl1706bxvj" path="res://Scenes/UI/hud.tscn" id="6_7la1n"]
 [ext_resource type="PackedScene" uid="uid://dengtn5arpki1" path="res://Scenes/Geometry/Breakable_Screen.tscn" id="9_7o3x6"]
 [ext_resource type="PackedScene" uid="uid://t3hiy8bby8og" path="res://Scenes/Player/lineal.tscn" id="11_ak6e8"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://x7fudq03qswp" path="res://Scenes/enemy_professor.tscn" id="15_xqw21"]
 [ext_resource type="PackedScene" uid="uid://p0yja3dph7f3" path="res://Scenes/fliegendeschrifftrolle.tscn" id="16_jdx1y"]
 [ext_resource type="PackedScene" uid="uid://cqpc5y8wk3m5l" path="res://Scenes/Geometry/Cutscene_Area.tscn" id="16_wkqcc"]
+[ext_resource type="PackedScene" uid="uid://b63bdnwil11yv" path="res://Scenes/slime.tscn" id="17_8d08r"]
 
 [sub_resource type="Animation" id="Animation_0a0lo"]
 resource_name = "Bother1"
@@ -438,7 +439,7 @@ leading_to_name = "1nd Story"
 position = Vector2(996, -398)
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_71y8l")]
-position = Vector2(26, -36)
+position = Vector2(29, -34)
 collision_mask = 9
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_a5gr3")]
@@ -500,10 +501,13 @@ curve = SubResource("Curve2D_l6clc")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Enemies/fliegendeschrifftrolle4/Path2D"]
 
+[node name="slime" parent="Enemies" instance=ExtResource("17_8d08r")]
+position = Vector2(593, -396)
+
 [node name="CutsceneAreas" type="Node2D" parent="."]
 
 [node name="CutsceneAreaForStart" parent="CutsceneAreas" instance=ExtResource("16_wkqcc")]
-position = Vector2(30, -26)
+position = Vector2(31, -26)
 message1 = "What? Where am I? I just wanted to doze off a little during class..."
 message2 = "Is this the HSD?"
 message3 = "It looks different somehow..."

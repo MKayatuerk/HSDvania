@@ -4,6 +4,7 @@ const SPEED = 50  # Geschwindigkeit des Gegners
 const GRAVITY = 500  # Schwerkraft (optional, falls nötig)
 var direction = 1  # Richtung des Gegners
 
+
 @onready var ray_cast_right = $RayCastRight
 @onready var ray_cast_left = $RayCastLeft
 @onready var animated_sprite = $AnimatedSprite2D
@@ -27,8 +28,8 @@ func _physics_process(delta):
 
     # Bewegung ausführen
     move_and_slide()
-
-
+    
+    
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -37,3 +38,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
         print("Charakter erkannt!")
         got_stomped.emit()
         queue_free() # slime löschen
+
+
+func _on_damage_area_body_entered(body: Node2D) -> void:
+    pass # Replace with function body.
