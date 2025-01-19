@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://mmy2rn1ftwp2"]
+[gd_scene load_steps=16 format=3 uid="uid://mmy2rn1ftwp2"]
 
 [ext_resource type="Script" path="res://Scripts/player/main_character.gd" id="1_j7k8t"]
 [ext_resource type="PackedScene" uid="uid://d25q8c7ep2fqe" path="res://Scenes/3D/character.tscn" id="2_q0svv"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://8c72ridg0cxb" path="res://Audio/Sfx/attack1.mp3" id="9_0iv4r"]
 [ext_resource type="AudioStream" uid="uid://jl8ircfl3pku" path="res://Audio/Sfx/attack2.mp3" id="10_upi0k"]
 [ext_resource type="AudioStream" uid="uid://et5ex6cgu1hs" path="res://Audio/Sfx/attack3.mp3" id="11_5ijhs"]
+[ext_resource type="AudioStream" uid="uid://c230y1h538cw" path="res://Audio/Sfx/continue.mp3" id="11_rmhuv"]
 [ext_resource type="AudioStream" uid="uid://72m8qcfvbukt" path="res://Audio/Sfx/door.mp3" id="14_pmrrn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1apkg"]
@@ -93,6 +94,12 @@ stream = ExtResource("11_5ijhs")
 
 [node name="DoorSfx" parent="." instance=ExtResource("5_5ls4o")]
 stream = ExtResource("14_pmrrn")
+
+[node name="Continue" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_rmhuv")
+
+[node name="Pause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_rmhuv")
 
 [connection signal="timeout" from="Invincibilty timer" to="." method="_on_invincibilty_timer_timeout"]
 [connection signal="timeout" from="gameovertimer" to="." method="_on_gameovertimer_timeout"]

@@ -30,8 +30,8 @@ const CLIMBING_SPEED = -50
 @onready var coyotee_timer: Timer = $CoyoteeTimer
 @onready var player_collision = $CollisionShape2D
 
-@onready var pause_sfx = $Settings/PauseSfx
-@onready var continue_sfx = $Settings/ContinueSfx
+@onready var pause_sfx = $Pause
+@onready var continue_sfx = $Continue
 @onready var door_sfx = $DoorSfx
 @onready var jumping_sfx = $JumpingSfx
 @onready var attack1_sfx = $Attack1Sfx
